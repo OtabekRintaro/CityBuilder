@@ -1,92 +1,69 @@
 # WWNL
 
+## Game
 
+The player is given a well-defined area consisting of square fields. They can build their own city in
+this area and manage it as a mayor with wide powers. Overall, the city consists of different types of
+zones (on which residents build automatically), service buildings to be built separately by the player,
+and the roads connecting them. The player's goal is to develop a prosperous city where the citizens
+are happy and the budget is balanced
+---
+## Additional Features
+### Fire department
+A fire can break out in buildings standing on zone fields. The chance of this should be lower for
+residential and service zones, and higher for buildings in industrial zones. Fires can also break out in
+service buildings, with the exception of the fire department.
+The construction of a fire station as a service building has a dual role:
 
-## Getting started
+- It reduces the probability of fires in a given radius (because smaller fires are estinguished
+quickly without signalling the player)
+- It makes it possible to extinguish actual fires, regardless of whether they are within the
+radius of the fire department. 
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The player has the opportunity to send firefighters in a fire
+truck from the nearest fire station to the scene, whose movement can be followed
+throughout the playing field. A fire station has a single fire truck.
+If a fire is not extinguished in time it will spread to neighboring buildings after a while.
+If you wait any longer, the building will be destroyed.
+### Pension 
+Let's develop our city's pension system more thoroughly. All citizens should have an age (min. 18)
+that increases annually and they retire at 65. After that, the retired citizen no longer works, but still
+needs a place to live. He does not pay taxes. He receives a pension instead, which should be half of
+the average annual tax paid in the 20 years before his retirement.
+We should also calculate (with necessary modifications) a level of satisfaction for retired citizens.
+Pensioners do not move out of the city even if they are very dissatisfied.
+The age of new citizens coming to the city from outside must be between 18 and 60. The pensioner
+dies with a probability that's increasing every year above the retirement age. Then a young, 18-year old citizen will automatically take his place (representing births within the city), but he will not
+necessarily live in the same place.
+### Forests
+Forests can be planted on general fields, preferably near residential areas. Forests improve the
+satisfaction of nearby residents who have a direct view of them, and also increase the desire to
+move into such zones. Forests can be seen by citizens living at most 3 squares away from them if
+there are no buildings between them. Forests should also reduce the negative effect of industrial
+zones on residential zones if they are located between two such squares.
+Forests grow for 10 years, then they reach their mature state. Accordingly, the bonus for forest fields
+should increase continuously in the first 10 years after their planting. There is a one-time cost of
+planting forests, and they also have to be looked after for 10 years afterwards (maintenance costs).
+When starting a new game, there should already be forested areas on the playing field.
+### Persistence
+It should be possible to save and load the game, and to manage multiple saves.
+### More advanced graphics
+Rotatable 3-dimensional graphics.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
+## Camera controlling
 
-## Add your files
+- Use WASD to move your camera on the map
+- Press left shift and move your mouse to rotate your camera
+- For zooming, you need to press left shift and move the scrollweel on your mouse
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+---
+## Other
+Unity version 2021.3.22f1
 
-```
-cd existing_repo
-git remote add origin https://szofttech.inf.elte.hu/software-technology-2023/group-3/wwnl.git
-git branch -M master
-git push -uf origin master
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://szofttech.inf.elte.hu/software-technology-2023/group-3/wwnl/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+---
+## Developing Team
+###### Atabek Mykyev 
+###### Concalves Kalilo
+###### Alibek Kalykov
+###### Munkh-Aldar Munkhtenger
