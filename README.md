@@ -7,6 +7,7 @@ this area and manage it as a mayor with wide powers. Overall, the city consists 
 zones (on which residents build automatically), service buildings to be built separately by the player,
 and the roads connecting them. The player's goal is to develop a prosperous city where the citizens
 are happy and the budget is balanced
+
 ---
 ## Additional Features
 ### Fire department
