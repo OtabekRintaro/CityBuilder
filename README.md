@@ -1,5 +1,6 @@
 # WWNL
 
+
 ## Game
 
 The player is given a well-defined area consisting of square fields. They can build their own city in
@@ -8,7 +9,6 @@ zones (on which residents build automatically), service buildings to be built se
 and the roads connecting them. The player's goal is to develop a prosperous city where the citizens
 are happy and the budget is balanced
 
----
 ## Additional Features
 ### Fire department
 A fire can break out in buildings standing on zone fields. The chance of this should be lower for
@@ -51,18 +51,15 @@ It should be possible to save and load the game, and to manage multiple saves.
 ### More advanced graphics
 Rotatable 3-dimensional graphics.
 
----
 ## Camera controlling
 
 - Use WASD to move your camera on the map
 - Press left shift and move your mouse to rotate your camera
 - For zooming, you need to press left shift and move the scrollweel on your mouse
 
----
 ## Other
 Unity version 2021.3.22f1
 
----
 ## Developing Team
 ###### Atabek Mykyev 
 ###### Concalves Kalilo
