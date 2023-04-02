@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     public float ScrollDampening = 6f;
 
     public float minZoomDist = 10f;
-    public float maxZoomDist = 30f;
+    public float maxZoomDist = 60f;
 
     public Cursor cursor;
 
@@ -85,7 +85,13 @@ public class CameraController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         if(horizontalInput != 0 || verticalInput != 0)
-            this._xForm_Parent.Translate(new Vector3(horizontalInput, 0, verticalInput) * MoveSpeed * Time.deltaTime);
+        {
+            float currentYaxis = this._xForm_Parent.localPosition.y;
+            float zAxis = verticalInput * MoveSpeed * Time.deltaTime;
+            float xAxis = horizontalInput * MoveSpeed * Time.deltaTime;
+            this._xForm_Parent.Translate(xAxis, 0, zAxis);
+            this._xForm_Parent.position = new Vector3(this._xForm_Parent.position.x, currentYaxis, this._xForm_Parent.position.z); ;
+        }
     }
 
     void Zoom()
