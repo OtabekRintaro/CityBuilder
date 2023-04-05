@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+
+    public Position Coordinate { get; set; }
+    public bool IsFree { get; set; } = true;
     // Start is called before the first frame update
     void Start()
     {
