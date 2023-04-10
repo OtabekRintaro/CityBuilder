@@ -348,7 +348,14 @@
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/Cell.cs"
 "Assets/Scripts/CellGrid.cs"
+<<<<<<< HEAD
 "Assets/Scripts/MainMenu.cs"
+=======
+"Assets/Scripts/MapObject.cs"
+"Assets/Scripts/Position.cs"
+"Assets/Scripts/Road.cs"
+"Assets/Scripts/RoadHandler.cs"
+>>>>>>> 8db3437a26909f865593cce0b89b1a342783e0c0
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"

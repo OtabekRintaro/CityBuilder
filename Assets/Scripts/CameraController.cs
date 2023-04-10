@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Transform _xForm_Camera;
-    private Transform _xForm_Parent;
+    private Transform _Transform_camera;
+    private Transform _Transform_Parent;
 
     private Vector3 _LocalRotation;
 
@@ -24,8 +24,8 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        this._xForm_Camera = this.transform;
-        this._xForm_Parent = this.transform.parent;
+        this._Transform_camera = this.transform;
+        this._Transform_Parent = this.transform.parent;
     }
 
     // Start is called before the first frame update
@@ -72,7 +72,7 @@ public class CameraController : MonoBehaviour
             }
             //Setting PivotCamera rotation
             Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
-            this._xForm_Parent.rotation = Quaternion.Lerp(this._xForm_Parent.rotation, QT, Time.deltaTime * OrbitDampening);
+            this._Transform_Parent.rotation = Quaternion.Lerp(this._Transform_Parent.rotation, QT, Time.deltaTime * OrbitDampening);
 
         }
 
@@ -86,30 +86,30 @@ public class CameraController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         if(horizontalInput != 0 || verticalInput != 0)
         {
-            float currentYaxis = this._xForm_Parent.localPosition.y;
+            float currentYaxis = this._Transform_Parent.localPosition.y;
             float zAxis = verticalInput * MoveSpeed * Time.deltaTime;
             float xAxis = horizontalInput * MoveSpeed * Time.deltaTime;
-            this._xForm_Parent.Translate(xAxis, 0, zAxis);
-            this._xForm_Parent.position = new Vector3(this._xForm_Parent.position.x, currentYaxis, this._xForm_Parent.position.z); ;
+            this._Transform_Parent.Translate(xAxis, 0, zAxis);
+            this._Transform_Parent.position = new Vector3(this._Transform_Parent.position.x, currentYaxis, this._Transform_Parent.position.z); ;
         }
     }
 
     void Zoom()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        float dist = Vector3.Distance(_xForm_Parent.position, _xForm_Camera.position);
+        float dist = Vector3.Distance(_Transform_Parent.position, _Transform_camera.position);
         if (dist < minZoomDist && scrollInput > 0.0f)
             return;
         else if (dist > maxZoomDist && scrollInput < 0.0f)
             return;
 
-        _xForm_Camera.position +=  scrollInput * ScrollSensitivity * _xForm_Camera.forward;
+        _Transform_camera.position +=  scrollInput * ScrollSensitivity * _Transform_camera.forward;
     }
 
     void setDefault()
     {
-        this._xForm_Camera.SetLocalPositionAndRotation(new Vector3(0, 20f, -17f), new Quaternion(0.500000000000f, 0, 0, 1));
-        this._xForm_Parent.localRotation = new Quaternion(0, 0, 0, 1);
+        this._Transform_camera.SetLocalPositionAndRotation(new Vector3(0, 20f, -17f), new Quaternion(0.500000000000f, 0, 0, 1));
+        this._Transform_Parent.localRotation = new Quaternion(0, 0, 0, 1);
 
         _LocalRotation.x = 0;
         _LocalRotation.y = 0;
