@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-C:\Users\kalil\source\repos\wwnl
-=======
-C:\Users\kalykov\Downloads\ELTE\4\ST\city_builder\wwnl
->>>>>>> 6315002a0c80291a5238cb1372b9e485002b3762
