@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UIHandler : MonoBehaviour
 {
     public GameObject shopWindow;
+    public GameObject UIBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class UIHandler : MonoBehaviour
      //   Debug.Log(SceneManager.GetActiveScene());
         if(SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("GameScene")))
         {
+            UIBar.SetActive(true);
             shopWindow.SetActive(true);
         }
     }
