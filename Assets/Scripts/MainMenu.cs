@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //Debug.Log(this.Get);
         //this.GetComponentInParent<Renderer>().enabled = false;
         //this.GetComponentInChildren<Renderer>().enabled = false;
