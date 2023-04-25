@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-activation_file=${UNITY_ACTIVATION_FILE:-./unity3d.alf}
+activation_file=${UNITY_ACTIVATION_FILE:-./Unity_v$UNITY_VERSION.alf}
 
-if [[ -z "${UNITY_USERNAME}" ]] || [[ -z "${UNITY_PASSWORD}" ]]; then
-  echo "UNITY_USERNAME or UNITY_PASSWORD environment variables are not set, please refer to instructions in the readme and add these to your secret environment variables."
+if [[ -z "${UNITY_USERNAME}" ]] || [[ -z "${UNITY_PASSWORD}" ]] || [[ -z "${UNITY_SERIAL_KEY}" ]]; then
+  echo "UNITY_USERNAME, UNITY_SERIAL_KEY or UNITY_PASSWORD environment variables are not set, please refer to instructions in the readme and add these to your secret environment variables."
+  echo "Add them as a Gitlab variables for your project/group CI/CD or specifically for this job."
   exit 1
 fi
 
@@ -11,16 +12,14 @@ xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
   unity-editor \
     -logFile /dev/stdout \
     -batchmode \
+    -createManualActivationFile \
     -nographics \
+    -serial "$UNITY_SERIAL_KEY" \
     -username "$UNITY_USERNAME" -password "$UNITY_PASSWORD" |
       tee ./unity-output.log
 
-cat ./unity-output.log |
-  grep 'LICENSE SYSTEM .* Posting *' |
-  sed 's/.*Posting *//' > "${activation_file}"
-
 # Fail job if unity.alf is empty
-ls "${UNITY_ACTIVATION_FILE:-./unity3d.alf}"
+ls "${UNITY_ACTIVATION_FILE:-./Unity_v$UNITY_VERSION.alf}"
 exit_code=$?
 
 if [[ ${exit_code} -eq 0 ]]; then
@@ -44,6 +43,6 @@ if [[ ${exit_code} -eq 0 ]]; then
   echo ""
   echo "(optional) For more details on why this is not fully automated, visit https://gitlab.com/gableroux/unity3d-gitlab-ci-example/issues/73"
 else
-  echo "License file could not be found at ${UNITY_ACTIVATION_FILE:-./unity3d.alf}"
+  echo "License file could not be found at ${UNITY_ACTIVATION_FILE:-./Unity_v$UNITY_VERSION.alf}"
 fi
 exit $exit_code
