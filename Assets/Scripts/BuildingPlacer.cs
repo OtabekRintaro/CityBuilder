@@ -34,25 +34,34 @@ public class BuildingPlacer : MonoBehaviour
         plane.transform.localPosition = position;
     }
 
+
+    public int Coverage(string type)
+    {
+        if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
+            return 4;
+        return 1;
+    }
+
     public void BeginNewBuildingPlacement(BuildingPreset buildingPreset)
     {
 
         currentlyPlacing = true;
         curBuildingPreset = buildingPreset;
         placementIndicator.SetActive(true);
-        //blueprintCells = new BlueprintCell[curBuildingPreset.prefab.coverage * curBuildingPreset.mapObject.coverage];
+        int side = Coverage(buildingPreset.displayName);
+        blueprintCells = new BlueprintCell[ side * side];
 
         //Debug.Log(1);
         //Debug.Log(curBuildingPreset.mapObject.GetType());
 
-        //for(int x = 0, i = 0 ; x < curBuildingPreset.mapObject.coverage ; x++)
-        //{
-        //    for(int z = 0; z < curBuildingPreset.mapObject.coverage; z++)
-        //    {
-        //        createPlane(x, z, i++);
-        //        //cellGrid.cells[(cursor.curPos.x + i) + (cursor.curPos.z + j) * cellGrid.width].IsFree = false;
-        //    }
-        //}
+        for(int x = 0, i = 0 ; x < side; x++)
+        {
+            for (int z = 0; z < side; z++)
+            {
+                createPlane(x, z, i++);
+                //cellGrid.cells[(cursor.curPos.x + i) + (cursor.curPos.z + j) * cellGrid.width].IsFree = false;
+            }
+        }
     }
 
     public void CancelBuildingPlacement()
