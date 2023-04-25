@@ -6,8 +6,8 @@ public class CellGrid : MonoBehaviour
 {
     protected Transform _transform_CellGrid;
 
-    public int width = 20;
-    public int height = 20;
+    public int width = 30;
+    public int height = 30;
 
     public Cell cellPrefab;
     public Road roadPrefab;

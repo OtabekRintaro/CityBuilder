@@ -30,7 +30,7 @@ public class BuildingPlacer : MonoBehaviour
         BlueprintCell plane = blueprintCells[i] = Instantiate<BlueprintCell>(blueprintCellPrefab);
         
 
-        plane.transform.SetParent(placementIndicator.transform, false);
+        plane.transform.SetParent(placementIndicator.transform, true);
         plane.transform.localPosition = position;
     }
 
