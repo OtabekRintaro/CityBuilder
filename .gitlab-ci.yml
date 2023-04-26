@@ -150,10 +150,10 @@ test-editmode-with-junit-reports:
   tags:
     - gitlab-org
 
-build-StandaloneLinux64:
-  <<: *build
-  variables:
-    BUILD_TARGET: StandaloneLinux64
+#build-StandaloneLinux64:
+#  <<: *build
+#  variables:
+#    BUILD_TARGET: StandaloneLinux64
 
 #build-StandaloneLinux64-il2cpp:
 #  <<: *build
