@@ -14,6 +14,7 @@ variables:
   # You can expose this in Unity via Application.version
   VERSION_NUMBER_VAR: $CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID-$CI_JOB_ID
   VERSION_BUILD_VAR: $CI_PIPELINE_IID
+  UNITY_VERSION: 2021.3.4f1
 
 image: $IMAGE:$UNITY_VERSION-base-$IMAGE_VERSION
 
