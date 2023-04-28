@@ -27,26 +27,26 @@ public class CellGrid : MonoBehaviour
         mainRoad = new Road[height * width];
         roadHandler = new RoadHandler(height);
 
-        for(int z = 0; z < height; z++)
+        for(int row = 0; row < height; row++)
         {
-            for(int x = 0; x < width; x++)
+            for(int col = 0; col < width; col++)
             {
                 //CreateCell(x, z, i++);
                 //Debug.Log("cell content x:" + x + " z:" + z + " i:" + i);
 
                 Vector3 position;
-                position.x = -100 + x * 10 ;
+                position.x = -100 + col * 10 ;
                 position.y = 0;
-                position.z = -100 + z * 10;
-                Cell cell = cells[z,x] = Instantiate<Cell>(cellPrefab);
+                position.z = -100 + row * 10;
+                Cell cell = cells[row,col] = Instantiate<Cell>(cellPrefab);
                 //cells[i].Coordinate = new Position(x,z);
 
                 //cells[x,z].X = (int)position.x;
                 //cells[x,z].Z = (int)position.z;
                 
-                cells[z,x] = cell;
-                cells[z, x].X = position.x;
-                cells[z, x].Z = position.z;
+                cells[row,col] = cell;
+                cells[row, col].X = position.x;
+                cells[row, col].Z = position.z;
 
                 //Debug.Log("cell coordinate (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
 

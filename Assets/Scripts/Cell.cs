@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour
     public float Z { get; set; }
     public string Type { get; set; } = "not occupied";
     public bool isFree { get; set; } = true;
+    public int ID { get; set; }
     // Start is called before the first frame update
     void Start()
     {
