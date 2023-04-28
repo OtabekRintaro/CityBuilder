@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Position
 {
-    int x, z;
+    public int x, z;
     public int X { get; set; }
     public int Z { get; set; }
 
@@ -16,8 +16,8 @@ public class Position
 
     public Position[] calculateArea(Position bottomLeft, Position topRight)
     {
-        int height = topRight.Z - bottomLeft.Z;
-        int width = topRight.X - bottomLeft.X;
+        int height = topRight.z - bottomLeft.z;
+        int width = topRight.x - bottomLeft.x;
         Position[] AreaOfTiles = new Position[height * width];
 
         for(int z = 0, i = 0; z <= height; z++)

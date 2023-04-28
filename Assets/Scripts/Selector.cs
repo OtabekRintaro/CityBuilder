@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,11 @@ public class Selector : MonoBehaviour
         float rayOut = 0.0f;
         if (plane.Raycast(cam.ScreenPointToRay(Input.mousePosition), out rayOut))
         {
-           // Debug.Log(ray.GetPoint(rayOut));
-            Vector3 newPos = ray.GetPoint(rayOut) - new Vector3(0.5f, 0f, 0.5f);
-            return new Vector3(Mathf.CeilToInt(newPos.x) - Mathf.CeilToInt(newPos.x) % 10, 0.3f, Mathf.CeilToInt(newPos.z) - Mathf.CeilToInt(newPos.z) % 10);
+            //Debug.Log(ray.GetPoint(rayOut));
+            Vector3 newPos = ray.GetPoint(rayOut);
+            //Vector3 newPos = ray.GetPoint(rayOut) - new Vector3(0.5f, 0f, 0.5f);
+            //  Debug.Log("x: "+ (Mathf.CeilToInt(newPos.x) - (Mathf.CeilToInt(newPos.x) % 10)) +"y: " + (Mathf.CeilToInt(newPos.z) - (Mathf.CeilToInt(newPos.z) % 10)));
+            return new Vector3((float)(Math.Round(newPos.x / 10.0) * 10), 0.3f, (float)Math.Round(newPos.z / 10.0) * 10);
         }
         return new Vector3(0, -99, 0);
     }
