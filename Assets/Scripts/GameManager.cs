@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResidentialZone : MapObject
+public class GameManager : MonoBehaviour
 {
-    
-
+    CellGrid map;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +14,8 @@ public class ResidentialZone : MapObject
     // Update is called once per frame
     void Update()
     {
-
+        
     }
+
+    
 }

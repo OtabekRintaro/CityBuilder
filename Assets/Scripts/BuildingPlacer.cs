@@ -109,6 +109,13 @@ public class BuildingPlacer : MonoBehaviour
     public void CancelBuildingPlacement()
     {
         currentlyPlacing = false;
+        Transform plane = placementIndicator.transform.GetChild(0);
+        for(int index = 1; index < placementIndicator.transform.childCount; index++)
+        {
+            Destroy(placementIndicator.transform.GetChild(index).gameObject);
+        }
+        placementIndicator.transform.DetachChildren();
+        plane.SetParent(placementIndicator.transform);
         placementIndicator.SetActive(false);
     }
 
@@ -179,6 +186,7 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
             CancelBuildingPlacement();
         }
     }
