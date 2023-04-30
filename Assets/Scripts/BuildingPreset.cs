@@ -8,7 +8,7 @@ public class BuildingPreset : ScriptableObject
 {
     public string displayName;
     public GameObject prefab;
-    public MapObject mapObject;
+    //public MapObject mapObject;
 
     // Start is called before the first frame update
     void Start()

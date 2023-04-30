@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935cff8068101e746917ea631e724c7f, type: 3}
   m_Name: CommercialZone
   m_EditorClassIdentifier: 
-  displayName: Commercial Zone
+  displayName: CommercialZone
   prefab: {fileID: 5754691567333593952, guid: a954f3adefbdf1345981b212091d80cb, type: 3}

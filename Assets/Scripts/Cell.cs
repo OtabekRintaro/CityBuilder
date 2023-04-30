@@ -6,7 +6,11 @@ public class Cell : MonoBehaviour
 {
 
     public Position Coordinate { get; set; }
-    public bool IsFree { get; set; } = true;
+    public float X { get; set; }
+    public float Z { get; set; }
+    public string Type { get; set; } = "not occupied";
+    public bool isFree { get; set; } = true;
+    public int ID { get; set; }
     // Start is called before the first frame update
     void Start()
     {
