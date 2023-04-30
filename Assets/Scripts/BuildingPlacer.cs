@@ -77,11 +77,11 @@ public class BuildingPlacer : MonoBehaviour
 
     public int Coverage(string type)
     {
-        if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone") || type.Equals("Police"))
+        if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
         {
             return 3;
         }
-        else if (type.Equals("Stadium")) return 4;
+        else if (type.Equals("Stadium")) return 5;
         else { return 1; }
     }
 
