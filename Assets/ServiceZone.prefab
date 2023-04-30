@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6878701567657574568}
   m_Layer: 0
   m_Name: ServiceZone
-  m_TagString: Untagged
+  m_TagString: selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

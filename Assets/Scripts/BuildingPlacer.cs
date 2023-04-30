@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using TMPro;
 //using System.Numerics;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -23,8 +24,17 @@ public class BuildingPlacer : MonoBehaviour
     public BlueprintCell[] blueprintCells;
     public LayerMask cellLayer;
     public Material cant_place;
+    public GameObject infoUI;
+    
+
+    private Transform selection;
+    private RaycastHit hit;
+    public Material selectionMaterial;
+    private Material originalMaterial;
+
     void Awake()
     {
+        infoUI.SetActive(false);
         inst = this;
     }
     //public void changeColor()
@@ -264,16 +274,59 @@ public class BuildingPlacer : MonoBehaviour
     //cellGrid.cells[]
     // City.inst.OnPlaceBuilding(curBuildingPreset);
 
-    //public void deleteObject()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(ray, out hit))
-    //    {
-    //        hit.transform.gameObject
-    //    }
-    //}
+    public void selectObject()
+    {   
+        if (Input.GetMouseButtonDown(1))
+        {           
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (selection != null)
+            {
+                selection.GetComponent<MeshRenderer>().material = originalMaterial;
+                selection = null;
+                infoUI.SetActive(false);
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+           //     Debug.Log($"Placing building at: {curPlacementPos.x}, {curPlacementPos.z} ");
+                selection = hit.transform;
+                originalMaterial = selection.GetComponent<MeshRenderer>().material;
+                if (selection.CompareTag("selectable"))
+                {
+                    selection.GetComponent<MeshRenderer>().material = selectionMaterial;
+                    infoUI.SetActive(true);
+                    var panelTransform = infoUI.transform;
+                    var capacity = panelTransform.Find("Capacity").GetComponent<TextMeshProUGUI>();
+                    Cell c = cellInfo();
+                    capacity.text = c.Type;
+                }
+                else
+                {
+                    selection = null;
+                    infoUI.SetActive(false);
+                }
+            }
+        }
+    }
+    public void DeleteObject(Cell cell)
+    {
 
+    }
+    public Cell cellInfo()
+    {
+        for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
+        {
+            for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
+            {
+                if (cellGrid.cells[i, k].X == curPlacementPos.x &&
+                cellGrid.cells[i, k].Z == curPlacementPos.z)
+                {
+                    return cellGrid.cells[i,k];
+                }
+
+            }
+        }
+        return null;
+    }
     public bool assign_cells(int row, int col)
     {
         int minValue = 1;
@@ -349,6 +402,7 @@ public class BuildingPlacer : MonoBehaviour
         {
             PlaceBuilding();
         }
+        selectObject();
     }
 }
 

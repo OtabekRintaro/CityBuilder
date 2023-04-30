@@ -11,6 +11,8 @@ public class Cell : MonoBehaviour
     public string Type { get; set; } = "not occupied";
     public bool isFree { get; set; } = true;
     public int ID { get; set; }
+    //public workingnum;
+    //public int residencenum=-1;
     // Start is called before the first frame update
     void Start()
     {
