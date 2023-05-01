@@ -94,7 +94,14 @@ public class BuildingPlacer : MonoBehaviour
         placementIndicator.SetActive(true);
         int side = Coverage(buildingPreset.displayName);
         blueprintCells = new BlueprintCell[side * side];
-
+        //foreach (var c in blueprintCells)
+        //{
+        //    if (c.GetComponent<BlueprintCell>() != null)
+        //    {
+        //        Destroy(c.gameObject);
+        //    }
+        //}
+        
         //Debug.Log(1);
         //Debug.Log(curBuildingPreset.mapObject.GetType());
         int aux = side / 2;
@@ -114,6 +121,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         currentlyPlacing = false;
         placementIndicator.SetActive(false);
+        //blueprintCells = null;
     }
 
     //bool isPlaceable(Vector3 curPlacementPos)
@@ -183,6 +191,10 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+            foreach (var c in blueprintCells)
+            {
+                Destroy(c.gameObject);
+            }
             CancelBuildingPlacement();
         }
     }
