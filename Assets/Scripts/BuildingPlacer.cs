@@ -180,6 +180,7 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
+        Debug.Log(cellGrid.cells.GetLength(0));
         for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
         {
             for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
@@ -188,6 +189,7 @@ public class BuildingPlacer : MonoBehaviour
                 cellGrid.cells[i, k].Z == curPlacementPos.z)
                 {
                     isPlaceable = isPlaceable || assign_cells(i, k);
+                    Debug.Log(assign_cells(i,k));
                 }
                 
             }
@@ -339,19 +341,21 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
-            cellGrid.removeMapObject(selection.gameObject.GetInstanceID());
-            Destroy(selection.gameObject);
-            int cellID= cellToBeDeleted.ID;
-            foreach(var cell in cellGrid.cells)
+            if(cellGrid.removeMapObject(selection.gameObject.GetInstanceID()))
             {
-                if( cell.ID == cellID)
+                Destroy(selection.gameObject);
+                int cellID= cellToBeDeleted.ID;
+                foreach(var cell in cellGrid.cells)
                 {
-                    cell.isFree = true;
-                    cell.ID = 0;
-                    cell.Type = "empty";
+                    if( cell.ID == cellID)
+                    {
+                        cell.isFree = true;
+                        cell.ID = 0;
+                        cell.Type = "empty";
+                    }
                 }
+                infoUI.SetActive(false);
             }
-            infoUI.SetActive(false);
         }      
     }
     public Cell cellInfo()
@@ -402,6 +406,23 @@ public class BuildingPlacer : MonoBehaviour
                     }
                     else
                     {
+                        int tempRow = x - 1;
+                        int tempCol = z - 1;
+                        for (; tempCol >= low_col; tempCol--)
+                        {
+                            cellGrid.cells[x, tempCol].isFree = true;
+                            cellGrid.cells[x, tempCol].Type = "empty";
+                            cellGrid.cells[x, tempCol].ID = 0;
+                        }
+                        for (; tempRow >= low_row; tempRow--)
+                        {
+                            for(tempCol = high_col; tempCol >= low_col; tempCol--)
+                            {
+                                cellGrid.cells[tempRow, tempCol].isFree = true;
+                                cellGrid.cells[tempRow, tempCol].Type = "empty";
+                                cellGrid.cells[tempRow, tempCol].ID = 0;
+                            }
+                        }
                         return false;
                     }
                 }
