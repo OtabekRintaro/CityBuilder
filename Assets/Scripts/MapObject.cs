@@ -6,6 +6,7 @@ public class MapObject : MonoBehaviour
 {
     protected bool isConnectedToPublicRoad = false;
     Position coordinate;
+    public int ID { get; set; }
 
     public Position Coordinate { get; set; }
     public int coverage;
@@ -20,6 +21,10 @@ public class MapObject : MonoBehaviour
             return gameObject.AddComponent<CommercialZone>();
         if (type.Equals("Road"))
             return gameObject.AddComponent<Road>();
+        if (type.Equals("Stadium"))
+            return gameObject.AddComponent<Stadium>();
+        if (type.Equals("Police"))
+            return gameObject.AddComponent<Police>();
         return null;
     }
 

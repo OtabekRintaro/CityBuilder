@@ -77,11 +77,11 @@ public class BuildingPlacer : MonoBehaviour
 
     public int Coverage(string type)
     {
-        if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone") || type.Equals("Police"))
+        if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
         {
             return 3;
         }
-        else if (type.Equals("Stadium")) return 4;
+        else if (type.Equals("Stadium")) return 5;
         else { return 1; }
     }
 
@@ -190,6 +190,7 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+            //Debug.Log(buildingObj.GetInstanceID());
             cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
             CancelBuildingPlacement();
         }
@@ -326,6 +327,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
+            cellGrid.removeMapObject(selection.gameObject.GetInstanceID());
             Destroy(selection.gameObject);
             int cellID= cellToBeDeleted.ID;
             foreach(var cell in cellGrid.cells)

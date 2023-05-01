@@ -156,6 +156,7 @@ public class CellGrid : MonoBehaviour
     public void addMapObject(GameObject buildingObj, BuildingPreset buildingPreset, int coverage, int x, int z)
     {
         MapObject mapObject = MapObject.getMapObject(buildingPreset.displayName, buildingObj);
+        mapObject.ID = buildingObj.GetInstanceID();
         //Debug.Log(((x + 100)/10) + " " + ((z + 100)/10) + " " + coverage);
         mapObject.Coordinate = new Position((x + 100)/10, (z+100)/10);
         mapObject.coverage = coverage;
@@ -164,6 +165,22 @@ public class CellGrid : MonoBehaviour
             addRoad(mapObject);
         }
         mapObjects.Add(mapObject);
+    }
+
+    public void removeMapObject(int ID)
+    {
+        int index = -1;
+        Debug.Log(ID);
+        for(int i = 0; i < mapObjects.Count; i++)
+        {
+            if(mapObjects[i].ID == ID)
+            {
+                index = i;
+            }
+        }
+        if (index == -1)
+            return;
+        mapObjects.RemoveAt(index);
     }
 
     public void addRoad(MapObject mapObject)
