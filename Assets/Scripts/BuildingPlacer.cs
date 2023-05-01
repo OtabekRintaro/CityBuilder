@@ -120,6 +120,13 @@ public class BuildingPlacer : MonoBehaviour
     public void CancelBuildingPlacement()
     {
         currentlyPlacing = false;
+        Transform plane = placementIndicator.transform.GetChild(0);
+        for(int index = 1; index < placementIndicator.transform.childCount; index++)
+        {
+            Destroy(placementIndicator.transform.GetChild(index).gameObject);
+        }
+        placementIndicator.transform.DetachChildren();
+        plane.SetParent(placementIndicator.transform);
         placementIndicator.SetActive(false);
         //blueprintCells = null;
     }
@@ -191,10 +198,15 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+<<<<<<< HEAD
             foreach (var c in blueprintCells)
             {
                 Destroy(c.gameObject);
             }
+=======
+            //Debug.Log(buildingObj.GetInstanceID());
+            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
+>>>>>>> d160d64e42efe52b75714a08d606be9248eafbc9
             CancelBuildingPlacement();
         }
     }
@@ -330,6 +342,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
+            cellGrid.removeMapObject(selection.gameObject.GetInstanceID());
             Destroy(selection.gameObject);
             int cellID= cellToBeDeleted.ID;
             foreach(var cell in cellGrid.cells)
