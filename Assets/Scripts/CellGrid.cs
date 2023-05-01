@@ -143,12 +143,11 @@ public class CellGrid : MonoBehaviour
         {
             if(!mapObject.checkPublicRoadConnection())
             {
-                //Debug.Log("Not Connected!");
                 mapObject.connectToPublicRoad(roadHandler.findPublicRoad(mapObject));
             }
             else
             {
-                //Debug.Log("Connected!");
+                
             }
         }
     }
@@ -167,10 +166,11 @@ public class CellGrid : MonoBehaviour
         mapObjects.Add(mapObject);
     }
 
-    public void removeMapObject(int ID)
+    public bool removeMapObject(int ID)
     {
+        bool canBeRemoved = true;
         int index = -1;
-        Debug.Log(ID);
+        //Debug.Log(ID);
         for(int i = 0; i < mapObjects.Count; i++)
         {
             if(mapObjects[i].ID == ID)
@@ -179,8 +179,22 @@ public class CellGrid : MonoBehaviour
             }
         }
         if (index == -1)
-            return;
+            return false;
+
+        if (mapObjects[index].GetType() == typeof(Road) && mapObjects[index].checkPublicRoadConnection())
+        {
+            foreach(MapObject mapObject in mapObjects)
+            {
+                if(mapObject is not Road && roadHandler.checkConnection(mapObject, mapObjects[index]))
+                {
+                    canBeRemoved = false;
+                }
+            }
+            return canBeRemoved;
+        }
+
         mapObjects.RemoveAt(index);
+        return canBeRemoved;
     }
 
     public void addRoad(MapObject mapObject)
