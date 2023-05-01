@@ -198,12 +198,15 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
-            //foreach (var c in blueprintCells)
-            //{
-            //    Destroy(c.gameObject);
-            //}
+<<<<<<< HEAD
+            foreach (var c in blueprintCells)
+            {
+                Destroy(c.gameObject);
+            }
+=======
             //Debug.Log(buildingObj.GetInstanceID());
             cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
+>>>>>>> d160d64e42efe52b75714a08d606be9248eafbc9
             CancelBuildingPlacement();
         }
     }
