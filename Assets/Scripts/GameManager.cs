@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    Dictionary<Vector2, ResidentialZone> dictResidentialZones = new Dictionary<Vector2, ResidentialZone>();
+    public Dictionary<Vector2, ResidentialZone> dictResidentialZones = new Dictionary<Vector2, ResidentialZone>();
 
     // Start is called before the first frame update
     void Start()

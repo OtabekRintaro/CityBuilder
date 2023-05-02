@@ -32,71 +32,68 @@ public class ResidentialZone : MapObject
     }
 
 
-    public static void CalculateSatisfaction(Dictionary<Vector2, ResidentialZone> residentialZones, int[,] cityMatrix, int tax, int budget)
+    public static void CalculateSatisfaction(ResidentialZone residentialZones, Cell[,] cityMatrix, int tax, int budget)
     {
-        foreach (ResidentialZone resZone in residentialZones.Values)
+        int row = resZone.Position.x;
+        int col = resZone.Position.z;
+
+        // Check for police in radius 8
+        bool policeNearby = false;
+        for (int i = row - 8; i <= row + 8 && !policeNearby; i++)
         {
-            int row = resZone.Position.x;
-            int col = resZone.Position.z;
-
-            // Check for police in radius 8
-            bool policeNearby = false;
-            for (int i = row - 8; i <= row + 8 && !policeNearby; i++)
+            if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
+            for (int j = col - 8; j <= col + 8; j++)
             {
-                if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
-                for (int j = col - 8; j <= col + 8; j++)
+                if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
+                if (cityMatrix[i,j].Type == "Police")
                 {
-                    if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                    if (cityMatrix[i, j] == "Police")
-                    {
-                        policeNearby = true;
-                        break;
-                    }
+                    policeNearby = true;
+                    break;
                 }
             }
-
-            // Check for stadium in radius 12
-            bool stadiumNearby = false;
-            for (int i = row - 12; i <= row + 12 && !stadiumNearby; i++)
-            {
-                if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
-                for (int j = col - 12; j <= col + 12; j++)
-                {
-                    if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                    if (cityMatrix[i, j] == (int)ZoneType.Stadium)
-                    {
-                        stadiumNearby = true;
-                        break;
-                    }
-                }
-            }
-
-            // Check for no industrial zone in radius 10
-            bool industrialNearby = false;
-            for (int i = row - 10; i <= row + 10 && !industrialNearby; i++)
-            {
-                if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
-                for (int j = col - 10; j <= col + 10; j++)
-                {
-                    if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                    if (cityMatrix[i, j] == (int)ZoneType.Industrial)
-                    {
-                        industrialNearby = true;
-                        break;
-                    }
-                }
-            }
-
-            // Update satisfaction based on nearby zones and tax and budget
-            int satisfaction = 5;
-            if (policeNearby) satisfaction++;
-            if (stadiumNearby) satisfaction++;
-            if (!industrialNearby) satisfaction++;
-            if (tax < 5) satisfaction++;
-            if (budget < 0) satisfaction--;
-
-            resZone.Satisfaction = satisfaction;
         }
+
+        // Check for stadium in radius 12
+        bool stadiumNearby = false;
+        for (int i = row - 12; i <= row + 12 && !stadiumNearby; i++)
+        {
+            if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
+            for (int j = col - 12; j <= col + 12; j++)
+            {
+                if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
+                if (cityMatrix[i, j].Type == "Stadium")
+                {
+                    stadiumNearby = true;
+                    break;
+                }
+            }
+        }
+
+        // Check for no industrial zone in radius 10
+        bool industrialNearby = false;
+        for (int i = row - 10; i <= row + 10 && !industrialNearby; i++)
+        {
+            if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
+            for (int j = col - 10; j <= col + 10; j++)
+            {
+                if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
+                if (cityMatrix[i, j].Type == "IndustrialZone")
+                {
+                    industrialNearby = true;
+                    break;
+                }
+            }
+        }
+
+        // Update satisfaction based on nearby zones and tax and budget
+        int satisfaction = 5;
+        if (policeNearby) satisfaction++;
+        if (stadiumNearby) satisfaction++;
+        if (!industrialNearby) satisfaction++;
+        if (tax < 5) satisfaction++;
+        if (budget < 0) satisfaction--;
+
+        resZone.Satisfaction = satisfaction;
     }
 
 
@@ -276,19 +273,19 @@ public class ResidentialZone : MapObject
     // version 0.3
     public void AdjustPopulation(Dictionary<Vector2, ResidentialZone> residenceZones) {
         foreach (ResidenceZone zone in residenceZones.Values) {
-            float satisfaction = zone.CalculateSatisfaction();
+            float satisfaction = CalculateSatisfaction(zone, cellGrid, 5, 10000);
             if (satisfaction >= 8) {
-                zone.Population += 10;
+                zone.population += 10;
             } else if (satisfaction >= 6) {
-                zone.Population += 5;
+                zone.population += 5;
             } else if (satisfaction >= 4) {
-                zone.Population += 2;
-            } else if (satisfaction >= 2 and zone.Population > 1) {
-                zone.Population -= 2;
-            } else if (zone.Population > 5){
-                zone.Population -= 5;
+                zone.population += 2;
+            } else if (satisfaction >= 2 && zone.population > 1) {
+                zone.population -= 2;
+            } else if (zone.population > 5){
+                zone.population -= 5;
             } else {
-                zone.Population = 0;
+                zone.population = 0;
             }
         }
     }
