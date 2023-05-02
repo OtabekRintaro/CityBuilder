@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using TMPro;
 //using System.Numerics;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-
+using UnityEngine.SceneManagement;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -113,6 +113,7 @@ public class BuildingPlacer : MonoBehaviour
     public void CancelBuildingPlacement()
     {
         currentlyPlacing = false;
+
         Transform plane = placementIndicator.transform.GetChild(0);
         for(int index = 1; index < placementIndicator.transform.childCount; index++)
         {
@@ -120,6 +121,7 @@ public class BuildingPlacer : MonoBehaviour
         }
         placementIndicator.transform.DetachChildren();
         plane.SetParent(placementIndicator.transform);
+
         placementIndicator.SetActive(false);
     }
 
@@ -172,7 +174,8 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
-        // Debug.Log(cellGrid.cells.GetLength(0));
+        //Debug.Log(cellGrid.cells.GetLength(0));
+        int row = 0; int col = 0;
         for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
         {
             for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
@@ -180,8 +183,9 @@ public class BuildingPlacer : MonoBehaviour
                 if (cellGrid.cells[i, k].X == curPlacementPos.x &&
                 cellGrid.cells[i, k].Z == curPlacementPos.z)
                 {
+                    row = i; col = k;
                     isPlaceable = isPlaceable || assign_cells(i, k);
-                    // Debug.Log(assign_cells(i,k));
+                    //Debug.Log(assign_cells(i,k));
                 }
                 
             }
@@ -193,9 +197,49 @@ public class BuildingPlacer : MonoBehaviour
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
             //Debug.Log(buildingObj.GetInstanceID());
-            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
-            CancelBuildingPlacement();
+            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, row, col);
+            attachToBuildings(buildingObj);
+            CancelBuildingPlacement(); 
         }
+    }
+
+    public void attachToBuildings(GameObject gameObject)
+    {
+        int index = 0;
+        Scene gameScene = SceneManager.GetSceneAt(index++);
+        while (index < SceneManager.sceneCount && !gameScene.name.Equals("GameScene"))
+            gameScene = SceneManager.GetSceneAt(index++);
+
+        GameObject[] gameObjects = gameScene.GetRootGameObjects();
+        
+        foreach (GameObject gameObject_0 in gameObjects)
+        {
+            if (gameObject_0.name.Equals("GameObjects"))
+            {
+                gameObject.name = cropClone(gameObject.name, gameObject.GetInstanceID());
+                gameObject.transform.SetParent(gameObject_0.transform);
+
+                break;
+            }
+        }
+
+    }
+
+    public string cropClone(string name, int id)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < name.Length; i++)
+        {
+            if(name[i] == '(')
+            {
+                break;
+            }
+            sb.Append(name[i]);
+        }
+        sb.Append(id.ToString());
+
+        return sb.ToString();
     }
     //  Debug.Log("coverage divided by 2: " + coverage / 2);
     //RaycastHit hit;
@@ -332,7 +376,7 @@ public class BuildingPlacer : MonoBehaviour
             if(cellGrid.removeMapObject(selection.gameObject.GetInstanceID()))
             {
                 Destroy(selection.gameObject);
-                int cellID= cellToBeDeleted.ID;
+                int cellID = cellToBeDeleted.ID;
                 foreach(var cell in cellGrid.cells)
                 {
                     if( cell.ID == cellID)

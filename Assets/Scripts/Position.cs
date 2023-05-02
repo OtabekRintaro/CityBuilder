@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 public class Position
 {
     public int x, z;
@@ -46,6 +45,7 @@ public class Position
         Position o = (Position) obj;
         return o.x == x && o.z == z; 
     }
+    
     public override int GetHashCode() { 
         return HashCode.Combine(x, z); 
     }

@@ -22,20 +22,24 @@ public class RoadHandler
         int row = mapObject.position.x;
         int col = mapObject.position.z;
 
+        //Debug.Log(row + " " + col);
+
         Position bottomLeftCorner = new Position(row - (mapObject.coverage / 2), col - (mapObject.coverage / 2));
 
-        //check left and right
-        for(int z = 0; z < mapObject.coverage; z++)
-        {
-            found = found || predfsForRoads(bottomLeftCorner.z + z, bottomLeftCorner.x, new int[SizeOfGraph, SizeOfGraph]);
-            found = found || predfsForRoads(bottomLeftCorner.z + z, bottomLeftCorner.x + mapObject.coverage - 1, new int[SizeOfGraph, SizeOfGraph]);
-        }
+        //Debug.Log(bottomLeftCorner.toString());
 
         //check top and bottom
+        for(int z = 0; z < mapObject.coverage; z++)
+        {
+            found = found || predfsForRoads(bottomLeftCorner.x, bottomLeftCorner.z + z, new int[SizeOfGraph, SizeOfGraph]);
+            found = found || predfsForRoads(bottomLeftCorner.x + mapObject.coverage - 1, bottomLeftCorner.z + z, new int[SizeOfGraph, SizeOfGraph]);
+        }
+
+        //check left and right
         for(int x = 0; x < mapObject.coverage; x++)
         {
-            found = found || predfsForRoads(bottomLeftCorner.z, bottomLeftCorner.x + x, new int[SizeOfGraph, SizeOfGraph]);
-            found = found || predfsForRoads(bottomLeftCorner.z + mapObject.coverage - 1, bottomLeftCorner.x + x, new int[SizeOfGraph, SizeOfGraph]);
+            found = found || predfsForRoads(bottomLeftCorner.x + x, bottomLeftCorner.z, new int[SizeOfGraph, SizeOfGraph]);
+            found = found || predfsForRoads(bottomLeftCorner.x + x, bottomLeftCorner.z + mapObject.coverage - 1, new int[SizeOfGraph, SizeOfGraph]);
         }
 
         return found;
@@ -43,9 +47,9 @@ public class RoadHandler
 
     public bool checkConnection(MapObject mapObject, MapObject road)
     {
-        bool hasConnection = false;
+        bool hasConnection;
 
-        hasConnection = bfs(mapObject, road.position.z, road.position.x, new int[SizeOfGraph, SizeOfGraph]);
+        hasConnection = bfs(mapObject, road.position.x, road.position.z, new int[SizeOfGraph, SizeOfGraph]);
 
         return hasConnection;
     }
@@ -53,7 +57,7 @@ public class RoadHandler
     public bool predfsForRoads(int row, int col, int[,] used)
     {
         used[row, col] = 1;
-        bool found = true;
+        bool found;
 
         found = dfs(row - 1, col, used) || dfs(row, col - 1, used) || dfs(row + 1, col, used) || dfs(row, col + 1, used);
 
@@ -73,10 +77,10 @@ public class RoadHandler
         {
             return bfs(mapObject, row + 1, col, used) || bfs(mapObject, row - 1, col, used) || bfs(mapObject, row, col + 1, used) || bfs(mapObject, row, col - 1, used);
         }
-        int lowerBoundCol = mapObject.position.x - mapObject.coverage / 2;
-        int upperBoundCol = mapObject.position.x + mapObject.coverage / 2;
-        int lowerBoundRow = mapObject.position.z - mapObject.coverage / 2;
-        int upperBoundRow = mapObject.position.z + mapObject.coverage / 2;
+        int lowerBoundRow = mapObject.position.x - mapObject.coverage / 2;
+        int upperBoundRow = mapObject.position.x + mapObject.coverage / 2;
+        int lowerBoundCol = mapObject.position.z - mapObject.coverage / 2;
+        int upperBoundCol = mapObject.position.z + mapObject.coverage / 2;
         if (row >= lowerBoundRow && row <= upperBoundRow && col >= lowerBoundCol && col <= upperBoundCol)
             return true;
         return false;

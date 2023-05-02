@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
         //Debug.Log(this.Get);
         //this.GetComponentInParent<Renderer>().enabled = false;
         //this.GetComponentInChildren<Renderer>().enabled = false;
+        Cursor.visible = true;
     }
 
     public void QuitGame()
