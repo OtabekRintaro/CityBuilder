@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using TMPro;
 //using System.Numerics;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -23,8 +24,18 @@ public class BuildingPlacer : MonoBehaviour
     public BlueprintCell[] blueprintCells;
     public LayerMask cellLayer;
     public Material cant_place;
+    public GameObject infoUI;
+
+    private Cell cellToBeDeleted;
+
+    private Transform selection;
+    private RaycastHit hit;
+    public Material selectionMaterial;
+    private Material originalMaterial;
+
     void Awake()
     {
+        infoUI.SetActive(false);
         inst = this;
     }
     //public void changeColor()
@@ -67,8 +78,11 @@ public class BuildingPlacer : MonoBehaviour
     public int Coverage(string type)
     {
         if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
+        {
             return 3;
-        return 1;
+        }
+        else if (type.Equals("Stadium")) return 5;
+        else { return 1; }
     }
 
     
@@ -99,49 +113,56 @@ public class BuildingPlacer : MonoBehaviour
     public void CancelBuildingPlacement()
     {
         currentlyPlacing = false;
+        Transform plane = placementIndicator.transform.GetChild(0);
+        for(int index = 1; index < placementIndicator.transform.childCount; index++)
+        {
+            Destroy(placementIndicator.transform.GetChild(index).gameObject);
+        }
+        placementIndicator.transform.DetachChildren();
+        plane.SetParent(placementIndicator.transform);
         placementIndicator.SetActive(false);
     }
 
-    bool isPlaceable(Vector3 curPlacementPos)
-    {
-        int coverage = Coverage(curBuildingPreset.displayName);
-        //float x = curPlacementPos.x / 10 - (coverage / 2);
-        //float z = curPlacementPos.z / 10 - (coverage / 2);
-        float x = curPlacementPos.x / 10f;
-        float z = curPlacementPos.z / 10f;
+    //bool isPlaceable(Vector3 curPlacementPos)
+    //{
+    //    int coverage = Coverage(curBuildingPreset.displayName);
+    //    //float x = curPlacementPos.x / 10 - (coverage / 2);
+    //    //float z = curPlacementPos.z / 10 - (coverage / 2);
+    //    float x = curPlacementPos.x / 10f;
+    //    float z = curPlacementPos.z / 10f;
         
-        //for (int i = 0; i < coverage; i++)
-        //{
-        //    for (int k = 0; k < coverage; k++)
-        //    {
+    //    //for (int i = 0; i < coverage; i++)
+    //    //{
+    //    //    for (int k = 0; k < coverage; k++)
+    //    //    {
 
-        for (int i = -coverage / 2; i < coverage / 2; i++)
-        {
-            for (int k = -coverage / 2; k < coverage / 2; k++)
-            {
-                //for (int j = 0; j < cellGrid.cells.Length; j++)
-                //{
-                //    if (cellGrid.cells[j].Coordinate.X == x &&
-                //        cellGrid.cells[j].Coordinate.Z == z)
-                //    {
-                //        cellGrid.cells[j].isFree = false;
-                //        cellGrid.cells[j].Type = curBuildingPreset.displayName;
+    //    for (int i = -coverage / 2; i < coverage / 2; i++)
+    //    {
+    //        for (int k = -coverage / 2; k < coverage / 2; k++)
+    //        {
+    //            //for (int j = 0; j < cellGrid.cells.Length; j++)
+    //            //{
+    //            //    if (cellGrid.cells[j].Coordinate.X == x &&
+    //            //        cellGrid.cells[j].Coordinate.Z == z)
+    //            //    {
+    //            //        cellGrid.cells[j].isFree = false;
+    //            //        cellGrid.cells[j].Type = curBuildingPreset.displayName;
 
-                //    }
-                //}
-                foreach (var c in cellGrid.cells)
-                {
-                    if (c.Coordinate.X == x && c.Coordinate.Z == z && c.isFree == false)
-                    {
-                        return false;
-                    }
-                }
-                x++;
-            }
-            z++;
-        }
-        return true;
-    }
+    //            //    }
+    //            //}
+    //            foreach (var c in cellGrid.cells)
+    //            {
+    //                if (c.Coordinate.X == x && c.Coordinate.Z == z && c.isFree == false)
+    //                {
+    //                    return false;
+    //                }
+    //            }
+    //            x++;
+    //        }
+    //        z++;
+    //    }
+    //    return true;
+    //}
 
     //public bool checkBoundaries()
     //{
@@ -151,6 +172,7 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
+        Debug.Log(cellGrid.cells.GetLength(0));
         for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
         {
             for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
@@ -159,6 +181,7 @@ public class BuildingPlacer : MonoBehaviour
                 cellGrid.cells[i, k].Z == curPlacementPos.z)
                 {
                     isPlaceable = isPlaceable || assign_cells(i, k);
+                    Debug.Log(assign_cells(i,k));
                 }
                 
             }
@@ -169,6 +192,8 @@ public class BuildingPlacer : MonoBehaviour
         if (isPlaceable)
         {
             GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+            //Debug.Log(buildingObj.GetInstanceID());
+            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, (int)curPlacementPos.x, (int)curPlacementPos.z);
             CancelBuildingPlacement();
         }
     }
@@ -264,16 +289,79 @@ public class BuildingPlacer : MonoBehaviour
     //cellGrid.cells[]
     // City.inst.OnPlaceBuilding(curBuildingPreset);
 
-    //public void deleteObject()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(ray, out hit))
-    //    {
-    //        hit.transform.gameObject
-    //    }
-    //}
+    public void selectObject()
+    {   
+        if (Input.GetMouseButtonDown(1))
+        {           
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (selection != null)
+            {
+                selection.GetComponent<MeshRenderer>().material = originalMaterial;
+                selection = null;
+                cellToBeDeleted = null;
+                infoUI.SetActive(false);
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+           //     Debug.Log($"Placing building at: {curPlacementPos.x}, {curPlacementPos.z} ");
+                selection = hit.transform;
+                originalMaterial = selection.GetComponent<MeshRenderer>().material;
+                if (selection.CompareTag("selectable"))
+                {
+                    selection.GetComponent<MeshRenderer>().material = selectionMaterial;
+                    infoUI.SetActive(true);
+                    var panelTransform = infoUI.transform;
+                    var capacity = panelTransform.Find("Capacity").GetComponent<TextMeshProUGUI>();
+                    Cell c = cellInfo();
+                    capacity.text = $"Capacity is: {c.Type}";
+                    cellToBeDeleted = c;
+                }
+                else
+                {
+                    selection = null;
+                    infoUI.SetActive(false);
+                    cellToBeDeleted = null;
+                }
+            }
+        }
+    }
+    public void DeleteObject()
+    {
+        if(cellToBeDeleted != null)
+        {
+            if(cellGrid.removeMapObject(selection.gameObject.GetInstanceID()))
+            {
+                Destroy(selection.gameObject);
+                int cellID= cellToBeDeleted.ID;
+                foreach(var cell in cellGrid.cells)
+                {
+                    if( cell.ID == cellID)
+                    {
+                        cell.isFree = true;
+                        cell.ID = 0;
+                        cell.Type = "empty";
+                    }
+                }
+                infoUI.SetActive(false);
+            }
+        }      
+    }
+    public Cell cellInfo()
+    {
+        for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
+        {
+            for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
+            {
+                if (cellGrid.cells[i, k].X == curPlacementPos.x &&
+                cellGrid.cells[i, k].Z == curPlacementPos.z)
+                {
+                    return cellGrid.cells[i,k];
+                }
 
+            }
+        }
+        return null;
+    }
     public bool assign_cells(int row, int col)
     {
         int minValue = 1;
@@ -306,6 +394,23 @@ public class BuildingPlacer : MonoBehaviour
                     }
                     else
                     {
+                        int tempRow = x - 1;
+                        int tempCol = z - 1;
+                        for (; tempCol >= low_col; tempCol--)
+                        {
+                            cellGrid.cells[x, tempCol].isFree = true;
+                            cellGrid.cells[x, tempCol].Type = "empty";
+                            cellGrid.cells[x, tempCol].ID = 0;
+                        }
+                        for (; tempRow >= low_row; tempRow--)
+                        {
+                            for(tempCol = high_col; tempCol >= low_col; tempCol--)
+                            {
+                                cellGrid.cells[tempRow, tempCol].isFree = true;
+                                cellGrid.cells[tempRow, tempCol].Type = "empty";
+                                cellGrid.cells[tempRow, tempCol].ID = 0;
+                            }
+                        }
                         return false;
                     }
                 }
@@ -349,6 +454,7 @@ public class BuildingPlacer : MonoBehaviour
         {
             PlaceBuilding();
         }
+        selectObject();
     }
 }
 

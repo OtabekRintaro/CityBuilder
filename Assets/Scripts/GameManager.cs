@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Dictionary<Vector2, ResidentialZone> dictResidentialZones = new Dictionary<Vector2, ResidentialZone>();
 
+    CellGrid map;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,5 +102,7 @@ public class GameManager : MonoBehaviour
         {
             dictZones.Add(key, new ResidentialZone(key, 0, 5, false, false));
         }
-    }
+    }     
 }
+
+    

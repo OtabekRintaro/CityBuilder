@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5926112112932860669}
   m_Layer: 0
   m_Name: ResidentialZone
-  m_TagString: Untagged
+  m_TagString: selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

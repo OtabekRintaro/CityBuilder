@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Road : MapObject
 {
+    int connections;
     // Start is called before the first frame update
     void Start()
     {

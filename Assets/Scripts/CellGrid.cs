@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class CellGrid : MonoBehaviour
 {
@@ -16,16 +17,17 @@ public class CellGrid : MonoBehaviour
 
     public Cell[,] cells;
     public Road[,] mainRoad;
-    // Road[] roads; 
     public RoadHandler roadHandler;
+    public List<MapObject> mapObjects = new ();
 
     private void Awake()
     {
+        HidePrefabs();
         _transform_CellGrid = this.transform;
       //  _transform_CellGrid.localPosition = new Vector3(-100f, 0, -100f);
-
+      
         cells = new Cell[height,width];
-        mainRoad = new Road[height * width];
+        mainRoad = new Road[height, width];
         roadHandler = new RoadHandler(height);
 
         for(int row = 0; row < height; row++)
@@ -56,13 +58,33 @@ public class CellGrid : MonoBehaviour
             }
         }
 
-        //for(int z = height/2, j = 0; z <= (height/2) + 1; z++)
-        //{
-        //    for(int x = 0; x < width; x++)
-        //    {
-        //        CreateRoad(x, z, j++);
-        //    }
-        //}
+        for (int row = height / 2, index = 0; row <= (height / 2) + 1; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                CreateRoad(row, col, index++);
+            }
+        }
+        //roadHandler.printRoutes();
+    }
+
+    void HidePrefabs()
+    {
+        int index = 0;
+        Scene gameScene = SceneManager.GetSceneAt(index++);
+        while (index < SceneManager.sceneCount && !gameScene.name.Equals("GameScene"))
+            gameScene = SceneManager.GetSceneAt(index++);
+
+        GameObject[] gameObjects = gameScene.GetRootGameObjects();
+
+        foreach(GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name.Equals("Prefabs"))
+                foreach (Transform transform in gameObject.GetComponentsInChildren<Transform>())
+                    transform.position = new Vector3(-99999, -99999, -99999);
+
+        }
+          
     }
 
     //void CreateCell(int x, int z, int i)
@@ -85,7 +107,23 @@ public class CellGrid : MonoBehaviour
     //    cell.transform.localPosition = position;
     //}
 
-    
+    void CreateRoad(int row, int col, int index)
+    {
+        Vector3 position;
+        position.x = -100 + col * 10;
+        position.y = 0.3f;
+        position.z = -100 + row * 10;
+
+        Road road = mainRoad[row,col] = Instantiate<Road>(roadPrefab);
+        cells[row, col].isFree = false;
+        mainRoad[row, col].Coordinate = new Position(row, col);
+        mainRoad[row, col].coverage = 1;
+        roadHandler.Routes[row, col] = 1;
+        roadHandler.MainRoad[row, col] = 1;
+
+        road.transform.SetParent(_transform_CellGrid, false);
+        road.transform.localPosition = position;
+    }
 
     
     // Start is called before the first frame update
@@ -97,6 +135,71 @@ public class CellGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        checkPublicRoadConnectivity();
+    }
+
+    public void checkPublicRoadConnectivity()
+    {
+        foreach(MapObject mapObject in mapObjects)
+        {
+            if(!mapObject.checkPublicRoadConnection())
+            {
+                mapObject.connectToPublicRoad(roadHandler.findPublicRoad(mapObject));
+            }
+            else
+            {
+                
+            }
+        }
+    }
+
+    public void addMapObject(GameObject buildingObj, BuildingPreset buildingPreset, int coverage, int x, int z)
+    {
+        MapObject mapObject = MapObject.getMapObject(buildingPreset.displayName, buildingObj);
+        mapObject.ID = buildingObj.GetInstanceID();
+        //Debug.Log(((x + 100)/10) + " " + ((z + 100)/10) + " " + coverage);
+        mapObject.Coordinate = new Position((x + 100)/10, (z+100)/10);
+        mapObject.coverage = coverage;
+        if(buildingPreset.displayName.Equals("Road"))
+        {
+            addRoad(mapObject);
+        }
+        mapObjects.Add(mapObject);
+    }
+
+    public bool removeMapObject(int ID)
+    {
+        bool canBeRemoved = true;
+        int index = -1;
+        //Debug.Log(ID);
+        for(int i = 0; i < mapObjects.Count; i++)
+        {
+            if(mapObjects[i].ID == ID)
+            {
+                index = i;
+            }
+        }
+        if (index == -1)
+            return false;
+
+        if (mapObjects[index].GetType() == typeof(Road) && mapObjects[index].checkPublicRoadConnection())
+        {
+            foreach(MapObject mapObject in mapObjects)
+            {
+                if(mapObject is not Road && roadHandler.checkConnection(mapObject, mapObjects[index]))
+                {
+                    canBeRemoved = false;
+                }
+            }
+            return canBeRemoved;
+        }
+
+        mapObjects.RemoveAt(index);
+        return canBeRemoved;
+    }
+
+    public void addRoad(MapObject mapObject)
+    {
+        roadHandler.Routes[mapObject.Coordinate.z, mapObject.Coordinate.x] = 1;
     }
 }
