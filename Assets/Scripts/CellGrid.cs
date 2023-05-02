@@ -24,30 +24,32 @@ public class CellGrid : MonoBehaviour
     {
         HidePrefabs();
         _transform_CellGrid = this.transform;
-      //  _transform_CellGrid.localPosition = new Vector3(-100f, 0, -100f);
-      
-        cells = new Cell[height,width];
+        //  _transform_CellGrid.localPosition = new Vector3(-100f, 0, -100f);
+
+        generateObjects();
+        //roadHandler.printRoutes();
+        cells = new Cell[height, width];
         mainRoad = new Road[height, width];
         roadHandler = new RoadHandler(height);
 
-        for(int row = 0; row < height; row++)
+        for (int row = 0; row < height; row++)
         {
-            for(int col = 0; col < width; col++)
+            for (int col = 0; col < width; col++)
             {
                 //CreateCell(x, z, i++);
                 //Debug.Log("cell content x:" + x + " z:" + z + " i:" + i);
 
                 Vector3 position;
-                position.x = -100 + col * 10 ;
+                position.x = -100 + col * 10;
                 position.y = 0;
                 position.z = -100 + row * 10;
-                Cell cell = cells[row,col] = Instantiate<Cell>(cellPrefab);
+                Cell cell = cells[row, col] = Instantiate<Cell>(cellPrefab);
                 //cells[i].Coordinate = new Position(x,z);
 
                 //cells[x,z].X = (int)position.x;
                 //cells[x,z].Z = (int)position.z;
-                
-                cells[row,col] = cell;
+
+                cells[row, col] = cell;
                 cells[row, col].X = position.x;
                 cells[row, col].Z = position.z;
 
@@ -65,9 +67,11 @@ public class CellGrid : MonoBehaviour
                 CreateRoad(row, col, index++);
             }
         }
-        //roadHandler.printRoutes();
     }
-
+    public void generateObjects()
+    {
+        
+    }
     void HidePrefabs()
     {
         int index = 0;

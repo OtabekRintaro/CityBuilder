@@ -1,28 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private void Awake()
+    public Button continueButton;
+    public Button newGameButton;
+    public Button quitButton;
+    private BuildingPlacer b;
+    void Start()
     {
-        //shopWindow.visible();
+        continueButton.onClick.AddListener(ContinueGame);
+        newGameButton.onClick.AddListener(NewGame);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
-    public void PlayGame()
+    void ContinueGame()
     {
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //Debug.Log(this.Get);
-        //this.GetComponentInParent<Renderer>().enabled = false;
-        //this.GetComponentInChildren<Renderer>().enabled = false;
+        //b.DeserializeJSon();
+        SceneManager.LoadScene("GameScene");
+        DataPersistenceManager.instance.LoadGame();
     }
 
-    public void QuitGame()
+    void NewGame()
     {
-        Debug.Log("Quit Game");
+       // b.ClearData();
+        SceneManager.LoadScene("GameScene");
+        DataPersistenceManager.instance.NewGame();
+    }
+
+    void QuitGame()
+    {
         Application.Quit();
     }
 }

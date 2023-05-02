@@ -6,8 +6,10 @@ using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
+using System.IO;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -32,7 +34,18 @@ public class BuildingPlacer : MonoBehaviour
     private RaycastHit hit;
     public Material selectionMaterial;
     private Material originalMaterial;
+    ///////
+    /// <summary>
+    /// 
+    /// </summary>
+    /// 
 
+    //  public DateHandler dateDisplay;
+    public Button saveAndExitButton;
+    public GameObject ConfirmationPanel;
+    public Button YesButton;
+    public Button NoButton;
+    
     void Awake()
     {
         infoUI.SetActive(false);
@@ -47,12 +60,14 @@ public class BuildingPlacer : MonoBehaviour
     //            if (cellGrid.cells[i, k].X == curPlacementPos.x &&
     //            cellGrid.cells[i, k].Z == curPlacementPos.z)
     //            {
-                    
+
     //            }
     //        }
     //    }
-        
+
     //}
+
+    
     public void createPlane(int x, int z, int i)
     {
         Vector3 position;
@@ -180,7 +195,7 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
-        Debug.Log(cellGrid.cells.GetLength(0));
+     //   Debug.Log(cellGrid.cells.GetLength(0));
         for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
         {
             for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
@@ -378,7 +393,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         int minValue = 1;
         int maxValue = 10000;
-        int randomNumber = Random.Range(minValue, maxValue);
+        int randomNumber = UnityEngine.Random.Range(minValue, maxValue);
         int half_cov = Coverage(curBuildingPreset.displayName) /2;
         int low_row = row - half_cov;
         int high_row = row + half_cov;
@@ -444,11 +459,123 @@ public class BuildingPlacer : MonoBehaviour
     //        return null;
     //    }
     //}
+
+    //public bool SerializeJson()
+    //{
+    //    if (DataService.SaveData("/player-stats.json", cellGrid))
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //    //try
+    //    //{
+    //    //    PlayerStats data = DataService.LoadData<PlayerStats>("/player-stats.json", EncryptionEnabled);
+    //    //    LoadTime = DateTime.Now.Ticks - startTime;
+    //    //    InputField.text = "Loaded from file:\r\n" + JsonConvert.SerializeObject(data, Formatting.Indented);
+    //    //    LoadTimeText.SetText($"Load Time: {(LoadTime / TimeSpan.TicksPerMillisecond):N4}ms");
+    //    //}
+    //    //catch (Exception e)
+    //    //{
+    //    //    Debug.LogError($"Could not read file! Show something on the UI here!");
+    //    //    InputField.text = "<color=#ff0000>Error reading save file!</color>";
+    //    //}
+    //    //catch
+    //    //{
+    //    //    Debug.LogError("Could not save file!");
+    //    //    //InputField.text = "<color=#ff0000>Error saving data!</color>";
+    //    //}
+    //}
+    //public void DeserializeJSon()
+    //{
+    //    string path = Application.persistentDataPath + "/player-stats.json";
+    //    if (File.Exists(path))
+    //    {
+    //        cellGrid = DataService.LoadData<CellGrid>("/player-stats.json");
+    //        //InputField.text = "Loaded data goes here";
+    //    }
+    //    else
+    //    {
+    //        using FileStream stream = File.Create(path);
+    //        stream.Close();
+    //    }
+    //    //try
+    //    //{
+
+    //    //}
+    //    //catch (Exception)
+    //    //{
+    //    //    Debug.LogError($"Could not read file! Show something on the UI here!");           
+    //    //}
+    //}
+
+    //public void ClearData()
+    //{
+    //    string path = Application.persistentDataPath + "/player-stats.json";
+    //    if (File.Exists(path))
+    //    {
+    //        File.Delete(path);
+    //        //InputField.text = "Loaded data goes here";
+    //    }
+    //}
+
     // Start is called before the first frame update
     void Start()
     {
-
+        //string path = Application.persistentDataPath + "/player-stats.json";
+        saveAndExitButton.onClick.AddListener(showPanel);
+        ConfirmationPanel.gameObject.SetActive(false);
+        ////savePath = "CurrentDate";
+        ////SerializeJson();
+        //if (new FileInfo(path).Length > 2) { 
+        //    DeserializeJSon(); 
+        //}
     }
+    void showPanel()
+    {
+        ConfirmationPanel.gameObject.SetActive(true);
+        YesButton.onClick.AddListener(SaveAndExit);
+        NoButton.onClick.AddListener(Continue);
+    }
+
+    private void Continue()
+    {
+        ConfirmationPanel.gameObject.SetActive(false);
+    }
+
+    void SaveAndExit()
+    {
+        //SaveGame();
+        //SceneManager.LoadScene("MenuScene");
+        DataPersistenceManager.instance.SaveGame();
+        Application.Quit();
+    }
+    //public void LoadData(GameData data)
+    //{
+    //    this.cellGrid = data.cellgrid;
+    //}
+
+    //public void SaveData(GameData data)
+    //{
+    //    data.cellgrid = this.cellGrid;
+    //}
+    //private void SaveGame()
+    //{
+    //    DateTime currentDate = DateTime.Now;
+    //    PlayerPrefs.SetString("CurrentDate", currentDate.ToString("o"));
+    //    PlayerPrefs.Save();
+    //}
+
+    //private void LoadGame()
+    //{
+    //    //if (PlayerPrefs.HasKey("CurrentDate"))
+    //    //{
+    //    //    string currentDateStr = PlayerPrefs.GetString(savePath);
+    //    //    DateTime currentDate = DateTime.Parse(currentDateStr);
+    //    //}
+    //}
 
     // Update is called once per frame
     void Update()
