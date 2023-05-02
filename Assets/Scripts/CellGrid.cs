@@ -42,7 +42,7 @@ public class CellGrid : MonoBehaviour
                 position.y = 0;
                 position.z = -100 + row * 10;
                 Cell cell = cells[row,col] = Instantiate<Cell>(cellPrefab);
-                //cells[i].Coordinate = new Position(x,z);
+                //cells[i].position = new Position(x,z);
 
                 //cells[x,z].X = (int)position.x;
                 //cells[x,z].Z = (int)position.z;
@@ -51,7 +51,7 @@ public class CellGrid : MonoBehaviour
                 cells[row, col].X = position.x;
                 cells[row, col].Z = position.z;
 
-                //Debug.Log("cell coordinate (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
+                //Debug.Log("cell position (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
 
                 cell.transform.SetParent(_transform_CellGrid, false);
                 cell.transform.localPosition = position;
@@ -98,10 +98,10 @@ public class CellGrid : MonoBehaviour
     //    position.z = a.z + (z * 10f);
     //    //Debug.Log("cell content x:" + position.x + " z:" + position.z);
     //    Cell cell = cells[i] = Instantiate<Cell>(cellPrefab);
-    //    //cells[i].Coordinate = new Position(x,z);
+    //    //cells[i].position = new Position(x,z);
     //    cells[i].X = position.x;
     //    cells[i].Z = position.z;
-    //    //Debug.Log("cell coordinate (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
+    //    //Debug.Log("cell position (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
 
     //    cell.transform.SetParent(_transform_CellGrid, false);
     //    cell.transform.localPosition = position;
@@ -116,7 +116,7 @@ public class CellGrid : MonoBehaviour
 
         Road road = mainRoad[row,col] = Instantiate<Road>(roadPrefab);
         cells[row, col].isFree = false;
-        mainRoad[row, col].Coordinate = new Position(row, col);
+        mainRoad[row, col].position = new Position(row, col);
         mainRoad[row, col].coverage = 1;
         roadHandler.Routes[row, col] = 1;
         roadHandler.MainRoad[row, col] = 1;
@@ -153,12 +153,26 @@ public class CellGrid : MonoBehaviour
         }
     }
 
+    public MapObject findMapObject(Position pos) 
+    { 
+        MapObject res = null; 
+        foreach(MapObject mapObject in mapObjects) 
+        { 
+            // Debug.Log(mapObject.position);
+            if(mapObject.position.Equals(pos)) 
+            {
+                res = mapObject; 
+            } 
+        } 
+        return res; 
+    }
+
     public void addMapObject(GameObject buildingObj, BuildingPreset buildingPreset, int coverage, int x, int z)
     {
         MapObject mapObject = MapObject.getMapObject(buildingPreset.displayName, buildingObj);
         mapObject.ID = buildingObj.GetInstanceID();
         //Debug.Log(((x + 100)/10) + " " + ((z + 100)/10) + " " + coverage);
-        mapObject.Coordinate = new Position((x + 100)/10, (z+100)/10);
+        mapObject.position = new Position((x + 100)/10, (z+100)/10);
         mapObject.coverage = coverage;
         if(buildingPreset.displayName.Equals("Road"))
         {
@@ -198,8 +212,10 @@ public class CellGrid : MonoBehaviour
         return canBeRemoved;
     }
 
+
     public void addRoad(MapObject mapObject)
     {
-        roadHandler.Routes[mapObject.Coordinate.z, mapObject.Coordinate.x] = 1;
+        roadHandler.Routes[mapObject.position.z, mapObject.position.x] = 1;
     }
+
 }

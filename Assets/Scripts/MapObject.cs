@@ -5,10 +5,9 @@ using UnityEngine;
 public class MapObject : MonoBehaviour
 {
     protected bool isConnectedToPublicRoad = false;
-    Position coordinate;
     public int ID { get; set; }
 
-    public Position Coordinate { get; set; }
+    public Position position;
     public int coverage;
 
     public static MapObject getMapObject(string type, GameObject gameObject)

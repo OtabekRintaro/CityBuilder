@@ -172,7 +172,7 @@ public class BuildingPlacer : MonoBehaviour
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
-        Debug.Log(cellGrid.cells.GetLength(0));
+        // Debug.Log(cellGrid.cells.GetLength(0));
         for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
         {
             for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
@@ -181,7 +181,7 @@ public class BuildingPlacer : MonoBehaviour
                 cellGrid.cells[i, k].Z == curPlacementPos.z)
                 {
                     isPlaceable = isPlaceable || assign_cells(i, k);
-                    Debug.Log(assign_cells(i,k));
+                    // Debug.Log(assign_cells(i,k));
                 }
                 
             }

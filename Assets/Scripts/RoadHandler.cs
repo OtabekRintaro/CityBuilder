@@ -19,8 +19,8 @@ public class RoadHandler
     {
         bool found = false;
 
-        int row = mapObject.Coordinate.x;
-        int col = mapObject.Coordinate.z;
+        int row = mapObject.position.x;
+        int col = mapObject.position.z;
 
         Position bottomLeftCorner = new Position(row - (mapObject.coverage / 2), col - (mapObject.coverage / 2));
 
@@ -45,7 +45,7 @@ public class RoadHandler
     {
         bool hasConnection = false;
 
-        hasConnection = bfs(mapObject, road.Coordinate.z, road.Coordinate.x, new int[SizeOfGraph, SizeOfGraph]);
+        hasConnection = bfs(mapObject, road.position.z, road.position.x, new int[SizeOfGraph, SizeOfGraph]);
 
         return hasConnection;
     }
@@ -73,10 +73,10 @@ public class RoadHandler
         {
             return bfs(mapObject, row + 1, col, used) || bfs(mapObject, row - 1, col, used) || bfs(mapObject, row, col + 1, used) || bfs(mapObject, row, col - 1, used);
         }
-        int lowerBoundCol = mapObject.Coordinate.x - mapObject.coverage / 2;
-        int upperBoundCol = mapObject.Coordinate.x + mapObject.coverage / 2;
-        int lowerBoundRow = mapObject.Coordinate.z - mapObject.coverage / 2;
-        int upperBoundRow = mapObject.Coordinate.z + mapObject.coverage / 2;
+        int lowerBoundCol = mapObject.position.x - mapObject.coverage / 2;
+        int upperBoundCol = mapObject.position.x + mapObject.coverage / 2;
+        int lowerBoundRow = mapObject.position.z - mapObject.coverage / 2;
+        int upperBoundRow = mapObject.position.z + mapObject.coverage / 2;
         if (row >= lowerBoundRow && row <= upperBoundRow && col >= lowerBoundCol && col <= upperBoundCol)
             return true;
         return false;

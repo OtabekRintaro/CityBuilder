@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResidentialZone : MapObject
 {
-    public Position position;
+    // public Position position;
     public int population;
     public int satisfaction;
     public bool workConnection;
@@ -19,6 +19,8 @@ public class ResidentialZone : MapObject
         this.mainRoadConnection = mainRoadConnection;
     }
 
+    public ResidentialZone(){}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,10 +34,10 @@ public class ResidentialZone : MapObject
     }
 
 
-    public static void CalculateSatisfaction(ResidentialZone residentialZones, Cell[,] cityMatrix, int tax, int budget)
+    public static void CalculateSatisfaction(ResidentialZone resZone, Cell[,] cityMatrix, int tax, int budget)
     {
-        int row = resZone.Position.x;
-        int col = resZone.Position.z;
+        int row = resZone.position.x;
+        int col = resZone.position.z;
 
         // Check for police in radius 8
         bool policeNearby = false;
@@ -93,7 +95,7 @@ public class ResidentialZone : MapObject
         if (tax < 5) satisfaction++;
         if (budget < 0) satisfaction--;
 
-        resZone.Satisfaction = satisfaction;
+        resZone.satisfaction = satisfaction;
     }
 
 
@@ -271,23 +273,22 @@ public class ResidentialZone : MapObject
     // }
 
     // version 0.3
-    public void AdjustPopulation(Dictionary<Vector2, ResidentialZone> residenceZones) {
-        foreach (ResidenceZone zone in residenceZones.Values) {
-            float satisfaction = CalculateSatisfaction(zone, cellGrid, 5, 10000);
-            if (satisfaction >= 8) {
-                zone.population += 10;
-            } else if (satisfaction >= 6) {
-                zone.population += 5;
-            } else if (satisfaction >= 4) {
-                zone.population += 2;
-            } else if (satisfaction >= 2 && zone.population > 1) {
-                zone.population -= 2;
-            } else if (zone.population > 5){
-                zone.population -= 5;
-            } else {
-                zone.population = 0;
-            }
+    public static void AdjustPopulation(ResidentialZone zone) {
+        if (zone.satisfaction >= 8) {
+            zone.population += 10;
+        } else if (zone.satisfaction >= 6) {
+            zone.population += 5;
+        } else if (zone.satisfaction >= 4) {
+            zone.population += 2;
+        } else if (zone.satisfaction >= 2 && zone.population > 1) {
+            zone.population -= 2;
+        } else{
+            zone.population -= 5;
         }
+        if (zone.population < 0)
+            zone.population = 0;
+        if (zone.population > 1000)
+            zone.population = 1000;
     }
 
     // // checks if two zones are connected
