@@ -143,10 +143,10 @@ get-activation-file:
     paths:
       - $UNITY_DIR/Builds/
 
-build-StandaloneLinux64:
-  <<: *build
-  variables:
-    BUILD_TARGET: StandaloneLinux64
+#build-StandaloneLinux64:
+#  <<: *build
+#  variables:
+#    BUILD_TARGET: StandaloneLinux64
 
 build-StandaloneWindows64:
   <<: *build
