@@ -14,16 +14,10 @@ public class CellGrid : MonoBehaviour
     public Road roadPrefab;
 
 
-<<<<<<< HEAD
-    Cell[] cells;
-    Road[] mainRoad;
-    // Road[] roads; 
-    RoadHandler roadHandler;
-=======
     public Cell[,] cells;
-    public Road[] mainRoad;
+    public Road[,] mainRoad;
+    // Road[] roads; 
     public RoadHandler roadHandler;
->>>>>>> origin/cellgrid_matrix_version
 
     private void Awake()
     {
@@ -91,25 +85,9 @@ public class CellGrid : MonoBehaviour
     //    cell.transform.localPosition = position;
     //}
 
-<<<<<<< HEAD
-=======
-    //void CreateRoad(int x, int z, int j)
-    //{
-    //    Vector3 position;
-    //    position.x = x * 10f;
-    //    position.y = 0.3f;
-    //    position.z = z * 10f;
+    
 
-    //    Road road = mainRoad[j] = Instantiate<Road>(roadPrefab);
-    //    cells[(width * z - 1) + x + 1].isFree = false;
-    //    mainRoad[j].Coordinate = new Position(x,z);
-    //    roadHandler.Routes[z, x] = 1;
-
-    //    road.transform.SetParent(_transform_CellGrid, false);
-    //    road.transform.localPosition = position;
-    //}
->>>>>>> origin/cellgrid_matrix_version
-
+    
     // Start is called before the first frame update
     void Start()
     {

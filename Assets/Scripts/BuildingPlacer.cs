@@ -300,7 +300,7 @@ public class BuildingPlacer : MonoBehaviour
                     if (cellGrid.cells[x, z].isFree)
                     {
                         cellGrid.cells[x, z].isFree = false;
-                        cellGrid.cells[x, z].Type = curBuildingPreset.displayName;
+                        cellGrid.cells[x, z].Type = curBuildingPreset.displayName; 
                         cellGrid.cells[x, z].ID = randomNumber;
                         //Debug.Log(cellGrid.cells[x, z] + "id is: " + cellGrid.cells[x, z].ID);
                     }
