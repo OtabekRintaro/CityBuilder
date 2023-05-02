@@ -47,7 +47,7 @@ public class CellGrid : MonoBehaviour
                 //cells[x,z].X = (int)position.x;
                 //cells[x,z].Z = (int)position.z;
                 
-                cells[row,col] = cell;
+                cells[row, col] = cell;
                 cells[row, col].X = position.x;
                 cells[row, col].Z = position.z;
 
@@ -114,9 +114,9 @@ public class CellGrid : MonoBehaviour
         position.y = 0.3f;
         position.z = -100 + row * 10;
 
-        Road road = mainRoad[row,col] = Instantiate<Road>(roadPrefab);
+        Road road = mainRoad[row, col] = Instantiate<Road>(roadPrefab);
         cells[row, col].isFree = false;
-        mainRoad[row, col].Coordinate = new Position(row, col);
+        mainRoad[row, col].position = new Position(row, col);
         mainRoad[row, col].coverage = 1;
         roadHandler.Routes[row, col] = 1;
         roadHandler.MainRoad[row, col] = 1;
@@ -147,17 +147,46 @@ public class CellGrid : MonoBehaviour
             }
             else
             {
-                
+                //Debug.Log("Connected!");
             }
         }
+    }
+
+    //public GameObject findGameObject(Position position)
+    //{
+    //    GameObject gameObject = null;
+
+    //    GameObject[] gameObjects = gameScene.GetRootGameObjects();
+
+    //    foreach (GameObject gameObject in gameObjects)
+    //    {
+    //        if (gameObject.name.Equals("Prefabs"))
+    //            foreach (Transform transform in gameObject.GetComponentsInChildren<Transform>())
+    //                transform.position = new Vector3(-99999, -99999, -99999);
+
+    //    }
+
+    //    return gameObject;
+    //}
+
+    public MapObject findMapObject(Position pos)
+    {
+        MapObject res = null;
+        foreach(MapObject mapObject in mapObjects)
+        {
+            if(mapObject.position.Equals(pos))
+            {
+                res = mapObject;
+            }
+        }
+        return res;
     }
 
     public void addMapObject(GameObject buildingObj, BuildingPreset buildingPreset, int coverage, int x, int z)
     {
         MapObject mapObject = MapObject.getMapObject(buildingPreset.displayName, buildingObj);
         mapObject.ID = buildingObj.GetInstanceID();
-        //Debug.Log(((x + 100)/10) + " " + ((z + 100)/10) + " " + coverage);
-        mapObject.Coordinate = new Position((x + 100)/10, (z+100)/10);
+        mapObject.position = new Position(x, z);
         mapObject.coverage = coverage;
         if(buildingPreset.displayName.Equals("Road"))
         {
@@ -190,15 +219,14 @@ public class CellGrid : MonoBehaviour
                     canBeRemoved = false;
                 }
             }
-            return canBeRemoved;
         }
-
-        mapObjects.RemoveAt(index);
+        if(canBeRemoved)
+            mapObjects.RemoveAt(index);
         return canBeRemoved;
     }
 
     public void addRoad(MapObject mapObject)
     {
-        roadHandler.Routes[mapObject.Coordinate.z, mapObject.Coordinate.x] = 1;
+        roadHandler.Routes[mapObject.position.x, mapObject.position.z] = 1;
     }
 }

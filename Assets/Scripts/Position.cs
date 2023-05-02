@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class Position
 {
     public int x, z;
@@ -35,5 +35,17 @@ public class Position
     public string toString()
     {
         return "x:"+ x + " z:" + z;
+    }
+
+    public override bool Equals(object obj) {
+        if (obj == null) 
+            return false; 
+        if (obj is not Position) 
+            return false; 
+        Position o = (Position) obj; 
+        return o.x == this.x && o.z == this.z; 
+    }
+    public override int GetHashCode() {
+        return HashCode.Combine(x, z); 
     }
 }
