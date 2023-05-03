@@ -274,21 +274,24 @@ public class ResidentialZone : MapObject
 
     // version 0.3
     public static void AdjustPopulation(ResidentialZone zone) {
-        if (zone.satisfaction >= 8) {
-            zone.population += 10;
-        } else if (zone.satisfaction >= 6) {
-            zone.population += 5;
-        } else if (zone.satisfaction >= 4) {
-            zone.population += 2;
-        } else if (zone.satisfaction >= 2 && zone.population > 1) {
-            zone.population -= 2;
-        } else{
-            zone.population -= 5;
-        }
-        if (zone.population < 0)
-            zone.population = 0;
-        if (zone.population > 1000)
-            zone.population = 1000;
+        //if(zone.mainRoadConnection)
+        //{
+            if (zone.satisfaction >= 8) {
+                zone.population += 10;
+            } else if (zone.satisfaction >= 6) {
+                zone.population += 5;
+            } else if (zone.satisfaction >= 4) {
+                zone.population += 2;
+            } else if (zone.satisfaction >= 2 && zone.population > 1) {
+                zone.population -= 2;
+            } else{
+                zone.population -= 5;
+            }
+            if (zone.population < 0)
+                zone.population = 0;
+            if (zone.population > 1000)
+                zone.population = 1000;
+        //}
     }
 
     // // checks if two zones are connected

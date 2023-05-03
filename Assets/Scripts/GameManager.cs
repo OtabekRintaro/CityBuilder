@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<Position, ResidentialZone> dictResidentialZones = new Dictionary<Position, ResidentialZone>();
     public int generalSatisfaction = 0;
     public int generalPopulation = 0;
-    public int generalBudget = 10000;
+    public int generalBudget = 20000;
     public InfoBar infoBar;
     private DateTime currentDate = new DateTime(1900, 1, 1);
+    private DateTime currentMonth = new DateTime(1900, 1, 1);
 
     [SerializeField]
     CellGrid map;
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spendMoney();
+        infoBar.budgetHandler.number = generalBudget;
         // Debug.Log(dictResidentialZones);
         if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed5Seconds(currentDate))
         {
@@ -43,12 +46,25 @@ public class GameManager : MonoBehaviour
                 // Debug.Log(generalSatisfaction);
             }
             infoBar.populationHandler.number = generalPopulation;
+            infoBar.satisfactionHandler.number = generalSatisfaction;
             //infoBar = new InfoBar();
         }
-        
+        if(infoBar.dateHandler.hasPassedMonth(currentMonth))
+        {
+            infoBar.budgetHandler.number += 1000;
+            currentMonth = infoBar.dateHandler.currentDate;
+        }
     }
 
-
+    public void spendMoney()
+    {
+        //Debug.Log(map.spentMoney.Count > 0);   
+        if(map.spentMoney.Count > 0)
+        {
+            generalBudget -= map.spentMoney[0];
+            map.spentMoney.RemoveAt(0);
+        }
+    }
     // get array of residential zones
     public ResidentialZone[] GetResidentialZones(Cell[,] cellGrid)
     {

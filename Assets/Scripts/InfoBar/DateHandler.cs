@@ -137,4 +137,10 @@ public class DateHandler : MonoBehaviour, IDataPersistence
         int day1 = currentDate.Day; int day2 = date.Day;
         return day1 - day2 >= 5;
     }
+
+    public bool hasPassedMonth(DateTime date)
+    {
+        int day1 = currentDate.Month; int day2 = date.Month;
+        return day1 - day2 >= 1;
+    }
 }
