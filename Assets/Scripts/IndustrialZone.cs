@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfoBar : MonoBehaviour
+public class IndustrialZone : MapObject
 {
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,6 @@ public class InfoBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

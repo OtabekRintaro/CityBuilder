@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935cff8068101e746917ea631e724c7f, type: 3}
   m_Name: IndustrialZone
   m_EditorClassIdentifier: 
-  displayName: Industrial Zone
+  displayName: IndustrialZone
   prefab: {fileID: 8053311197253865197, guid: 9575d5f3eb8f66d47b913563fcf59263, type: 3}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2246038793351563058}
   m_Layer: 0
   m_Name: road_black
-  m_TagString: Untagged
+  m_TagString: selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,3 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f36bcd7b3357f4d91ff17a0dd5ba8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coverage: 0
+  cost: 0
