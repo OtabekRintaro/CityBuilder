@@ -19,6 +19,7 @@ public class CellGrid : MonoBehaviour
     public Road[,] mainRoad;
     public RoadHandler roadHandler;
     public List<MapObject> mapObjects = new ();
+    public List<int> spentMoney = new ();
 
     private void Awake()
     {
@@ -198,6 +199,8 @@ public class CellGrid : MonoBehaviour
             addRoad(mapObject);
         }
         mapObjects.Add(mapObject);
+        Debug.Log(MapObject.getCost(buildingPreset.displayName));
+        spentMoney.Add(MapObject.getCost(buildingPreset.displayName));
     }
 
     public bool removeMapObject(int ID)

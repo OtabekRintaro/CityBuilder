@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public Button newGameButton;
     public Button quitButton;
     private BuildingPlacer b;
+    DataPersistenceManager dataPersistanceManager;
     void Start()
     {
         continueButton.onClick.AddListener(ContinueGame);
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     {
         //b.DeserializeJSon();
         SceneManager.LoadScene("GameScene");
+        //dataPersistanceManager = new DataPersistenceManager();
         DataPersistenceManager.instance.LoadGame();
     }
 
@@ -27,6 +29,8 @@ public class MainMenu : MonoBehaviour
     {
        // b.ClearData();
         SceneManager.LoadScene("GameScene");
+        //dataPersistanceManager = new DataPersistenceManager();
+        // Debug.Log(DataPersistenceManager.instance);
         DataPersistenceManager.instance.NewGame();
     }
 

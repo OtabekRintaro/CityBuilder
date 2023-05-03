@@ -13,12 +13,12 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     public Button decreaseSpeedButton;
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI pausedText;
+    public bool isPaused = false;
+    public DateTime currentDate;
     //public static DateHandler inst;
     //private float lastUpdateTime;
     //private float updateRate= 2f;
 
-    private DateTime currentDate;
-    private bool isPaused = false;
     private float timeScale = 1f;
 
     IEnumerator IncreaseDate()
@@ -131,4 +131,10 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     //        lastUpdateTime = Time.time;
     //    }
     //}
+
+    public bool hasPassed5Seconds(DateTime date)
+    {
+        int day1 = currentDate.Day; int day2 = date.Day;
+        return day1 - day2 >= 5;
+    }
 }

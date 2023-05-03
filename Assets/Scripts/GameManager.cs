@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<Position, ResidentialZone> dictResidentialZones = new Dictionary<Position, ResidentialZone>();
     public int generalSatisfaction = 0;
     public int generalPopulation = 0;
+    public int generalBudget = 10000;
+    public InfoBar infoBar;
+    private DateTime currentDate = new DateTime(1900, 1, 1);
+
     [SerializeField]
     CellGrid map;
 
@@ -21,20 +25,27 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Debug.Log(dictResidentialZones);
-        Cell[,] cellGrid = map.cells;
-        ResidentialZone[] resZones = GetResidentialZones(cellGrid);
-        UpdateResidentialZones(resZones, dictResidentialZones);
-        generalPopulation = 0;
-        generalSatisfaction = 5;
-        foreach (ResidentialZone zone in dictResidentialZones.Values)
+        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed5Seconds(currentDate))
         {
-            ResidentialZone.CalculateSatisfaction(zone, cellGrid, 5, 100000);
-            ResidentialZone.AdjustPopulation(zone);
-            generalPopulation += zone.population;
-            generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
-            Debug.Log(generalPopulation);
-            Debug.Log(generalSatisfaction);
+            currentDate = infoBar.dateHandler.currentDate;
+            Cell[,] cellGrid = map.cells;
+            ResidentialZone[] resZones = GetResidentialZones(cellGrid);
+            UpdateResidentialZones(resZones, dictResidentialZones);
+            generalPopulation = 0;
+            generalSatisfaction = 5;
+            foreach (ResidentialZone zone in dictResidentialZones.Values)
+            {
+                ResidentialZone.CalculateSatisfaction(zone, cellGrid, 5, 100000);
+                ResidentialZone.AdjustPopulation(zone);
+                generalPopulation += zone.population;
+                generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
+                // Debug.Log(zone.population);
+                // Debug.Log(generalSatisfaction);
+            }
+            infoBar.populationHandler.number = generalPopulation;
+            //infoBar = new InfoBar();
         }
+        
     }
 
 
@@ -43,7 +54,6 @@ public class GameManager : MonoBehaviour
     {
         List<ResidentialZone> residentialZones = new List<ResidentialZone>();
         
-        Debug.Log(cellGrid[0, 0].X);
         for (int x = 1; x < cellGrid.GetLength(0) - 1; x += 1)
         {
             for (int z = 1; z < cellGrid.GetLength(1) - 1; z += 1)
@@ -62,20 +72,15 @@ public class GameManager : MonoBehaviour
                             }
                         }
                         if (!allIdsMatch) break;
-                    }
-
-                    // if (map.findMapObject(new Position(x, z)) != null)
-
-                    
-                    if (allIdsMatch) // && map.findMapObject(new Position(x, z)) != null)
+                    }                  
+                    if (allIdsMatch)
                     {
-                        // Debug.Log(map.findMapObject(new Position(z, x)) );
-                        ResidentialZone residentialZone = new ResidentialZone(new Position(x, z), 0, 5, false, false);
-                        // ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z)); //new ResidentialZone(new Position(x, z), 0, 5, false, false);
-                        // residentialZone.population = 0;
-                        // residentialZone.satisfaction = 5;
-                        // residentialZone.workConnection = false;
-                        // residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+                        // Debug.Log(map.findMapObject(new Position(x, z)) );
+                        ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z));
+                        residentialZone.population = 0;
+                        residentialZone.satisfaction = 5;
+                        residentialZone.workConnection = false;
+                        residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
                         residentialZones.Add(residentialZone);
                     }
                 }
@@ -121,7 +126,15 @@ public class GameManager : MonoBehaviour
         // Add the new keys to the dictionary
         foreach (Position key in toAdd)
         {
-            zonesDict.Add(key, new ResidentialZone(key, 0, 5, false, false));
+            //ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
+            ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
+            
+            // residentialZone = (ResidentialZone) map.findMapObject(key);
+            // residentialZone.population = 0;
+            // residentialZone.satisfaction = 5;
+            // residentialZone.workConnection = false;
+            // residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+            zonesDict.Add(key, residentialZone);
         }
     }     
 }

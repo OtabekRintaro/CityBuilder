@@ -9,6 +9,7 @@ public class MapObject : MonoBehaviour
 
     public Position position;
     public int coverage;
+    public int cost;
 
     public static MapObject getMapObject(string type, GameObject gameObject)
     {
@@ -25,6 +26,23 @@ public class MapObject : MonoBehaviour
         if (type.Equals("Police"))
             return gameObject.AddComponent<Police>();
         return null;
+    }
+
+    public static int getCost(string type)
+    {
+        if (type.Equals("ResidentialZone"))
+            return 200;
+        if (type.Equals("IndustrialZone"))
+            return 200;
+        if (type.Equals("CommercialZone"))
+            return 200;
+        if (type.Equals("Road"))
+            return 50;
+        if (type.Equals("Stadium"))
+            return 400;
+        if (type.Equals("Police"))
+            return 50;
+        return 0;
     }
 
     public bool checkPublicRoadConnection()
