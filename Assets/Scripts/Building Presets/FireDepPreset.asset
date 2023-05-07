@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935cff8068101e746917ea631e724c7f, type: 3}
-  m_Name: Forest
+  m_Name: FireDepPreset
   m_EditorClassIdentifier: 
-  displayName: 
-  prefab: {fileID: 0}
+  displayName: FireDepartment
+  prefab: {fileID: 3679937551817644916, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
