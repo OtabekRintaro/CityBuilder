@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935cff8068101e746917ea631e724c7f, type: 3}
   m_Name: Forest
   m_EditorClassIdentifier: 
-  displayName: 
-  prefab: {fileID: 0}
+  displayName: Forest
+  prefab: {fileID: 3334487042228260420, guid: 195acbc203b5a454eb3b27c26fd7ba6a, type: 3}
