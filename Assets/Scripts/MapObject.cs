@@ -7,6 +7,7 @@ public class MapObject : MonoBehaviour
     protected bool isConnectedToPublicRoad = false;
     public int ID { get; set; }
 
+    public int publicRoads = 0;
     public Position position;
     public int coverage;
     public int cost;

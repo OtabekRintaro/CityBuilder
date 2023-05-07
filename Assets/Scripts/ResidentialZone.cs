@@ -274,8 +274,8 @@ public class ResidentialZone : MapObject
 
     // version 0.3
     public static void AdjustPopulation(ResidentialZone zone) {
-        //if(zone.mainRoadConnection)
-        //{
+        if (zone.checkPublicRoadConnection())
+        {
             if (zone.satisfaction >= 8) {
                 zone.population += 10;
             } else if (zone.satisfaction >= 6) {
@@ -291,7 +291,7 @@ public class ResidentialZone : MapObject
                 zone.population = 0;
             if (zone.population > 1000)
                 zone.population = 1000;
-        //}
+        }
     }
 
     // // checks if two zones are connected

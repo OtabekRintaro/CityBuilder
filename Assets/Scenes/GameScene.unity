@@ -4921,7 +4921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementIndicator: {fileID: 489981935}
-  map: {fileID: 0}
+  map: {fileID: 2136304505}
   blueprintCellPrefab: {fileID: 1549978005}
   blueprintCells: []
   cellLayer:
@@ -4961,7 +4961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0970ed074bfa79a488bbe95ba84d114c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generalSatisfaction: 0
+  generalSatisfaction: 5
   generalPopulation: 0
   generalBudget: 20000
   infoBar: {fileID: 97305209}

@@ -132,15 +132,22 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     //    }
     //}
 
-    public bool hasPassed5Seconds(DateTime date)
+    public bool hasPassedSecond(DateTime date)
     {
         int day1 = currentDate.Day; int day2 = date.Day;
-        return day1 - day2 >= 5;
+        return day1 - day2 >= 1;
+    }
+
+
+    public bool hasPassed3Seconds(DateTime date)
+    {
+        int day1 = currentDate.Day; int day2 = date.Day;
+        return day1 - day2 >= 3;
     }
 
     public bool hasPassedMonth(DateTime date)
     {
-        int day1 = currentDate.Month; int day2 = date.Month;
-        return day1 - day2 >= 1;
+        int month1 = currentDate.Month; int month2 = date.Month;
+        return month1 - month2 >= 1;
     }
 }

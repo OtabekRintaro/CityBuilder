@@ -22,6 +22,7 @@ public class Map : MonoBehaviour
     public RoadHandler roadHandler;
     public List<MapObject> mapObjects = new ();
     public List<int> spentMoney = new ();
+    public bool hasSomethingChanged = false;
 
     private void Awake()
     {
@@ -176,7 +177,24 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(hasSomethingChanged)
+        {
+            resetMapObjects();
+            hasSomethingChanged = false;
+        }
         checkPublicRoadConnectivity();
+    }
+
+    public void resetMapObjects()
+    {
+        foreach (MapObject mapObject in mapObjects)
+        {
+            if (mapObject is not Forest && object.ReferenceEquals(mainRoad[mapObject.position.x, mapObject.position.z], null))
+            {
+                mapObject.publicRoads = 0;
+                mapObject.connectToPublicRoad(false);
+            }
+        }
     }
 
     public void checkPublicRoadConnectivity()
@@ -185,7 +203,7 @@ public class Map : MonoBehaviour
         {
             if(!mapObject.checkPublicRoadConnection())
             {
-                mapObject.connectToPublicRoad(roadHandler.findPublicRoad(mapObject));
+                    mapObject.connectToPublicRoad(roadHandler.findPublicRoad(mapObject));
             }
             else
             {
@@ -235,7 +253,8 @@ public class Map : MonoBehaviour
             addRoad(mapObject);
         }
         mapObjects.Add(mapObject);
-        Debug.Log(MapObject.getCost(buildingPreset.displayName));
+        hasSomethingChanged = true;
+        //Debug.Log(MapObject.getCost(buildingPreset.displayName));
         spentMoney.Add(MapObject.getCost(buildingPreset.displayName));
     }
 
@@ -258,14 +277,31 @@ public class Map : MonoBehaviour
         {
             foreach(MapObject mapObject in mapObjects)
             {
-                if(mapObject is not Road && roadHandler.checkConnection(mapObject, mapObjects[index]))
+                if(mapObject is not Road && mapObject is not Forest && roadHandler.checkConnection(mapObject, mapObjects[index]) && mapObject.publicRoads == 1)
                 {
                     canBeRemoved = false;
                 }
             }
+
+            if(canBeRemoved)
+            {
+                roadHandler.Routes[mapObjects[index].position.x, mapObjects[index].position.z] = 0;
+                foreach (MapObject mapObject in mapObjects)
+                {
+                    if (mapObject is not Road && mapObject is not Forest && roadHandler.checkConnection(mapObject, mapObjects[index]))
+                    {
+                        mapObject.publicRoads--;
+                    }
+                }
+            }
         }
+
         if(canBeRemoved)
+        {
             mapObjects.RemoveAt(index);
+            hasSomethingChanged = true;
+        }
+
         return canBeRemoved;
     }
 

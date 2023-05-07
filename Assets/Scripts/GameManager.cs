@@ -27,8 +27,7 @@ public class GameManager : MonoBehaviour
     {
         spendMoney();
         infoBar.budgetHandler.number = generalBudget;
-        // Debug.Log(dictResidentialZones);
-        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed5Seconds(currentDate))
+        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
@@ -38,20 +37,18 @@ public class GameManager : MonoBehaviour
             generalSatisfaction = 5;
             foreach (ResidentialZone zone in dictResidentialZones.Values)
             {
-                ResidentialZone.CalculateSatisfaction(zone, cellGrid, 5, 100000);
+                ResidentialZone.CalculateSatisfaction(zone, cellGrid, infoBar.taxHandler.taxValue, infoBar.budgetHandler.number);
                 ResidentialZone.AdjustPopulation(zone);
                 generalPopulation += zone.population;
                 generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
-                // Debug.Log(zone.population);
-                // Debug.Log(generalSatisfaction);
             }
             infoBar.populationHandler.number = generalPopulation;
             infoBar.satisfactionHandler.number = generalSatisfaction;
-            //infoBar = new InfoBar();
         }
         if(infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
-            infoBar.budgetHandler.number += infoBar.taxHandler.taxValue * 1000;
+            generalBudget += infoBar.taxHandler.taxValue * 1000;
+            infoBar.budgetHandler.number = generalBudget;
             currentMonth = infoBar.dateHandler.currentDate;
         }
     }
@@ -91,11 +88,8 @@ public class GameManager : MonoBehaviour
                     }                  
                     if (allIdsMatch)
                     {
-                        // Debug.Log(map.findMapObject(new Position(x, z)) );
                         ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z));
-                        residentialZone.population = 0;
-                        residentialZone.satisfaction = 5;
-                        residentialZone.workConnection = false;
+                        residentialZone.connectToPublicRoad(residentialZone.checkPublicRoadConnection());
                         residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
                         residentialZones.Add(residentialZone);
                     }
@@ -142,14 +136,14 @@ public class GameManager : MonoBehaviour
         // Add the new keys to the dictionary
         foreach (Position key in toAdd)
         {
-            //ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
-            ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
+            ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
+            //ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
             
-            // residentialZone = (ResidentialZone) map.findMapObject(key);
-            // residentialZone.population = 0;
-            // residentialZone.satisfaction = 5;
-            // residentialZone.workConnection = false;
-            // residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+            residentialZone = (ResidentialZone) map.findMapObject(key);
+            residentialZone.population = 0;
+            residentialZone.satisfaction = 5;
+            residentialZone.workConnection = false;
+            residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
             zonesDict.Add(key, residentialZone);
         }
     }     
