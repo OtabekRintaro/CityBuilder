@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: IndustrialZone
   m_EditorClassIdentifier: 
   displayName: IndustrialZone
-  prefab: {fileID: 8053311197253865197, guid: 9575d5f3eb8f66d47b913563fcf59263, type: 3}
+  prefab: {fileID: 2771004715884267021, guid: 8dfcaac52ffe79e4f90d6d415e0d292d, type: 3}
