@@ -25,6 +25,10 @@ public class MapObject : MonoBehaviour
             return gameObject.AddComponent<Stadium>();
         if (type.Equals("Police"))
             return gameObject.AddComponent<Police>();
+        if (type.Equals("Forest"))
+            return gameObject.AddComponent<Forest>();
+        if (type.Equals("FireDepartment"))
+            return gameObject.AddComponent<FireDepartment>();
         return null;
     }
 

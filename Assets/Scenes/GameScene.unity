@@ -2425,7 +2425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4060579009187430862, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4060579009187430862, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2469,6 +2469,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
+--- !u!1 &752383919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3679937551817644916, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
+  m_PrefabInstance: {fileID: 752383918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &771111789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2735,7 +2740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3375769538630180744, guid: 195acbc203b5a454eb3b27c26fd7ba6a, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3375769538630180744, guid: 195acbc203b5a454eb3b27c26fd7ba6a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2779,6 +2784,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195acbc203b5a454eb3b27c26fd7ba6a, type: 3}
+--- !u!1 &886235662 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3334487042228260420, guid: 195acbc203b5a454eb3b27c26fd7ba6a, type: 3}
+  m_PrefabInstance: {fileID: 886235661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &886235663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886235662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3426f7f3d98a7b743bcabdfe9ea0c967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coverage: 1
+  cost: 50
 --- !u!1 &927316733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,7 +4921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementIndicator: {fileID: 489981935}
-  cellGrid: {fileID: 2136304505}
+  map: {fileID: 0}
   blueprintCellPrefab: {fileID: 1549978005}
   blueprintCells: []
   cellLayer:
@@ -5027,11 +5051,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5836269490662615969, guid: 922af400bb031c143b37a1fede0af2f2, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5836269490662615969, guid: 922af400bb031c143b37a1fede0af2f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 87.3
+      value: 91.56
       objectReference: {fileID: 0}
     - target: {fileID: 5836269490662615969, guid: 922af400bb031c143b37a1fede0af2f2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5039,7 +5063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5836269490662615969, guid: 922af400bb031c143b37a1fede0af2f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.5
+      value: 5.28
       objectReference: {fileID: 0}
     - target: {fileID: 5836269490662615969, guid: 922af400bb031c143b37a1fede0af2f2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5141,6 +5165,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4060579009187430862, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
   m_PrefabInstance: {fileID: 752383918}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1447755247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752383919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac4ff11c7a40604f99037dcb829516b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coverage: 0
+  cost: 0
 --- !u!1 &1497657239
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,7 +5816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1161418320433371396, guid: beb34a8d33e423546b51a844c4bb91c8, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1161418320433371396, guid: beb34a8d33e423546b51a844c4bb91c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6450,7 +6488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6851532959511979929, guid: 5d4901dc0ac243545aae699af252555e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6851532959511979929, guid: 5d4901dc0ac243545aae699af252555e, type: 3}
       propertyPath: m_LocalScale.x
@@ -6607,10 +6645,10 @@ Transform:
   - {fileID: 9022226011353380960}
   - {fileID: 1032068673}
   - {fileID: 1549978009}
+  - {fileID: 1741221997}
   - {fileID: 71013839}
   - {fileID: 654756350}
   - {fileID: 1447755246}
-  - {fileID: 1741221997}
   - {fileID: 106356213}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -7156,7 +7194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6260353453876808028, guid: 8dfcaac52ffe79e4f90d6d415e0d292d, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6260353453876808028, guid: 8dfcaac52ffe79e4f90d6d415e0d292d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7211,7 +7249,7 @@ GameObject:
   - component: {fileID: 2136304506}
   - component: {fileID: 2136304505}
   m_Layer: 3
-  m_Name: CellGrid
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7233,6 +7271,8 @@ MonoBehaviour:
   height: 30
   cellPrefab: {fileID: 128066476}
   roadPrefab: {fileID: 8714233735077759145}
+  forestPrefab: {fileID: 886235663}
+  forestBuildingPreset: {fileID: 11400000, guid: 426e2adcaec27e34584ca9e42dd2b78f, type: 2}
   mapObjects: []
   spentMoney: 
 --- !u!4 &2136304506

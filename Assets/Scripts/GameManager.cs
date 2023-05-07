@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private DateTime currentMonth = new DateTime(1900, 1, 1);
 
     [SerializeField]
-    CellGrid map;
+    Map map;
 
     // Start is called before the first frame update
     void Start()
