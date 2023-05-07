@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
         if(infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
-            infoBar.budgetHandler.number += 1000;
+            infoBar.budgetHandler.number += infoBar.taxHandler.taxValue * 1000;
             currentMonth = infoBar.dateHandler.currentDate;
         }
     }

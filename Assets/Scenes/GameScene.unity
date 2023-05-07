@@ -486,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   satisfaction: {fileID: 220249409}
   text: 'Satisfaction '
-  number: 10
+  number: 5
 --- !u!114 &220249409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalSatisfaction: 0
   generalPopulation: 0
-  generalBudget: 10000
+  generalBudget: 20000
   infoBar: {fileID: 97305209}
   map: {fileID: 2136304505}
 --- !u!1 &1362710746
