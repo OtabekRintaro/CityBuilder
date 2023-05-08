@@ -22,8 +22,16 @@ public class RoadHandler
         int row = mapObject.position.x;
         int col = mapObject.position.z;
 
+        if (mapObject.coverage == 1)
+        {
+            found = predfsForRoads(mapObject, row, col, new int[SizeOfGraph, SizeOfGraph], false) || found;
+            found = predfsForRoads(mapObject, row, col, new int[SizeOfGraph, SizeOfGraph], true) || found;
+
+            return found;
+        }
 
         Position bottomLeftCorner = new Position(row - (mapObject.coverage / 2), col - (mapObject.coverage / 2));
+
 
         //check top and bottom
         for(int z = 0; z < mapObject.coverage; z++)
@@ -59,7 +67,7 @@ public class RoadHandler
         if(found && ( mapObject is not Road && mapObject is not Forest))
         {
             mapObject.publicRoads++;
-            //Debug.Log(row + " " + col + " " + mapObject.publicRoads);
+            Debug.Log(row + " " + col + " " + mapObject.publicRoads);
         }
 
         return found;
