@@ -14,6 +14,9 @@ public class Map : MonoBehaviour
     public Cell cellPrefab;
     public Road roadPrefab;
     public Forest forestPrefab;
+    public House housePrefab;
+    public CommercialBuildings commercialBuildingsPrefab;
+    public IndustrialBuildings IndustrialBuildingsPrefab;
     public BuildingPreset forestBuildingPreset;
 
 
@@ -251,6 +254,21 @@ public class Map : MonoBehaviour
         if(buildingPreset.displayName.Equals("Road"))
         {
             addRoad(mapObject);
+        }
+        if(mapObject.gameObject.GetComponent<ResidentialZone>() is not null)
+        {
+            ResidentialZone zone = (ResidentialZone)mapObject;
+            zone.housePrefab = this.housePrefab;
+        }
+        if (mapObject.gameObject.GetComponent<IndustrialZone>() is not null)
+        {
+            IndustrialZone zone = (IndustrialZone)mapObject;
+            zone.factoryPrefab = this.IndustrialBuildingsPrefab;
+        }
+        if (mapObject.gameObject.GetComponent<CommercialZone>() is not null)
+        {
+            CommercialZone zone = (CommercialZone)mapObject;
+            zone.commercialBuildingsPrefab = this.commercialBuildingsPrefab;
         }
         mapObjects.Add(mapObject);
         hasSomethingChanged = true;

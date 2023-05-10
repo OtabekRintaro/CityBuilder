@@ -29,18 +29,31 @@ public class GameManager : MonoBehaviour
         infoBar.budgetHandler.number = generalBudget;
         if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
+            Debug.Log(1);
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
+            IndustrialZone[] indZones = GetIndustrialZones(cellGrid);
             ResidentialZone[] resZones = GetResidentialZones(cellGrid);
+            CommercialZone[] comZones = GetCommercialZones(cellGrid);
             UpdateResidentialZones(resZones, dictResidentialZones);
             generalPopulation = 0;
             generalSatisfaction = 5;
             foreach (ResidentialZone zone in dictResidentialZones.Values)
             {
-                ResidentialZone.CalculateSatisfaction(zone, cellGrid, infoBar.taxHandler.taxValue, infoBar.budgetHandler.number);
+                ResidentialZone.CalculateSatisfaction(zone, cellGrid, map, infoBar.taxHandler.taxValue, infoBar.budgetHandler.number);
                 ResidentialZone.AdjustPopulation(zone);
                 generalPopulation += zone.population;
                 generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
+            }
+            foreach(IndustrialZone zone in indZones)
+            {
+                if (!zone.hasFactory() && zone.checkPublicRoadConnection())
+                    zone.buildFactory();
+            }
+            foreach (CommercialZone zone in comZones)
+            {
+                if (!zone.hasCommercialBuildings() && zone.checkPublicRoadConnection())
+                    zone.buildCommercialBuildings();
             }
             infoBar.populationHandler.number = generalPopulation;
             infoBar.satisfactionHandler.number = generalSatisfaction;
@@ -50,6 +63,7 @@ public class GameManager : MonoBehaviour
             generalBudget += infoBar.taxHandler.taxValue * 1000;
             infoBar.budgetHandler.number = generalBudget;
             currentMonth = infoBar.dateHandler.currentDate;
+            currentDate = infoBar.dateHandler.currentDate;
         }
     }
 
@@ -62,6 +76,45 @@ public class GameManager : MonoBehaviour
             map.spentMoney.RemoveAt(0);
         }
     }
+
+    public CommercialZone[] GetCommercialZones(Cell[,] cellGrid)
+    {
+        List<CommercialZone> commercialZones = new List<CommercialZone>();
+        for (int x = 1; x < cellGrid.GetLength(0) - 1; x++)
+        {
+            for (int z = 1; z < cellGrid.GetLength(1) - 1; z++)
+            {
+                MapObject mapObject;
+                if ((mapObject = map.findMapObject(new Position(x, z))) is CommercialZone)
+                {
+                    CommercialZone commercialZone = (CommercialZone)mapObject;
+                    commercialZone.connectToPublicRoad(commercialZone.checkPublicRoadConnection());
+                    commercialZones.Add(commercialZone);
+                }
+            }
+        }
+        return commercialZones.ToArray();
+    }
+
+    public IndustrialZone[] GetIndustrialZones(Cell[,] cellGrid)
+    {
+        List<IndustrialZone> industrialZones = new List<IndustrialZone>();
+        for (int x = 1; x < cellGrid.GetLength(0) - 1; x++)
+        {
+            for (int z = 1; z < cellGrid.GetLength(1) - 1; z++)
+            {
+                MapObject mapObject;
+                if((mapObject = map.findMapObject(new Position(x,z))) is IndustrialZone)
+                {
+                    IndustrialZone industrialZone = (IndustrialZone)mapObject;
+                    industrialZone.connectToPublicRoad(industrialZone.checkPublicRoadConnection());
+                    industrialZones.Add(industrialZone);
+                }
+            }
+        }
+        return industrialZones.ToArray();
+    }
+
     // get array of residential zones
     public ResidentialZone[] GetResidentialZones(Cell[,] cellGrid)
     {
@@ -144,6 +197,7 @@ public class GameManager : MonoBehaviour
             residentialZone.satisfaction = 5;
             residentialZone.workConnection = false;
             residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+            
             zonesDict.Add(key, residentialZone);
         }
     }     
