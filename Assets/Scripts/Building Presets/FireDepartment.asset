@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935cff8068101e746917ea631e724c7f, type: 3}
-  m_Name: IndustrialZone
+  m_Name: FireDepartment
   m_EditorClassIdentifier: 
-  displayName: IndustrialZone
-  prefab: {fileID: 2771004715884267021, guid: 8dfcaac52ffe79e4f90d6d415e0d292d, type: 3}
+  displayName: FireDepartment
+  prefab: {fileID: 3679937551817644916, guid: 5d689ee69df14f844960d80f82c71574, type: 3}

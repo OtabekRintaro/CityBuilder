@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public CellGrid cellgrid;
+    public Map cellgrid;
     public DateTime currDate;
     //private int width = 30;
     //private int height = 30;

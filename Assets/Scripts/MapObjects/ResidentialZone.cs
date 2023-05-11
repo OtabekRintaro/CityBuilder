@@ -9,6 +9,9 @@ public class ResidentialZone : MapObject
     public int satisfaction;
     public bool workConnection;
     public bool mainRoadConnection;
+    public House housePrefab;
+
+    private List<House> houses = new ();
 
     public ResidentialZone(Position position, int population, int satisfaction, bool workConnection, bool mainRoadConnection)
     {
@@ -34,72 +37,136 @@ public class ResidentialZone : MapObject
     }
 
 
-    public static void CalculateSatisfaction(ResidentialZone resZone, Cell[,] cityMatrix, int tax, int budget)
+    public static void CalculateSatisfaction(ResidentialZone resZone, Cell[,] cityMatrix, Map map, int tax, int budget)
     {
         int row = resZone.position.x;
         int col = resZone.position.z;
 
         // Check for police in radius 8
-        bool policeNearby = false;
-        for (int i = row - 8; i <= row + 8 && !policeNearby; i++)
+        int policeNearby = 0;
+        for (int i = row - 8; i <= row + 8; i++)
         {
             if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
             for (int j = col - 8; j <= col + 8; j++)
             {
                 if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                if (cityMatrix[i,j].Type == "Police")
+                if (map.findMapObject(new Position(i, j)) is Police)
                 {
-                    policeNearby = true;
-                    break;
+                    policeNearby++;
                 }
             }
         }
 
         // Check for stadium in radius 12
-        bool stadiumNearby = false;
-        for (int i = row - 12; i <= row + 12 && !stadiumNearby; i++)
+        int stadiumNearby = 0;
+        for (int i = row - 12; i <= row + 12; i++)
         {
             if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
             for (int j = col - 12; j <= col + 12; j++)
             {
                 if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                if (cityMatrix[i, j].Type == "Stadium")
+                if (map.findMapObject(new Position(i, j)) is Stadium)
                 {
-                    stadiumNearby = true;
-                    break;
+                    stadiumNearby++;
                 }
             }
         }
 
         // Check for no industrial zone in radius 10
-        bool industrialNearby = false;
-        for (int i = row - 10; i <= row + 10 && !industrialNearby; i++)
+        int industrialNearby = 0;
+        for (int i = row - 10; i <= row + 10; i++)
         {
             if (i < 0 || i >= cityMatrix.GetLength(0)) continue;
             for (int j = col - 10; j <= col + 10; j++)
             {
                 if (j < 0 || j >= cityMatrix.GetLength(1)) continue;
-                if (cityMatrix[i, j].Type == "IndustrialZone")
+                if (map.findMapObject(new Position(i,j)) is IndustrialZone)
                 {
-                    industrialNearby = true;
-                    break;
+                    industrialNearby++;
                 }
             }
         }
 
         // Update satisfaction based on nearby zones and tax and budget
         int satisfaction = 5;
-        if (policeNearby) satisfaction++;
-        if (stadiumNearby) satisfaction++;
-        if (!industrialNearby) satisfaction++;
+        while (policeNearby > 0)
+        {
+            satisfaction++; policeNearby--;
+        }
+        while (stadiumNearby > 0)
+        {
+            satisfaction++; stadiumNearby--;
+        }
+        while (industrialNearby > 0)
+        {
+            satisfaction--; industrialNearby--;
+        }
+        Debug.Log(satisfaction);
         if (tax < 5) satisfaction++;
+        else satisfaction--;
         if (budget < 0) satisfaction--;
+        if (satisfaction > 10)
+            satisfaction = 10;
+        else if (satisfaction < 0)
+            satisfaction = 0;
 
         resZone.satisfaction = satisfaction;
     }
 
 
 
+
+    // version 0.3
+    public static void AdjustPopulation(ResidentialZone zone) {
+        if (zone.checkPublicRoadConnection())
+        {
+            if (zone.satisfaction >= 8) {
+                zone.population += 10;
+            } else if (zone.satisfaction >= 6) {
+                zone.population += 5;
+            } else if (zone.satisfaction >= 4) {
+                zone.population += 2;
+            } else if (zone.satisfaction >= 2 && zone.population > 1) {
+                zone.population -= 2;
+            } else{
+                zone.population -= 5;
+            }
+            if (zone.population < 0)
+                zone.population = 0;
+            if (zone.population > 1000)
+                zone.population = 1000;
+            if (zone.houses.Count == 0 && zone.population > 500)
+                zone.buildHouse();
+            else if (zone.houses.Count == 1 && zone.population >= 1000)
+                zone.buildHouse();
+            else if (zone.houses.Count == 2 && zone.population < 1000)
+                zone.demolishHouse();
+            else if (zone.houses.Count == 1 && zone.population < 500)
+                zone.demolishHouse();
+        }
+    }
+
+    public void buildHouse()
+    {
+        House house = Instantiate<House>(housePrefab);
+
+        Vector3 position;
+        position.x = -2f + houses.Count * 4;
+        position.y = 0;
+        position.z = -3.5f + houses.Count * 7;
+
+        houses.Add(house);
+        house.transform.SetParent(this.transform);
+        house.transform.localPosition = position;
+    }
+
+    public void demolishHouse()
+    {
+        Destroy(this.transform.GetChild(houses.Count).gameObject);
+        houses.RemoveAt(houses.Count-1);
+    }
+
+    // // checks if two zones are connected
     // public float CalculateSatisfaction(int[,] city, int x, int y) {
     //     int m = city.GetLength(0);
     //     int n = city.GetLength(1);
@@ -272,26 +339,6 @@ public class ResidentialZone : MapObject
     //     }
     // }
 
-    // version 0.3
-    public static void AdjustPopulation(ResidentialZone zone) {
-        if (zone.satisfaction >= 8) {
-            zone.population += 10;
-        } else if (zone.satisfaction >= 6) {
-            zone.population += 5;
-        } else if (zone.satisfaction >= 4) {
-            zone.population += 2;
-        } else if (zone.satisfaction >= 2 && zone.population > 1) {
-            zone.population -= 2;
-        } else{
-            zone.population -= 5;
-        }
-        if (zone.population < 0)
-            zone.population = 0;
-        if (zone.population > 1000)
-            zone.population = 1000;
-    }
-
-    // // checks if two zones are connected
     // public int IsConnected(int[,] city, int x1, int y1, int x2, int y2)
     // {
     //     int m = city.GetLength(0);
