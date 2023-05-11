@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
                 generalPopulation += zone.population;
                 generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
                 // Debug.Log(zone.population);
-                // Debug.Log(generalSatisfaction);
+                Debug.Log(generalSatisfaction);
             }
             infoBar.populationHandler.number = generalPopulation;
             //infoBar = new InfoBar();
