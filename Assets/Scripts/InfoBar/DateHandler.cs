@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -108,12 +109,12 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.currentDate = data.currDate;
+        this.currentDate = DateTime.ParseExact(data.currDate, "d", CultureInfo.InvariantCulture);
     }
 
     public void SaveData(GameData data)
     {
-        data.currDate = this.currentDate;
+        data.currDate = this.currentDate.ToString("d");
     }
     //public DateTime GetCurrentTime()
     //{

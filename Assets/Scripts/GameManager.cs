@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         infoBar.budgetHandler.number = generalBudget;
         if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
-            Debug.Log(1);
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
             IndustrialZone[] indZones = GetIndustrialZones(cellGrid);

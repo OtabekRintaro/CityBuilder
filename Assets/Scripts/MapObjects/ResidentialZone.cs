@@ -101,7 +101,6 @@ public class ResidentialZone : MapObject
         {
             satisfaction--; industrialNearby--;
         }
-        Debug.Log(satisfaction);
         if (tax < 5) satisfaction++;
         else satisfaction--;
         if (budget < 0) satisfaction--;

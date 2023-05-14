@@ -67,7 +67,6 @@ public class RoadHandler
         if(found && ( mapObject is not Road && mapObject is not Forest))
         {
             mapObject.publicRoads++;
-            Debug.Log(row + " " + col + " " + mapObject.publicRoads);
         }
 
         return found;
