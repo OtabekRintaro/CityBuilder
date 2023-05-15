@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -108,12 +109,12 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.currentDate = data.currDate;
+        this.currentDate = DateTime.ParseExact(data.currDate, "d", CultureInfo.InvariantCulture);
     }
 
     public void SaveData(GameData data)
     {
-        data.currDate = this.currentDate;
+        data.currDate = this.currentDate.ToString("d");
     }
     //public DateTime GetCurrentTime()
     //{
@@ -132,15 +133,22 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     //    }
     //}
 
-    public bool hasPassed5Seconds(DateTime date)
+    public bool hasPassedSecond(DateTime date)
     {
         int day1 = currentDate.Day; int day2 = date.Day;
-        return day1 - day2 >= 5;
+        return day1 - day2 >= 1;
+    }
+
+
+    public bool hasPassed3Seconds(DateTime date)
+    {
+        int day1 = currentDate.Day; int day2 = date.Day;
+        return day1 - day2 >= 3;
     }
 
     public bool hasPassedMonth(DateTime date)
     {
-        int day1 = currentDate.Month; int day2 = date.Month;
-        return day1 - day2 >= 1;
+        int month1 = currentDate.Month; int month2 = date.Month;
+        return month1 - month2 >= 1;
     }
 }

@@ -21,7 +21,7 @@ public class BuildingPlacer : MonoBehaviour
     private Vector3 curPlacementPos;
     public GameObject placementIndicator;
     public static BuildingPlacer inst;
-    public CellGrid cellGrid;
+    public Map map;
     public Cursor cursor;
     public BlueprintCell blueprintCellPrefab;
     public BlueprintCell[] blueprintCells;
@@ -200,12 +200,12 @@ public class BuildingPlacer : MonoBehaviour
         bool isPlaceable = false;
         //Debug.Log(cellGrid.cells.GetLength(0));
         int row = 0; int col = 0;
-        for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
+        for (int i = 0; i < map.cells.GetLength(0); i++)
         {
-            for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
+            for (int k = 0; k < map.cells.GetLength(1); k++)
             {
-                if (cellGrid.cells[i, k].X == curPlacementPos.x &&
-                cellGrid.cells[i, k].Z == curPlacementPos.z)
+                if (map.cells[i, k].X == curPlacementPos.x &&
+                map.cells[i, k].Z == curPlacementPos.z)
                 {
                     row = i; col = k;
                     isPlaceable = isPlaceable || assign_cells(i, k);
@@ -225,7 +225,7 @@ public class BuildingPlacer : MonoBehaviour
             //    Destroy(c.gameObject);
             //}
             //Debug.Log(buildingObj.GetInstanceID());
-            cellGrid.addMapObject(buildingObj, curBuildingPreset, coverage, row, col);
+            map.addMapObject(buildingObj, curBuildingPreset, coverage, row, col);
             attachToBuildings(buildingObj);
             CancelBuildingPlacement(); 
         }
@@ -401,11 +401,11 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
-            if(cellGrid.removeMapObject(selection.gameObject.GetInstanceID()))
+            if(map.removeMapObject(selection.gameObject.GetInstanceID()))
             {
                 Destroy(selection.gameObject);
                 int cellID = cellToBeDeleted.ID;
-                foreach(var cell in cellGrid.cells)
+                foreach(var cell in map.cells)
                 {
                     if( cell.ID == cellID)
                     {
@@ -420,14 +420,14 @@ public class BuildingPlacer : MonoBehaviour
     }
     public Cell cellInfo()
     {
-        for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
+        for (int i = 0; i < map.cells.GetLength(0); i++)
         {
-            for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
+            for (int k = 0; k < map.cells.GetLength(1); k++)
             {
-                if (cellGrid.cells[i, k].X == curPlacementPos.x &&
-                cellGrid.cells[i, k].Z == curPlacementPos.z)
+                if (map.cells[i, k].X == curPlacementPos.x &&
+                map.cells[i, k].Z == curPlacementPos.z)
                 {
-                    return cellGrid.cells[i,k];
+                    return map.cells[i,k];
                 }
 
             }
@@ -447,7 +447,7 @@ public class BuildingPlacer : MonoBehaviour
         //Debug.Log("low row: " + low_row + "high_row: " + high_row);
         //Debug.Log("low col: " + low_col + "high_col: " + high_col);
         //Debug.Log("-------------------------------------------------");
-        if (low_row < 0 || high_row > cellGrid.cells.GetLength(0)-1 || low_col < 0 || high_col > cellGrid.cells.GetLength(1)-1)
+        if (low_row < 0 || high_row > map.cells.GetLength(0)-1 || low_col < 0 || high_col > map.cells.GetLength(1)-1)
         {
             return false;
         }
@@ -457,11 +457,11 @@ public class BuildingPlacer : MonoBehaviour
             {
                 for (int z = low_col; z <= high_col; z++)
                 {
-                    if (cellGrid.cells[x, z].isFree)
+                    if (map.cells[x, z].isFree)
                     {
-                        cellGrid.cells[x, z].isFree = false;
-                        cellGrid.cells[x, z].Type = curBuildingPreset.displayName; 
-                        cellGrid.cells[x, z].ID = randomNumber;
+                        map.cells[x, z].isFree = false;
+                        map.cells[x, z].Type = curBuildingPreset.displayName; 
+                        map.cells[x, z].ID = randomNumber;
                         //Debug.Log(cellGrid.cells[x, z] + "id is: " + cellGrid.cells[x, z].ID);
                     }
                     else
@@ -470,17 +470,17 @@ public class BuildingPlacer : MonoBehaviour
                         int tempCol = z - 1;
                         for (; tempCol >= low_col; tempCol--)
                         {
-                            cellGrid.cells[x, tempCol].isFree = true;
-                            cellGrid.cells[x, tempCol].Type = "empty";
-                            cellGrid.cells[x, tempCol].ID = 0;
+                            map.cells[x, tempCol].isFree = true;
+                            map.cells[x, tempCol].Type = "empty";
+                            map.cells[x, tempCol].ID = 0;
                         }
                         for (; tempRow >= low_row; tempRow--)
                         {
                             for(tempCol = high_col; tempCol >= low_col; tempCol--)
                             {
-                                cellGrid.cells[tempRow, tempCol].isFree = true;
-                                cellGrid.cells[tempRow, tempCol].Type = "empty";
-                                cellGrid.cells[tempRow, tempCol].ID = 0;
+                                map.cells[tempRow, tempCol].isFree = true;
+                                map.cells[tempRow, tempCol].Type = "empty";
+                                map.cells[tempRow, tempCol].ID = 0;
                             }
                         }
                         return false;

@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
+        //Debug.Log(this.gameObject.name);
         if (instance != null)
         {
             Debug.LogError("Found more than one Data Persistence Manager in the scene.");
@@ -70,6 +71,10 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveGame();
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()

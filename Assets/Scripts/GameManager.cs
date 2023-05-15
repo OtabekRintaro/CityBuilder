@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private DateTime currentMonth = new DateTime(1900, 1, 1);
 
     [SerializeField]
-    CellGrid map;
+    Map map;
 
     // Start is called before the first frame update
     void Start()
@@ -27,32 +27,42 @@ public class GameManager : MonoBehaviour
     {
         spendMoney();
         infoBar.budgetHandler.number = generalBudget;
-        // Debug.Log(dictResidentialZones);
-        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed5Seconds(currentDate))
+        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
+            IndustrialZone[] indZones = GetIndustrialZones(cellGrid);
             ResidentialZone[] resZones = GetResidentialZones(cellGrid);
+            CommercialZone[] comZones = GetCommercialZones(cellGrid);
             UpdateResidentialZones(resZones, dictResidentialZones);
             generalPopulation = 0;
             generalSatisfaction = 5;
             foreach (ResidentialZone zone in dictResidentialZones.Values)
             {
-                ResidentialZone.CalculateSatisfaction(zone, cellGrid, 5, 100000);
+                ResidentialZone.CalculateSatisfaction(zone, cellGrid, map, infoBar.taxHandler.taxValue, infoBar.budgetHandler.number);
                 ResidentialZone.AdjustPopulation(zone);
                 generalPopulation += zone.population;
                 generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
-                // Debug.Log(zone.population);
-                // Debug.Log(generalSatisfaction);
+            }
+            foreach(IndustrialZone zone in indZones)
+            {
+                if (!zone.hasFactory() && zone.checkPublicRoadConnection())
+                    zone.buildFactory();
+            }
+            foreach (CommercialZone zone in comZones)
+            {
+                if (!zone.hasCommercialBuildings() && zone.checkPublicRoadConnection())
+                    zone.buildCommercialBuildings();
             }
             infoBar.populationHandler.number = generalPopulation;
             infoBar.satisfactionHandler.number = generalSatisfaction;
-            //infoBar = new InfoBar();
         }
         if(infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
-            infoBar.budgetHandler.number += 1000;
+            generalBudget += infoBar.taxHandler.taxValue * 1000;
+            infoBar.budgetHandler.number = generalBudget;
             currentMonth = infoBar.dateHandler.currentDate;
+            currentDate = infoBar.dateHandler.currentDate;
         }
     }
 
@@ -65,6 +75,45 @@ public class GameManager : MonoBehaviour
             map.spentMoney.RemoveAt(0);
         }
     }
+
+    public CommercialZone[] GetCommercialZones(Cell[,] cellGrid)
+    {
+        List<CommercialZone> commercialZones = new List<CommercialZone>();
+        for (int x = 1; x < cellGrid.GetLength(0) - 1; x++)
+        {
+            for (int z = 1; z < cellGrid.GetLength(1) - 1; z++)
+            {
+                MapObject mapObject;
+                if ((mapObject = map.findMapObject(new Position(x, z))) is CommercialZone)
+                {
+                    CommercialZone commercialZone = (CommercialZone)mapObject;
+                    commercialZone.connectToPublicRoad(commercialZone.checkPublicRoadConnection());
+                    commercialZones.Add(commercialZone);
+                }
+            }
+        }
+        return commercialZones.ToArray();
+    }
+
+    public IndustrialZone[] GetIndustrialZones(Cell[,] cellGrid)
+    {
+        List<IndustrialZone> industrialZones = new List<IndustrialZone>();
+        for (int x = 1; x < cellGrid.GetLength(0) - 1; x++)
+        {
+            for (int z = 1; z < cellGrid.GetLength(1) - 1; z++)
+            {
+                MapObject mapObject;
+                if((mapObject = map.findMapObject(new Position(x,z))) is IndustrialZone)
+                {
+                    IndustrialZone industrialZone = (IndustrialZone)mapObject;
+                    industrialZone.connectToPublicRoad(industrialZone.checkPublicRoadConnection());
+                    industrialZones.Add(industrialZone);
+                }
+            }
+        }
+        return industrialZones.ToArray();
+    }
+
     // get array of residential zones
     public ResidentialZone[] GetResidentialZones(Cell[,] cellGrid)
     {
@@ -91,11 +140,8 @@ public class GameManager : MonoBehaviour
                     }                  
                     if (allIdsMatch)
                     {
-                        // Debug.Log(map.findMapObject(new Position(x, z)) );
                         ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z));
-                        residentialZone.population = 0;
-                        residentialZone.satisfaction = 5;
-                        residentialZone.workConnection = false;
+                        residentialZone.connectToPublicRoad(residentialZone.checkPublicRoadConnection());
                         residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
                         residentialZones.Add(residentialZone);
                     }
@@ -142,14 +188,15 @@ public class GameManager : MonoBehaviour
         // Add the new keys to the dictionary
         foreach (Position key in toAdd)
         {
-            //ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
-            ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
+            ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
+            //ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
             
-            // residentialZone = (ResidentialZone) map.findMapObject(key);
-            // residentialZone.population = 0;
-            // residentialZone.satisfaction = 5;
-            // residentialZone.workConnection = false;
-            // residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+            residentialZone = (ResidentialZone) map.findMapObject(key);
+            residentialZone.population = 0;
+            residentialZone.satisfaction = 5;
+            residentialZone.workConnection = false;
+            residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+            
             zonesDict.Add(key, residentialZone);
         }
     }     
