@@ -8,6 +8,7 @@ public class GameData
 {
     public CellGrid cellgrid;
     public DateTime currDate;
+    public int population;
     //private int width = 30;
     //private int height = 30;
     //private Cell[,] cells ;
@@ -18,6 +19,7 @@ public class GameData
     //private Road roadPrefab;
     public GameData()
     {
+        population = 0;
       //  cellgrid.generateObjects();
         currDate = new DateTime(1900, 1, 1);
         //cells = new Cell[height, width];
