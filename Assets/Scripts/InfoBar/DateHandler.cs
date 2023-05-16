@@ -109,12 +109,12 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.currentDate = DateTime.ParseExact(data.currDate, "d", CultureInfo.InvariantCulture);
+        this.currentDate = DateTime.Parse(data.currDate);
     }
 
     public void SaveData(GameData data)
     {
-        data.currDate = this.currentDate.ToString("d");
+        data.currDate = this.currentDate.ToString("o");
     }
     //public DateTime GetCurrentTime()
     //{

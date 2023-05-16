@@ -63,7 +63,7 @@ public class DataPersistenceManager : MonoBehaviour
             dataPersistenceObj.SaveData(gameData);
         }
         Debug.Log("saved date: " + gameData.currDate);
-        Debug.Log("saved population: " + gameData.population);
+        //Debug.Log("saved population: " + gameData.population);
         // save that data to a file using the data handler
         dataHandler.Save(gameData);
     }

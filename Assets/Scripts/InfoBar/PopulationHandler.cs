@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PopulationHandler : MonoBehaviour, IDataPersistence
+public class PopulationHandler : MonoBehaviour
 {
     public TextMeshProUGUI population;
     public string sprite;
@@ -39,13 +39,13 @@ public class PopulationHandler : MonoBehaviour, IDataPersistence
 
 
 
-    public void LoadData(GameData data)
-    {
-        this.number = data.population;
-    }
+    //public void LoadData(GameData data)
+    //{
+    //    this.number = data.population;
+    //}
 
-    public void SaveData(GameData data)
-    {
-        data.population = this.number;
-    }
+    //public void SaveData(GameData data)
+    //{
+    //    data.population = this.number;
+    //}
 }
