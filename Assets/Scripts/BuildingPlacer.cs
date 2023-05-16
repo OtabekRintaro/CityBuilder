@@ -91,7 +91,7 @@ public class BuildingPlacer : MonoBehaviour
     }
 
 
-    public int Coverage(string type)
+    public static int Coverage(string type)
     {
         if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
         {
@@ -208,7 +208,7 @@ public class BuildingPlacer : MonoBehaviour
                 map.cells[i, k].Z == curPlacementPos.z)
                 {
                     row = i; col = k;
-                    isPlaceable = isPlaceable || assign_cells(i, k);
+                    isPlaceable = isPlaceable || assign_cells(map, curBuildingPreset, i, k);
                     //Debug.Log(assign_cells(i,k));
                 }
                 
@@ -225,13 +225,13 @@ public class BuildingPlacer : MonoBehaviour
             //    Destroy(c.gameObject);
             //}
             //Debug.Log(buildingObj.GetInstanceID());
-            map.addMapObject(buildingObj, curBuildingPreset, coverage, row, col);
+            map.addMapObject(buildingObj, coverage, row, col);
             attachToBuildings(buildingObj);
             CancelBuildingPlacement(); 
         }
     }
 
-    public void attachToBuildings(GameObject gameObject)
+    public static void attachToBuildings(GameObject gameObject)
     {
         int index = 0;
         Scene gameScene = SceneManager.GetSceneAt(index++);
@@ -253,7 +253,7 @@ public class BuildingPlacer : MonoBehaviour
 
     }
 
-    public string cropClone(string name, int id)
+    public static string cropClone(string name, int id)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -434,7 +434,7 @@ public class BuildingPlacer : MonoBehaviour
         }
         return null;
     }
-    public bool assign_cells(int row, int col)
+    public static bool assign_cells(Map map, BuildingPreset curBuildingPreset, int row, int col)
     {
         int minValue = 1;
         int maxValue = 10000;

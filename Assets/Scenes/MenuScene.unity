@@ -1527,6 +1527,7 @@ MonoBehaviour:
   continueButton: {fileID: 1440576}
   newGameButton: {fileID: 1078059197}
   quitButton: {fileID: 1397637336}
+  gameManager: {fileID: 0}
 --- !u!1 &1078059195
 GameObject:
   m_ObjectHideFlags: 0

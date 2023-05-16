@@ -8,8 +8,21 @@ public class GameData
 {
     //public Map cellgrid;
 
-    public String currDate;
-   
+    public int generalPopulation;
+    public int generalSatisfaction;
+    public int generalBudget;
+    public string currDate;
+
+    public List<int> positionsX;
+    public List<int> positionsZ;
+    public List<int> satisfaction;
+    public List<int> population;
+    public List<string> gameObjects;
+
+    public bool[] FreeCells;
+    public string[] TypeOfCells;
+
+    int size = 30;
     //private int width = 30;
     //private int height = 30;
     //private Cell[,] cells ;
@@ -20,8 +33,13 @@ public class GameData
     //private Road roadPrefab;
     public GameData()
     {
-      //  cellgrid.generateObjects();
+        //cellgrid.generateObjects();
+        positionsX = new();
+        positionsZ = new();
+        gameObjects = new();
         currDate = (new DateTime(1900, 1, 1)).ToString("O");
+        FreeCells = new bool[size * size];
+        TypeOfCells = new string[size * size];
         //cells = new Cell[height, width];
         //mainRoad = new Road[height, width];
         //roadHandler = new RoadHandler(height);

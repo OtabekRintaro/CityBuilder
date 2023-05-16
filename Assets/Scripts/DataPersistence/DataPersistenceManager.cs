@@ -29,12 +29,17 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        LoadGame();
+        LoadData();
     }
 
     public void NewGame()
     {
         this.gameData = new GameData();
+    }
+
+    public void LoadData()
+    {
+        this.gameData = dataHandler.Load();
     }
 
     public void LoadGame()
@@ -68,14 +73,14 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData);
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-        Application.Quit();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    SaveGame();
+    //    #if UNITY_EDITOR
+    //            UnityEditor.EditorApplication.isPlaying = false;
+    //    #endif
+    //    Application.Quit();
+    //}
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
