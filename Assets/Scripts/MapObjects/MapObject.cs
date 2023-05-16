@@ -47,6 +47,8 @@ public class MapObject : MonoBehaviour
             return 400;
         if (type.Equals("Police"))
             return 50;
+        if (type.Equals("Forest"))
+            return 50;
         return 0;
     }
 

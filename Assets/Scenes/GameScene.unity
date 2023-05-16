@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1206,12 +1206,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 6bb7a4c5a0628024e96d897abd399ce2, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1611,12 +1611,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e27cedba4d113b841b60b10658efc942, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3946,12 +3946,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 5ec7558dc54d3624d9164e5b65dde2e6, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4089,12 +4089,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: a2b2efb3e972fc8459f03e61bd574a76, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5681,12 +5681,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2518aaa247f4a92448d7fe92c4c840ed, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5852,12 +5852,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: bbbab6f281ba1304e8d50905a52974c0, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7075,12 +7075,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310891920}
-        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
+        m_TargetAssemblyTypeName: BuildingPlacer, Scripts_reference_for_testing
         m_MethodName: BeginNewBuildingPlacement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 40976dafaf5a85040a06d4096731fb92, type: 2}
-          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BuildingPreset, Scripts_reference_for_testing
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
