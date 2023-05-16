@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI pausedText;
     public bool isPaused = false;
-    public DateTime currentDate;
+    public DateTime currentDate = new DateTime(1900,1,1);
     //public static DateHandler inst;
     //private float lastUpdateTime;
     //private float updateRate= 2f;
@@ -37,7 +38,6 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        currentDate = new DateTime(1900, 1, 1);
         dateText.text = currentDate.ToString("yyyy/MM/dd");
         StartCoroutine(IncreaseDate());
 
@@ -108,12 +108,15 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.currentDate = data.currDate;
+        StopAllCoroutines();
+        this.currentDate = DateTime.Parse(data.currDate);
+        StartCoroutine(IncreaseDate());
+        dateText.text = currentDate.ToString("yyyy/MM/dd");
     }
 
     public void SaveData(GameData data)
     {
-        data.currDate = this.currentDate;
+        data.currDate = this.currentDate.ToString("o");
     }
     //public DateTime GetCurrentTime()
     //{

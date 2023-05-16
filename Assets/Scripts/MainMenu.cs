@@ -8,8 +8,7 @@ public class MainMenu : MonoBehaviour
     public Button continueButton;
     public Button newGameButton;
     public Button quitButton;
-    private BuildingPlacer b;
-    DataPersistenceManager dataPersistanceManager;
+    GameManager gameManager;
     void Start()
     {
         continueButton.onClick.AddListener(ContinueGame);
@@ -19,23 +18,30 @@ public class MainMenu : MonoBehaviour
 
     void ContinueGame()
     {
-        //b.DeserializeJSon();
-        SceneManager.LoadScene("GameScene");
-        //dataPersistanceManager = new DataPersistenceManager();
+        //SceneManager.LoadScene("GameScene");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
         DataPersistenceManager.instance.LoadGame();
+
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MenuScene"));
     }
 
     void NewGame()
     {
-       // b.ClearData();
+        // b.ClearData();
+        DataPersistenceManager.instance.NewGame();
         SceneManager.LoadScene("GameScene");
         //dataPersistanceManager = new DataPersistenceManager();
         // Debug.Log(DataPersistenceManager.instance);
-        DataPersistenceManager.instance.NewGame();
+        
     }
 
     void QuitGame()
     {
+        #if UNITY_EDITOR
+
+            UnityEditor.EditorApplication.isPlaying = false;
+
+        #endif
         Application.Quit();
     }
 }

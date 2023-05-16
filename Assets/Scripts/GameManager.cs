@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     public Dictionary<Position, ResidentialZone> dictResidentialZones = new Dictionary<Position, ResidentialZone>();
     public int generalSatisfaction = 0;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         infoBar.budgetHandler.number = generalBudget;
         if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
-            Debug.Log(1);
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
             IndustrialZone[] indZones = GetIndustrialZones(cellGrid);
@@ -65,6 +64,30 @@ public class GameManager : MonoBehaviour
             currentMonth = infoBar.dateHandler.currentDate;
             currentDate = infoBar.dateHandler.currentDate;
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        currentDate = infoBar.dateHandler.currentDate;
+        currentMonth = infoBar.dateHandler.currentDate;
+        generalBudget = data.generalBudget;
+        generalPopulation = data.generalPopulation;
+        generalSatisfaction = data.generalSatisfaction;
+        infoBar.budgetHandler.number = generalBudget;
+        infoBar.populationHandler.number = generalPopulation;
+        infoBar.satisfactionHandler.number = generalSatisfaction;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.generalBudget = generalBudget;
+        data.generalPopulation = generalPopulation;
+        data.generalSatisfaction = generalSatisfaction;
+    }
+
+    public void setGame()
+    {
+        
     }
 
     public void spendMoney()
@@ -124,29 +147,38 @@ public class GameManager : MonoBehaviour
         {
             for (int z = 1; z < cellGrid.GetLength(1) - 1; z += 1)
             {
-                if (cellGrid[x, z].Type == "ResidentialZone") 
+                MapObject mapObject;
+                if ((mapObject = map.findMapObject(new Position(x, z))) is ResidentialZone)
                 {
-                    bool allIdsMatch = true;
-                    for (int i = x - 1; i <= x + 1; i++)
-                    {
-                        for (int j = z - 1; j <= z + 1; j++)
-                        {
-                            if (cellGrid[i, j].ID != cellGrid[x, z].ID)
-                            {
-                                allIdsMatch = false;
-                                break;
-                            }
-                        }
-                        if (!allIdsMatch) break;
-                    }                  
-                    if (allIdsMatch)
-                    {
-                        ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z));
-                        residentialZone.connectToPublicRoad(residentialZone.checkPublicRoadConnection());
-                        residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
-                        residentialZones.Add(residentialZone);
-                    }
+                    ResidentialZone residentialZone = (ResidentialZone)mapObject;
+                    residentialZone.connectToPublicRoad(residentialZone.checkPublicRoadConnection());
+                    residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+                    residentialZones.Add(residentialZone);
                 }
+
+                //if (cellGrid[x, z].Type == "ResidentialZone") 
+                //{
+                //    bool allIdsMatch = true;
+                //    for (int i = x - 1; i <= x + 1; i++)
+                //    {
+                //        for (int j = z - 1; j <= z + 1; j++)
+                //        {
+                //            if (cellGrid[i, j].ID != cellGrid[x, z].ID)
+                //            {
+                //                allIdsMatch = false;
+                //                break;
+                //            }
+                //        }
+                //        if (!allIdsMatch) break;
+                //    }                  
+                //    if (allIdsMatch)
+                //    {
+                //        ResidentialZone residentialZone = (ResidentialZone) map.findMapObject(new Position(x, z));
+                //        residentialZone.connectToPublicRoad(residentialZone.checkPublicRoadConnection());
+                //        residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
+                //        residentialZones.Add(residentialZone);
+                //    }
+                //}
             }
         }
         
@@ -193,9 +225,6 @@ public class GameManager : MonoBehaviour
             //ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
             
             residentialZone = (ResidentialZone) map.findMapObject(key);
-            residentialZone.population = 0;
-            residentialZone.satisfaction = 5;
-            residentialZone.workConnection = false;
             residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
             
             zonesDict.Add(key, residentialZone);

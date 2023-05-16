@@ -6,8 +6,24 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public Map cellgrid;
-    public DateTime currDate;
+    //public Map cellgrid;
+
+    public int generalPopulation;
+    public int generalSatisfaction;
+    public int generalBudget;
+    public string currDate;
+
+    public List<int> positionsX;
+    public List<int> positionsZ;
+    public List<int> satisfaction;
+    public List<int> population;
+    public List<string> gameObjects;
+
+    public bool[] FreeCells;
+    public string[] TypeOfCells;
+    public int[] IdOfCells;
+
+    int size = 30;
     //private int width = 30;
     //private int height = 30;
     //private Cell[,] cells ;
@@ -18,8 +34,14 @@ public class GameData
     //private Road roadPrefab;
     public GameData()
     {
-      //  cellgrid.generateObjects();
-        currDate = new DateTime(1900, 1, 1);
+        //cellgrid.generateObjects();
+        positionsX = new();
+        positionsZ = new();
+        gameObjects = new();
+        currDate = (new DateTime(1900, 1, 1)).ToString("O");
+        FreeCells = new bool[size * size];
+        TypeOfCells = new string[size * size];
+        IdOfCells = new int[size * size];
         //cells = new Cell[height, width];
         //mainRoad = new Road[height, width];
         //roadHandler = new RoadHandler(height);

@@ -7,7 +7,6 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
-   // [SerializeField] private bool useEncryption;
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -17,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
+        //Debug.Log(this.gameObject.name);
         if (instance != null)
         {
             Debug.LogError("Found more than one Data Persistence Manager in the scene.");
@@ -28,12 +28,17 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        LoadGame();
+        LoadData();
     }
 
     public void NewGame()
     {
         this.gameData = new GameData();
+    }
+
+    public void LoadData()
+    {
+        this.gameData = dataHandler.Load();
     }
 
     public void LoadGame()
@@ -62,15 +67,20 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.SaveData(gameData);
         }
-
+        Debug.Log("saved date: " + gameData.currDate);
+        //Debug.Log("saved population: " + gameData.population);
         // save that data to a file using the data handler
         dataHandler.Save(gameData);
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    SaveGame();
+    //    #if UNITY_EDITOR
+    //            UnityEditor.EditorApplication.isPlaying = false;
+    //    #endif
+    //    Application.Quit();
+    //}
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {

@@ -36,4 +36,16 @@ public class PopulationHandler : MonoBehaviour
     {
         this.number = x;
     }
+
+
+
+    //public void LoadData(GameData data)
+    //{
+    //    this.number = data.population;
+    //}
+
+    //public void SaveData(GameData data)
+    //{
+    //    data.population = this.number;
+    //}
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class ResidentialZone : MapObject
 {
     // public Position position;
-    public int population;
-    public int satisfaction;
-    public bool workConnection;
-    public bool mainRoadConnection;
+    public int population = 0;
+    public int satisfaction = 5;
+    public bool workConnection = false;
+    public bool mainRoadConnection = false;
     public House housePrefab;
 
     private List<House> houses = new ();
@@ -101,7 +101,6 @@ public class ResidentialZone : MapObject
         {
             satisfaction--; industrialNearby--;
         }
-        Debug.Log(satisfaction);
         if (tax < 5) satisfaction++;
         else satisfaction--;
         if (budget < 0) satisfaction--;

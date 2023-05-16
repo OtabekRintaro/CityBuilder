@@ -5,7 +5,7 @@ using UnityEngine;
 public class CommercialZone : MapObject
 {
     public CommercialBuildings commercialBuildingsPrefab;
-    CommercialBuildings commercialBuildings;
+    public CommercialBuildings commercialBuildings;
 
     public bool hasCommercialBuildings()
     {

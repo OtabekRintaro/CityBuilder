@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
-public class Map : MonoBehaviour
+public class Map : MonoBehaviour, IDataPersistence
 {
     protected Transform _transform_map;
 
@@ -17,7 +17,21 @@ public class Map : MonoBehaviour
     public House housePrefab;
     public CommercialBuildings commercialBuildingsPrefab;
     public IndustrialBuildings IndustrialBuildingsPrefab;
+    public ResidentialZone residentialZonePrefab;
+    public CommercialZone commercialZonePrefab;
+    public IndustrialZone industrialZonePrefab;
+    public Police policePrefab;
+    public FireDepartment fireDepartmentPrefab;
+    public Stadium stadiumPrefab;
+
+    public BuildingPreset roadBuildingPreset;
     public BuildingPreset forestBuildingPreset;
+    public BuildingPreset residentialZoneBuildingPreset;
+    public BuildingPreset industrialZoneBuildingPreset;
+    public BuildingPreset policeBuildingPreset;
+    public BuildingPreset fireDepartmentBuildingPreset;
+    public BuildingPreset stadiumBuildingPreset;
+    public BuildingPreset commercialZoneBuildingPreset;
 
 
     public Cell[,] cells;
@@ -59,6 +73,7 @@ public class Map : MonoBehaviour
                 cells[row, col] = cell;
                 cells[row, col].X = position.x;
                 cells[row, col].Z = position.z;
+                cells[row, col].isFree = true;
 
                 //Debug.Log("cell position (mgui) x:" + cells[i].X + " z:" + cells[i].Z);
 
@@ -88,6 +103,187 @@ public class Map : MonoBehaviour
             for (int col = width - 1; col > amount; col--)
             {
                 CreateForest(row, col);
+            }
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                cells[row, col].isFree = data.FreeCells[width * row + col];
+                cells[row, col].Type = data.TypeOfCells[width * row + col];
+                cells[row, col].ID = data.IdOfCells[width * row + col];
+            }
+        }
+
+        int index = 0;
+        int resIndex = 0;
+
+        foreach(string name in data.gameObjects)
+        {
+
+            int row = data.positionsX[index];
+            int col = data.positionsZ[index];
+            Vector3 curPlacementPos = new Vector3(cells[row,col].X, 0.3f, cells[row, col].Z);
+            if(name.Equals("ResidentialZone"))
+            {
+                GameObject gameObject = Instantiate(residentialZoneBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(residentialZoneBuildingPreset.displayName);
+                
+                addMapObject(gameObject, coverage, row, col);
+
+                ResidentialZone resZone = gameObject.GetComponent<ResidentialZone>();
+                resZone.transform.localPosition = curPlacementPos;
+                resZone.transform.rotation = Quaternion.identity;
+
+                resZone.position = new Position(row, col);
+                resZone.population = data.population[resIndex];
+                resZone.satisfaction = data.satisfaction[resIndex];
+                resIndex++;
+
+                BuildingPlacer.attachToBuildings(resZone.gameObject);
+            }
+            else if(name.Equals("IndustrialZone"))
+            {
+                GameObject gameObject = Instantiate(industrialZoneBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(industrialZoneBuildingPreset.displayName);
+                
+                addMapObject(gameObject, coverage, row, col);
+                
+                IndustrialZone indZone = gameObject.AddComponent<IndustrialZone>();
+                indZone.transform.localPosition = curPlacementPos;
+                indZone.transform.rotation = Quaternion.identity;
+
+                indZone.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(indZone.gameObject);
+            }
+            else if (name.Equals("CommercialZone"))
+            {
+                GameObject gameObject = Instantiate(commercialZoneBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(commercialZoneBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);
+
+                CommercialZone comZone = gameObject.AddComponent<CommercialZone>();
+                comZone.transform.localPosition = curPlacementPos;
+                comZone.transform.rotation = Quaternion.identity;
+
+                comZone.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(comZone.gameObject);
+            }
+            else if (name.Equals("Police"))
+            {
+                GameObject gameObject = Instantiate(policeBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(policeBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);
+
+                Police police = gameObject.AddComponent<Police>();
+                police.transform.localPosition = curPlacementPos;
+                police.transform.rotation = Quaternion.identity;
+
+                police.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(police.gameObject);
+            }
+            else if (name.Equals("Stadium"))
+            {
+                GameObject gameObject = Instantiate(stadiumBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(stadiumBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);
+
+                Stadium stadium = gameObject.AddComponent<Stadium>();
+                stadium.transform.localPosition = curPlacementPos;
+                stadium.transform.rotation = Quaternion.identity;
+
+                stadium.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(stadium.gameObject);
+            }
+            else if (name.Equals("FireDepartment"))
+            {
+                GameObject gameObject = Instantiate(fireDepartmentBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(fireDepartmentBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);
+
+                FireDepartment fireDepartment = gameObject.AddComponent<FireDepartment>();
+                fireDepartment.transform.localPosition = curPlacementPos;
+                fireDepartment.transform.rotation = Quaternion.identity;
+
+                fireDepartment.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(fireDepartment.gameObject);
+            }
+            else if (name.Equals("Forest"))
+            {
+                GameObject gameObject = Instantiate(forestBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(forestBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);
+
+                Forest forest = gameObject.AddComponent<Forest>();
+                forest.transform.localPosition = curPlacementPos;
+                forest.transform.rotation = Quaternion.identity;
+
+                forest.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(forest.gameObject);
+            }
+            else if (name.Equals("Road"))
+            {
+                GameObject gameObject = Instantiate(roadBuildingPreset.prefab);
+                int coverage = BuildingPlacer.Coverage(roadBuildingPreset.displayName);
+
+                addMapObject(gameObject, coverage, row, col);     
+
+                Road road = gameObject.AddComponent<Road>();
+                road.transform.localPosition = curPlacementPos;
+                road.transform.rotation = Quaternion.identity;
+
+                road.position = new Position(row, col);
+
+                BuildingPlacer.attachToBuildings(road.gameObject);
+            }
+
+            index++;
+        }
+    }
+
+    public void SaveData(GameData data)
+    {
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                data.FreeCells[width * row + col] = cells[row, col].isFree;
+                data.TypeOfCells[width * row + col] = cells[row, col].Type;
+                data.IdOfCells[width * row + col] = cells[row, col].ID;
+            }
+        }
+
+        data.positionsX.Clear();
+        data.positionsZ.Clear();
+        data.gameObjects.Clear();
+        data.population.Clear();
+        data.satisfaction.Clear();
+
+        foreach(MapObject mapObj in mapObjects)
+        {
+            data.positionsX.Add(mapObj.position.x);
+            data.positionsZ.Add(mapObj.position.z);
+            data.gameObjects.Add(mapObj.name.Split('-')[0]);
+            if(data.gameObjects[data.gameObjects.Count - 1].Equals("ResidentialZone"))
+            {
+                ResidentialZone resZone = (ResidentialZone)mapObj;
+                data.population.Add(resZone.population);
+                data.satisfaction.Add(resZone.satisfaction);
             }
         }
     }
@@ -149,7 +345,7 @@ public class Map : MonoBehaviour
 
         forest.transform.SetParent(_transform_map, false);
         forest.transform.localPosition = position;
-        addMapObject(forest.gameObject, forestBuildingPreset, 1, row, col);
+        //addMapObject(forest.gameObject, forestBuildingPreset, 1, row, col);
     }
 
     void CreateRoad(int row, int col)
@@ -245,13 +441,13 @@ public class Map : MonoBehaviour
         return res;
     }
 
-    public void addMapObject(GameObject buildingObj, BuildingPreset buildingPreset, int coverage, int x, int z)
+    public void addMapObject(GameObject buildingObj, int coverage, int x, int z)
     {
-        MapObject mapObject = MapObject.getMapObject(buildingPreset.displayName, buildingObj);
+        MapObject mapObject = MapObject.getMapObject(buildingObj.name.Split('(')[0], buildingObj);
         mapObject.ID = buildingObj.GetInstanceID();
         mapObject.position = new Position(x, z);
         mapObject.coverage = coverage;
-        if(buildingPreset.displayName.Equals("Road"))
+        if(buildingObj.name.Split('(')[0].Equals("Road"))
         {
             addRoad(mapObject);
         }
@@ -270,10 +466,11 @@ public class Map : MonoBehaviour
             CommercialZone zone = (CommercialZone)mapObject;
             zone.commercialBuildingsPrefab = this.commercialBuildingsPrefab;
         }
+        mapObject.connectToPublicRoad(false);
         mapObjects.Add(mapObject);
         hasSomethingChanged = true;
         //Debug.Log(MapObject.getCost(buildingPreset.displayName));
-        spentMoney.Add(MapObject.getCost(buildingPreset.displayName));
+        spentMoney.Add(MapObject.getCost(buildingObj.name.Split('(')[0]));
     }
 
     public bool removeMapObject(int ID)

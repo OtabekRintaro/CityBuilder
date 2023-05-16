@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PolicePreset
   m_EditorClassIdentifier: 
   displayName: Police
-  prefab: {fileID: 1228767452614505756, guid: a1c6dd3a6cab3f74ba80e3937143813c, type: 3}
+  prefab: {fileID: 6750795078043483868, guid: aa282b0fa62ad3c4b9c9ab6a9343b1f6, type: 3}

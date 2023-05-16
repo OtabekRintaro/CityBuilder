@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Text;
 using TMPro;
 //using System.Numerics;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
@@ -68,7 +67,10 @@ public class BuildingPlacer : MonoBehaviour
 
     //}
 
-    
+    public bool IsCurrentlyPlacing
+    {
+        get { return currentlyPlacing; }
+    }
     public void createPlane(int x, int z, int i)
     {
         Vector3 position;
@@ -91,7 +93,7 @@ public class BuildingPlacer : MonoBehaviour
     }
 
 
-    public int Coverage(string type)
+    public static int Coverage(string type)
     {
         if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
         {
@@ -208,7 +210,7 @@ public class BuildingPlacer : MonoBehaviour
                 map.cells[i, k].Z == curPlacementPos.z)
                 {
                     row = i; col = k;
-                    isPlaceable = isPlaceable || assign_cells(i, k);
+                    isPlaceable = isPlaceable || assign_cells(map, curBuildingPreset, i, k);
                     //Debug.Log(assign_cells(i,k));
                 }
                 
@@ -225,13 +227,13 @@ public class BuildingPlacer : MonoBehaviour
             //    Destroy(c.gameObject);
             //}
             //Debug.Log(buildingObj.GetInstanceID());
-            map.addMapObject(buildingObj, curBuildingPreset, coverage, row, col);
+            map.addMapObject(buildingObj, coverage, row, col);
             attachToBuildings(buildingObj);
             CancelBuildingPlacement(); 
         }
     }
 
-    public void attachToBuildings(GameObject gameObject)
+    public static void attachToBuildings(GameObject gameObject)
     {
         int index = 0;
         Scene gameScene = SceneManager.GetSceneAt(index++);
@@ -253,7 +255,7 @@ public class BuildingPlacer : MonoBehaviour
 
     }
 
-    public string cropClone(string name, int id)
+    public static string cropClone(string name, int id)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -401,9 +403,21 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
-            if(map.removeMapObject(selection.gameObject.GetInstanceID()))
+            int id = selection.gameObject.GetInstanceID();
+            if(selection.gameObject.name.Split('-')[0].Equals("Cell"))
             {
-                Destroy(selection.gameObject);
+                id = selection.gameObject.GetComponentInParent<Forest>().gameObject.GetInstanceID();
+            }
+            if (map.removeMapObject(id))
+            {
+                if (selection.gameObject.name.Split('-')[0].Equals("Cell"))
+                {
+                    Destroy(selection.gameObject.GetComponentInParent<Forest>().gameObject);
+                }
+                else
+                {
+                    Destroy(selection.gameObject);
+                }
                 int cellID = cellToBeDeleted.ID;
                 foreach(var cell in map.cells)
                 {
@@ -434,7 +448,7 @@ public class BuildingPlacer : MonoBehaviour
         }
         return null;
     }
-    public bool assign_cells(int row, int col)
+    public static bool assign_cells(Map map, BuildingPreset curBuildingPreset, int row, int col)
     {
         int minValue = 1;
         int maxValue = 10000;

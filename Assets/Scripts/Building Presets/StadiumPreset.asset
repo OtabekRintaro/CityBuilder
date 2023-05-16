@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StadiumPreset
   m_EditorClassIdentifier: 
   displayName: Stadium
-  prefab: {fileID: 1353777672591619740, guid: 8854b6de8250d0a4a9023a00439f6733, type: 3}
+  prefab: {fileID: 1916249731981800844, guid: 1f2aa8312fe5c304bafe06d75a5bd2d2, type: 3}
