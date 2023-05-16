@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Road
   m_EditorClassIdentifier: 
   displayName: Road
-  prefab: {fileID: 2580425526322188844, guid: 55f6314988d7374428e6f0550c4255a8, type: 3}
-  mapObject: {fileID: 0}
+  prefab: {fileID: 6568621351387744534, guid: 28b775c9d85148c41b89f59b94a71b8f, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FireDepartment
   m_EditorClassIdentifier: 
   displayName: FireDepartment
-  prefab: {fileID: 3679937551817644916, guid: 5d689ee69df14f844960d80f82c71574, type: 3}
+  prefab: {fileID: 3048992150201050371, guid: a441fefb53495014680c0602dc86ec70, type: 3}

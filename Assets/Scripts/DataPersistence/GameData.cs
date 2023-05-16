@@ -21,6 +21,7 @@ public class GameData
 
     public bool[] FreeCells;
     public string[] TypeOfCells;
+    public int[] IdOfCells;
 
     int size = 30;
     //private int width = 30;
@@ -40,6 +41,7 @@ public class GameData
         currDate = (new DateTime(1900, 1, 1)).ToString("O");
         FreeCells = new bool[size * size];
         TypeOfCells = new string[size * size];
+        IdOfCells = new int[size * size];
         //cells = new Cell[height, width];
         //mainRoad = new Road[height, width];
         //roadHandler = new RoadHandler(height);

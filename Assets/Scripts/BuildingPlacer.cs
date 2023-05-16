@@ -401,9 +401,21 @@ public class BuildingPlacer : MonoBehaviour
     {
         if(cellToBeDeleted != null)
         {
-            if(map.removeMapObject(selection.gameObject.GetInstanceID()))
+            int id = selection.gameObject.GetInstanceID();
+            if(selection.gameObject.name.Split('-')[0].Equals("Cell"))
             {
-                Destroy(selection.gameObject);
+                id = selection.gameObject.GetComponentInParent<Forest>().gameObject.GetInstanceID();
+            }
+            if (map.removeMapObject(id))
+            {
+                if (selection.gameObject.name.Split('-')[0].Equals("Cell"))
+                {
+                    Destroy(selection.gameObject.GetComponentInParent<Forest>().gameObject);
+                }
+                else
+                {
+                    Destroy(selection.gameObject);
+                }
                 int cellID = cellToBeDeleted.ID;
                 foreach(var cell in map.cells)
                 {

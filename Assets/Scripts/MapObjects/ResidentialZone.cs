@@ -119,7 +119,6 @@ public class ResidentialZone : MapObject
     public static void AdjustPopulation(ResidentialZone zone) {
         if (zone.checkPublicRoadConnection())
         {
-            Debug.Log(zone.population);
             if (zone.satisfaction >= 8) {
                 zone.population += 10;
             } else if (zone.satisfaction >= 6) {

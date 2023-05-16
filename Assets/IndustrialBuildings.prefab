@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757021895342907219}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IndustrialBuildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2505629164404798145}
   - component: {fileID: 8327715558483019309}
   - component: {fileID: 2978291904368298404}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: power_plant
   m_TagString: selectable
   m_Icon: {fileID: 0}

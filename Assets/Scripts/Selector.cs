@@ -35,12 +35,15 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (inst is null)
+            inst = this;
         cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (inst is null)
+            inst = this;
     }
 }
