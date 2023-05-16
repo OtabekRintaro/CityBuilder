@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Text;
 using TMPro;
 //using System.Numerics;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
@@ -68,7 +67,10 @@ public class BuildingPlacer : MonoBehaviour
 
     //}
 
-    
+    public bool IsCurrentlyPlacing
+    {
+        get { return currentlyPlacing; }
+    }
     public void createPlane(int x, int z, int i)
     {
         Vector3 position;

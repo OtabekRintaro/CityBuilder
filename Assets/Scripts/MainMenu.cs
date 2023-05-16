@@ -27,11 +27,12 @@ public class MainMenu : MonoBehaviour
 
     void NewGame()
     {
-       // b.ClearData();
+        // b.ClearData();
+        DataPersistenceManager.instance.NewGame();
         SceneManager.LoadScene("GameScene");
         //dataPersistanceManager = new DataPersistenceManager();
         // Debug.Log(DataPersistenceManager.instance);
-        DataPersistenceManager.instance.NewGame();
+        
     }
 
     void QuitGame()

@@ -116,7 +116,7 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        data.currDate = this.currentDate.ToString("d");
+        data.currDate = this.currentDate.ToString("o");
     }
     //public DateTime GetCurrentTime()
     //{

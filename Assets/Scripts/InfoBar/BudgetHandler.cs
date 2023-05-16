@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,8 @@ public class BudgetHandler : MonoBehaviour
     public TextMeshProUGUI budget;
     public string dollarSign;
     public int number;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,4 +23,5 @@ public class BudgetHandler : MonoBehaviour
     {
         budget.text = number.ToString() + dollarSign;
     }
+    
 }
