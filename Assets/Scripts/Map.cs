@@ -140,7 +140,11 @@ public class Map : MonoBehaviour, IDataPersistence
                 resZone.transform.rotation = Quaternion.identity;
 
                 resZone.position = new Position(row, col);
-                resZone.population = data.population[resIndex];
+                foreach(var age in data.ages)
+                {
+                    resZone.population.Add(new Citizen(age));
+                }
+                // resZone.population = data.population[resIndex];
                 resZone.satisfaction = data.satisfaction[resIndex];
                 resIndex++;
 
@@ -271,8 +275,9 @@ public class Map : MonoBehaviour, IDataPersistence
         data.positionsX.Clear();
         data.positionsZ.Clear();
         data.gameObjects.Clear();
-        data.population.Clear();
+        //data.population.Clear();
         data.satisfaction.Clear();
+        data.ages.Clear();
 
         foreach(MapObject mapObj in mapObjects)
         {
@@ -282,7 +287,10 @@ public class Map : MonoBehaviour, IDataPersistence
             if(data.gameObjects[data.gameObjects.Count - 1].Equals("ResidentialZone"))
             {
                 ResidentialZone resZone = (ResidentialZone)mapObj;
-                data.population.Add(resZone.population);
+                foreach(var ctz in resZone.population)
+                {
+                    data.ages.Add(ctz.Age);
+                }
                 data.satisfaction.Add(resZone.satisfaction);
             }
         }

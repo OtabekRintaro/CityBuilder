@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     public Dictionary<Position, ResidentialZone> dictResidentialZones = new Dictionary<Position, ResidentialZone>();
-    public int generalSatisfaction = 0;
+    public int generalSatisfaction = 5;
     public int generalPopulation = 0;
     public int generalBudget = 20000;
     public InfoBar infoBar;
     private DateTime currentDate = new DateTime(1900, 1, 1);
     private DateTime currentMonth = new DateTime(1900, 1, 1);
+    private DateTime currentYear = new DateTime(1900, 1, 1);
+    private Queue<int> lastTaxes = new Queue<int>();
 
     [SerializeField]
     Map map;
@@ -36,14 +38,29 @@ public class GameManager : MonoBehaviour, IDataPersistence
             CommercialZone[] comZones = GetCommercialZones(cellGrid);
             UpdateResidentialZones(resZones, dictResidentialZones);
             generalPopulation = 0;
-            generalSatisfaction = 5;
+            // generalSatisfaction = 5;
+            int numberOfResZones = 0;
+            int satisfactionSum = 0;
             foreach (ResidentialZone zone in dictResidentialZones.Values)
             {
+                ResidentialZone.ReplaceDeadCitizens(zone);
                 ResidentialZone.CalculateSatisfaction(zone, cellGrid, map, infoBar.taxHandler.taxValue, infoBar.budgetHandler.number);
                 ResidentialZone.AdjustPopulation(zone);
-                generalPopulation += zone.population;
-                generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
+                generalPopulation += zone.population.Count;
+                int numPen = 0;
+                foreach(Citizen ctz in zone.population) {
+                    if (ctz.IsRetired)
+                        numPen++;
+                        // Debug.Log(ctz.IsRetired);
+                        // Debug.Log(ctz.Age);
+                }
+                // Debug.Log(numPen);
+                // generalSatisfaction = (generalSatisfaction+zone.satisfaction)/2;
+                numberOfResZones++;
+                satisfactionSum += zone.satisfaction;
             }
+            if (numberOfResZones > 0) 
+                generalSatisfaction = satisfactionSum/numberOfResZones;
             foreach(IndustrialZone zone in indZones)
             {
                 if (!zone.hasFactory() && zone.checkPublicRoadConnection())
@@ -56,13 +73,35 @@ public class GameManager : MonoBehaviour, IDataPersistence
             }
             infoBar.populationHandler.number = generalPopulation;
             infoBar.satisfactionHandler.number = generalSatisfaction;
+            // Debug.Log(generalSatisfaction);wass
         }
         if(infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
             generalBudget += infoBar.taxHandler.taxValue * 1000;
+            foreach (ResidentialZone zone in dictResidentialZones.Values) {
+                generalBudget -= ResidentialZone.CalculatePensions(lastTaxes, zone);
+            }
             infoBar.budgetHandler.number = generalBudget;
             currentMonth = infoBar.dateHandler.currentDate;
             currentDate = infoBar.dateHandler.currentDate;
+        }
+
+        if(infoBar.dateHandler.hasPassedYear(currentYear)) {
+            
+            foreach (ResidentialZone zone in dictResidentialZones.Values) {
+                foreach (Citizen ctz in zone.population) {
+                    ctz.AgeOneYear();
+                    Debug.Log(ctz.Age);
+                }
+            }
+            lastTaxes.Enqueue(infoBar.taxHandler.taxValue);
+            if (lastTaxes.Count > 20)
+                lastTaxes.Dequeue();
+            currentYear = infoBar.dateHandler.currentDate;
+            currentMonth = infoBar.dateHandler.currentDate;
+            currentDate = infoBar.dateHandler.currentDate;
+            // foreach (int x in lastTaxes)
+                // Debug.Log(x);
         }
     }
 

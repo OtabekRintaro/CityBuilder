@@ -84,9 +84,11 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     void IncreaseSpeed()
     {
-        timeScale *= 2f;
+        timeScale *= 100f;
+        // timeScale *= 2f;
         UpdateSpeedText();
-        if (timeScale >= 2f)
+        // if (timeScale >= 2f)
+        if (timeScale >= 100f)
             increaseSpeedButton.gameObject.SetActive(false);
         if (!decreaseSpeedButton.IsActive())
             decreaseSpeedButton.gameObject.SetActive(true);
@@ -116,6 +118,7 @@ public class DateHandler : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
+        Debug.Log(data is null);
         data.currDate = this.currentDate.ToString("o");
     }
     //public DateTime GetCurrentTime()
@@ -152,5 +155,11 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     {
         int month1 = currentDate.Month; int month2 = date.Month;
         return month1 - month2 >= 1;
+    }
+
+    public bool hasPassedYear(DateTime date)
+    {
+        int year1 = currentDate.Year; int year2 = date.Year;
+        return year1 - year2 >= 1;
     }
 }

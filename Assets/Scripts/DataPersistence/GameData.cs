@@ -16,7 +16,7 @@ public class GameData
     public List<int> positionsX;
     public List<int> positionsZ;
     public List<int> satisfaction;
-    public List<int> population;
+    public List<int> ages;
     public List<string> gameObjects;
 
     public bool[] FreeCells;
