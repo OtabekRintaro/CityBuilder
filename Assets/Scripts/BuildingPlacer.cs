@@ -48,7 +48,7 @@ public class BuildingPlacer : MonoBehaviour
     
     void Awake()
     {
-        infoUI.SetActive(false);
+        
         inst = this;
     }
     //public void changeColor()
@@ -66,10 +66,17 @@ public class BuildingPlacer : MonoBehaviour
     //    }
 
     //}
-
+    public BuildingPreset getCurrBuildingPreset()
+    {
+        return curBuildingPreset;
+    }
     public bool IsCurrentlyPlacing
     {
         get { return currentlyPlacing; }
+    }
+    public Transform getSelection()
+    {
+        return selection;
     }
     public void createPlane(int x, int z, int i)
     {
@@ -583,6 +590,7 @@ public class BuildingPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        infoUI.SetActive(false);
         //string path = Application.persistentDataPath + "/player-stats.json";
         saveAndExitButton.onClick.AddListener(showPanel);
         ConfirmationPanel.gameObject.SetActive(false);
@@ -595,7 +603,7 @@ public class BuildingPlacer : MonoBehaviour
     void showPanel()
     {
         ConfirmationPanel.gameObject.SetActive(true);
-        YesButton.onClick.AddListener(SaveAndExit);
+        //YesButton.onClick.AddListener(SaveAndExit);
         NoButton.onClick.AddListener(Continue);
     }
 
