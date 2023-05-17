@@ -1,29 +1,29 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 5/16/2023 - 8:47:26 PM |
+| Generated on: | 5/16/2023 - 8:52:59 PM |
 | Parser: | MultiReportParser (2x OpenCoverParser) |
 | Assemblies: | 2 |
 | Classes: | 37 |
 | Files: | 37 |
-| Covered lines: | 71 |
-| Uncovered lines: | 1621 |
+| Covered lines: | 53 |
+| Uncovered lines: | 1639 |
 | Coverable lines: | 1692 |
 | Total lines: | 3615 |
-| Line coverage: | 4.1% (71 of 1692) |
+| Line coverage: | 3.1% (53 of 1692) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 19 |
+| Covered methods: | 17 |
 | Total methods: | 209 |
-| Method coverage: | 9% (19 of 209) |
+| Method coverage: | 8.1% (17 of 209) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**Scripts_reference_for_testing**|**53**|**1621**|**1674**|**3555**|**3.1%**|**0**|**0**|****|**16**|**206**|**7.7%**|
+|**Scripts_reference_for_testing**|**41**|**1633**|**1674**|**3555**|**2.4%**|**0**|**0**|****|**15**|**206**|**7.2%**|
 |BlueprintCell|0|4|4|18|0%|0|0||0|2|0%|
 |BudgetHandler|0|5|5|27|0%|0|0||0|2|0%|
 |BuildCommand|0|179|179|288|0%|0|0||0|15|0%|
-|BuildingPlacer|20|230|250|658|8%|0|0||3|19|15.7%|
+|BuildingPlacer|8|242|250|658|3.2%|0|0||2|19|10.5%|
 |BuildingPreset|0|4|4|24|0%|0|0||0|2|0%|
 |CameraController|8|65|73|117|10.9%|0|0||1|8|12.5%|
 |Cell|2|8|10|27|20%|0|0||5|15|33.3%|
@@ -56,5 +56,5 @@
 |TaxHandler|0|7|7|25|0%|0|0||0|3|0%|
 |Timer|0|14|14|25|0%|0|0||0|2|0%|
 |UIHandler|0|9|9|26|0%|0|0||0|2|0%|
-|**Tests**|**18**|**0**|**18**|**60**|**100%**|**0**|**0**|****|**3**|**3**|**100%**|
-|BuildingPlacerTest|18|0|18|60|100%|0|0||3|3|100%|
+|**Tests**|**12**|**6**|**18**|**60**|**66.6%**|**0**|**0**|****|**2**|**3**|**66.6%**|
+|BuildingPlacerTest|12|6|18|60|66.6%|0|0||2|3|66.6%|
