@@ -1,53 +1,54 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 5/17/2023 - 4:04:05 AM |
+| Generated on: | 5/17/2023 - 11:38:10 AM |
 | Parser: | MultiReportParser (2x OpenCoverParser) |
 | Assemblies: | 2 |
-| Classes: | 40 |
-| Files: | 40 |
-| Covered lines: | 115 |
-| Uncovered lines: | 1643 |
-| Coverable lines: | 1758 |
-| Total lines: | 3773 |
-| Line coverage: | 6.5% (115 of 1758) |
+| Classes: | 41 |
+| Files: | 41 |
+| Covered lines: | 117 |
+| Uncovered lines: | 1808 |
+| Coverable lines: | 1925 |
+| Total lines: | 3770 |
+| Line coverage: | 6% (117 of 1925) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
 | Covered methods: | 32 |
-| Total methods: | 224 |
-| Method coverage: | 14.2% (32 of 224) |
+| Total methods: | 238 |
+| Method coverage: | 13.4% (32 of 238) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**Scripts_reference_for_testing**|**63**|**1643**|**1706**|**3601**|**3.6%**|**0**|**0**|****|**19**|**211**|**9%**|
+|**Scripts_reference_for_testing**|**65**|**1808**|**1873**|**3598**|**3.4%**|**0**|**0**|****|**19**|**225**|**8.4%**|
 |BlueprintCell|0|4|4|18|0%|0|0||0|2|0%|
 |BudgetHandler|0|5|5|27|0%|0|0||0|2|0%|
 |BuildCommand|0|179|179|288|0%|0|0||0|15|0%|
-|BuildingPlacer|20|235|255|666|7.8%|0|0||3|21|14.2%|
+|BuildingPlacer|20|250|270|686|7.4%|0|0||3|22|13.6%|
 |BuildingPreset|0|4|4|24|0%|0|0||0|2|0%|
 |CameraController|8|66|74|117|10.8%|0|0||1|8|12.5%|
 |Cell|2|8|10|27|20%|0|0||5|15|33.3%|
+|Citizen|0|32|32|76|0%|0|0||0|9|0%|
 |CommercialBuildings|0|4|4|18|0%|0|0||0|2|0%|
 |CommercialZone|0|13|13|34|0%|0|0||0|4|0%|
 |ConfirmationPanel|0|10|10|30|0%|0|0||0|3|0%|
 |DataPersistenceManager|0|43|43|92|0%|0|0||0|9|0%|
-|DateHandler|3|87|90|156|3.3%|0|0||1|13|7.6%|
+|DateHandler|3|91|94|164|3.1%|0|0||1|14|7.1%|
 |FileDataHandler|0|48|48|100|0%|0|0||0|3|0%|
 |FireDepartment|0|4|4|18|0%|0|0||0|2|0%|
 |Forest|0|4|4|18|0%|0|0||0|2|0%|
-|GameData|0|11|11|78|0%|0|0||0|1|0%|
-|GameManager|6|166|172|266|3.4%|0|0||1|14|7.1%|
+|GameData|0|10|10|79|0%|0|0||0|1|0%|
+|GameManager|8|192|200|305|4%|0|0||1|14|7.1%|
 |House|0|4|4|18|0%|0|0||0|2|0%|
 |IndustrialBuildings|0|4|4|18|0%|0|0||0|2|0%|
 |IndustrialZone|0|13|13|34|0%|0|0||0|4|0%|
 |InfoBar|0|4|4|23|0%|0|0||0|2|0%|
 |MainMenu|4|14|18|47|22.2%|0|0||1|4|25%|
-|Map|5|337|342|529|1.4%|0|0||1|16|6.2%|
+|Map|5|366|371|565|1.3%|0|0||1|17|5.8%|
 |MapObject|8|41|49|75|16.3%|0|0||3|9|33.3%|
 |Police|0|4|4|20|0%|0|0||0|2|0%|
 |PopulationHandler|1|13|14|51|7.1%|0|0||1|5|20%|
 |Position|0|35|35|52|0%|0|0||0|9|0%|
-|ResidentialZone|6|117|123|426|4.8%|0|0||2|8|25%|
+|ResidentialZone|6|177|183|243|3.2%|0|0||2|10|20%|
 |Road|0|4|4|19|0%|0|0||0|2|0%|
 |RoadHandler|0|92|92|134|0%|0|0||0|13|0%|
 |SatisfactionHandler|0|12|12|33|0%|0|0||0|2|0%|

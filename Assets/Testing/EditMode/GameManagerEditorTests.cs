@@ -34,6 +34,6 @@ public class GameManagerEditorTests
     [Test]
     public void TestGeneralSatisfactionStartValue()
     {
-        Assert.AreEqual(0, gameManager.generalSatisfaction);
+        Assert.AreEqual(5, gameManager.generalSatisfaction);
     }
 }

@@ -150,22 +150,22 @@ public class ResidentialZone : MapObject
             if (zone.satisfaction >= 8) {
                 // zone.population += 10;
                 while (i<10 && zone.population.Count < 1000) {
-                    zone.population.Add(new Citizen(random.Next(18, 61)));
-                    // zone.population.Add(new Citizen(65));
+                    //zone.population.Add(new Citizen(random.Next(18, 61)));
+                    zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 6) {
                 // zone.population += 5;
                 while (i<5 && zone.population.Count < 1000) {
-                    zone.population.Add(new Citizen(random.Next(18, 61)));
-                    // zone.population.Add(new Citizen(65));
+                    //zone.population.Add(new Citizen(random.Next(18, 61)));
+                    zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 4) {
                 // zone.population += 2;
                 while (i<2 && zone.population.Count < 1000) {
-                    zone.population.Add(new Citizen(random.Next(18, 61)));
-                    // zone.population.Add(new Citizen(65));
+                    //zone.population.add(new citizen(random.next(18, 61)));
+                    zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 2) {

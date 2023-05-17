@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
         if (infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
-            generalBudget += infoBar.taxHandler.taxValue * 1000;
+            //generalBudget += infoBar.taxHandler.taxValue * 1000;
             foreach (ResidentialZone zone in dictResidentialZones.Values) {
                 generalBudget -= ResidentialZone.CalculatePensions(lastTaxes, zone);
             }
