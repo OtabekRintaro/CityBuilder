@@ -1,35 +1,35 @@
 {
   "summary": {
-    "generatedon": "2023-05-16T23:52:59Z",
+    "generatedon": "2023-05-17T00:33:09Z",
     "parser": "MultiReportParser (2x OpenCoverParser)",
     "assemblies": 2,
-    "classes": 37,
-    "files": 37,
-    "coveredlines": 53,
-    "uncoveredlines": 1639,
-    "coverablelines": 1692,
-    "totallines": 3615,
-    "linecoverage": 3.1,
+    "classes": 38,
+    "files": 38,
+    "coveredlines": 88,
+    "uncoveredlines": 1620,
+    "coverablelines": 1708,
+    "totallines": 3651,
+    "linecoverage": 5.1,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 17,
-    "totalmethods": 209,
-    "methodcoverage": 8.1
+    "coveredmethods": 26,
+    "totalmethods": 212,
+    "methodcoverage": 12.2
  },
   "coverage": {
     "assemblies": [
-      { "name": "Scripts_reference_for_testing", "classes": 36, "coverage": 2.4, "coveredlines": 41, "coverablelines": 1674, "totallines": 3555, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 7.2, "coveredmethods": 15, "totalmethods": 206, "classesinassembly": [
+      { "name": "Scripts_reference_for_testing", "classes": 36, "coverage": 3.5, "coveredlines": 60, "coverablelines": 1675, "totallines": 3555, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 9.7, "coveredmethods": 20, "totalmethods": 206, "classesinassembly": [
         { "name": "BlueprintCell", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "BudgetHandler", "coverage": 0, "coveredlines": 0, "coverablelines": 5, "totallines": 27, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "BuildCommand", "coverage": 0, "coveredlines": 0, "coverablelines": 179, "totallines": 288, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 15 },
-        { "name": "BuildingPlacer", "coverage": 3.2, "coveredlines": 8, "coverablelines": 250, "totallines": 658, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 10.5, "coveredmethods": 2, "totalmethods": 19 },
+        { "name": "BuildingPlacer", "coverage": 8, "coveredlines": 20, "coverablelines": 250, "totallines": 658, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 15.7, "coveredmethods": 3, "totalmethods": 19 },
         { "name": "BuildingPreset", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 24, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
-        { "name": "CameraController", "coverage": 10.9, "coveredlines": 8, "coverablelines": 73, "totallines": 117, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 12.5, "coveredmethods": 1, "totalmethods": 8 },
+        { "name": "CameraController", "coverage": 10.8, "coveredlines": 8, "coverablelines": 74, "totallines": 117, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 12.5, "coveredmethods": 1, "totalmethods": 8 },
         { "name": "Cell", "coverage": 20, "coveredlines": 2, "coverablelines": 10, "totallines": 27, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 33.3, "coveredmethods": 5, "totalmethods": 15 },
         { "name": "CommercialBuildings", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "CommercialZone", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 34, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
         { "name": "ConfirmationPanel", "coverage": 0, "coveredlines": 0, "coverablelines": 10, "totallines": 30, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
-        { "name": "DataPersistenceManager", "coverage": 0, "coveredlines": 0, "coverablelines": 43, "totallines": 92, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 9 },
+        { "name": "DataPersistenceManager", "coverage": 2.3, "coveredlines": 1, "coverablelines": 43, "totallines": 92, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 22.2, "coveredmethods": 2, "totalmethods": 9 },
         { "name": "DateHandler", "coverage": 3.3, "coveredlines": 3, "coverablelines": 90, "totallines": 156, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 7.6, "coveredmethods": 1, "totalmethods": 13 },
         { "name": "FileDataHandler", "coverage": 0, "coveredlines": 0, "coverablelines": 48, "totallines": 100, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "FireDepartment", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
@@ -40,7 +40,7 @@
         { "name": "IndustrialBuildings", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "IndustrialZone", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 34, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
         { "name": "InfoBar", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 23, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
-        { "name": "MainMenu", "coverage": 0, "coveredlines": 0, "coverablelines": 18, "totallines": 47, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
+        { "name": "MainMenu", "coverage": 33.3, "coveredlines": 6, "coverablelines": 18, "totallines": 47, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 50, "coveredmethods": 2, "totalmethods": 4 },
         { "name": "Map", "coverage": 1.4, "coveredlines": 5, "coverablelines": 342, "totallines": 529, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 6.2, "coveredmethods": 1, "totalmethods": 16 },
         { "name": "MapObject", "coverage": 4, "coveredlines": 2, "coverablelines": 49, "totallines": 75, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 11.1, "coveredmethods": 1, "totalmethods": 9 },
         { "name": "Police", "coverage": 0, "coveredlines": 0, "coverablelines": 4, "totallines": 20, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
@@ -55,7 +55,8 @@
         { "name": "TaxHandler", "coverage": 0, "coveredlines": 0, "coverablelines": 7, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "Timer", "coverage": 0, "coveredlines": 0, "coverablelines": 14, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 },
         { "name": "UIHandler", "coverage": 0, "coveredlines": 0, "coverablelines": 9, "totallines": 26, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 2 } ] },
-      { "name": "Tests", "classes": 1, "coverage": 66.6, "coveredlines": 12, "coverablelines": 18, "totallines": 60, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 66.6, "coveredmethods": 2, "totalmethods": 3, "classesinassembly": [
-        { "name": "BuildingPlacerTest", "coverage": 66.6, "coveredlines": 12, "coverablelines": 18, "totallines": 60, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 66.6, "coveredmethods": 2, "totalmethods": 3 } ] } ]
+      { "name": "Tests", "classes": 2, "coverage": 84.8, "coveredlines": 28, "coverablelines": 33, "totallines": 96, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 6, "totalmethods": 6, "classesinassembly": [
+        { "name": "BuildingPlacerTest", "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 60, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
+        { "name": "MainMenuTest", "coverage": 66.6, "coveredlines": 10, "coverablelines": 15, "totallines": 36, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 } ] } ]
   }
 }

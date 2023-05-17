@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
         quitButton.onClick.AddListener(QuitGame);
     }
 
-    void ContinueGame()
+    public void ContinueGame()
     {
         //SceneManager.LoadScene("GameScene");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MenuScene"));
     }
 
-    void NewGame()
+    public void NewGame()
     {
         // b.ClearData();
         DataPersistenceManager.instance.NewGame();
@@ -35,7 +35,7 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    void QuitGame()
+    public void QuitGame()
     {
         #if UNITY_EDITOR
 

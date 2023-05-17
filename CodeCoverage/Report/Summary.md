@@ -1,36 +1,36 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 5/16/2023 - 8:52:59 PM |
+| Generated on: | 5/16/2023 - 9:33:09 PM |
 | Parser: | MultiReportParser (2x OpenCoverParser) |
 | Assemblies: | 2 |
-| Classes: | 37 |
-| Files: | 37 |
-| Covered lines: | 53 |
-| Uncovered lines: | 1639 |
-| Coverable lines: | 1692 |
-| Total lines: | 3615 |
-| Line coverage: | 3.1% (53 of 1692) |
+| Classes: | 38 |
+| Files: | 38 |
+| Covered lines: | 88 |
+| Uncovered lines: | 1620 |
+| Coverable lines: | 1708 |
+| Total lines: | 3651 |
+| Line coverage: | 5.1% (88 of 1708) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 17 |
-| Total methods: | 209 |
-| Method coverage: | 8.1% (17 of 209) |
+| Covered methods: | 26 |
+| Total methods: | 212 |
+| Method coverage: | 12.2% (26 of 212) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**Scripts_reference_for_testing**|**41**|**1633**|**1674**|**3555**|**2.4%**|**0**|**0**|****|**15**|**206**|**7.2%**|
+|**Scripts_reference_for_testing**|**60**|**1615**|**1675**|**3555**|**3.5%**|**0**|**0**|****|**20**|**206**|**9.7%**|
 |BlueprintCell|0|4|4|18|0%|0|0||0|2|0%|
 |BudgetHandler|0|5|5|27|0%|0|0||0|2|0%|
 |BuildCommand|0|179|179|288|0%|0|0||0|15|0%|
-|BuildingPlacer|8|242|250|658|3.2%|0|0||2|19|10.5%|
+|BuildingPlacer|20|230|250|658|8%|0|0||3|19|15.7%|
 |BuildingPreset|0|4|4|24|0%|0|0||0|2|0%|
-|CameraController|8|65|73|117|10.9%|0|0||1|8|12.5%|
+|CameraController|8|66|74|117|10.8%|0|0||1|8|12.5%|
 |Cell|2|8|10|27|20%|0|0||5|15|33.3%|
 |CommercialBuildings|0|4|4|18|0%|0|0||0|2|0%|
 |CommercialZone|0|13|13|34|0%|0|0||0|4|0%|
 |ConfirmationPanel|0|10|10|30|0%|0|0||0|3|0%|
-|DataPersistenceManager|0|43|43|92|0%|0|0||0|9|0%|
+|DataPersistenceManager|1|42|43|92|2.3%|0|0||2|9|22.2%|
 |DateHandler|3|87|90|156|3.3%|0|0||1|13|7.6%|
 |FileDataHandler|0|48|48|100|0%|0|0||0|3|0%|
 |FireDepartment|0|4|4|18|0%|0|0||0|2|0%|
@@ -41,7 +41,7 @@
 |IndustrialBuildings|0|4|4|18|0%|0|0||0|2|0%|
 |IndustrialZone|0|13|13|34|0%|0|0||0|4|0%|
 |InfoBar|0|4|4|23|0%|0|0||0|2|0%|
-|MainMenu|0|18|18|47|0%|0|0||0|4|0%|
+|MainMenu|6|12|18|47|33.3%|0|0||2|4|50%|
 |Map|5|337|342|529|1.4%|0|0||1|16|6.2%|
 |MapObject|2|47|49|75|4%|0|0||1|9|11.1%|
 |Police|0|4|4|20|0%|0|0||0|2|0%|
@@ -56,5 +56,6 @@
 |TaxHandler|0|7|7|25|0%|0|0||0|3|0%|
 |Timer|0|14|14|25|0%|0|0||0|2|0%|
 |UIHandler|0|9|9|26|0%|0|0||0|2|0%|
-|**Tests**|**12**|**6**|**18**|**60**|**66.6%**|**0**|**0**|****|**2**|**3**|**66.6%**|
-|BuildingPlacerTest|12|6|18|60|66.6%|0|0||2|3|66.6%|
+|**Tests**|**28**|**5**|**33**|**96**|**84.8%**|**0**|**0**|****|**6**|**6**|**100%**|
+|BuildingPlacerTest|18|0|18|60|100%|0|0||3|3|100%|
+|MainMenuTest|10|5|15|36|66.6%|0|0||3|3|100%|
