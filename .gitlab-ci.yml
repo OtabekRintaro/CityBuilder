@@ -85,11 +85,11 @@ get-activation-file:
 #     TEST_PLATFORM: playmode
 #     TESTING_TYPE: NUNIT
 
-# test-editmode:
-#   <<: *test
-#   variables:
-#     TEST_PLATFORM: editmode
-#     TESTING_TYPE: NUNIT
+test-editmode:
+  <<: *test
+  variables:
+    TEST_PLATFORM: editmode
+    TESTING_TYPE: NUNIT
 
 # uncomment the following blocks if you'd like to have junit reporting unity test results in gitlab
 # We currently have the following issue which prevents it from working right now, but you can give

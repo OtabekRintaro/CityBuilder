@@ -108,9 +108,9 @@ public class CameraController : MonoBehaviour
 
     void setDefault()
     {
-        this._Transform_camera.SetLocalPositionAndRotation(new Vector3(0, 20f, -17f), new Quaternion(0.500000000000f, 0, 0, 1));
-        this._Transform_Parent.localRotation = new Quaternion(0, 0, 0, 1);
-
+        this._Transform_camera.localPosition = new Vector3(0, 20f, -17f);
+        this._Transform_camera.localRotation = Quaternion.Euler(0.5f, 0f, 0f);
+        this._Transform_Parent.localRotation = Quaternion.identity;
         _LocalRotation.x = 0;
         _LocalRotation.y = 0;
     }
