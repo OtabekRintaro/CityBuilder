@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour, IDataPersistence
 {
@@ -15,21 +16,28 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private DateTime currentYear = new DateTime(1900, 1, 1);
     private Queue<int> lastTaxes = new Queue<int>();
 
+    public Button okButton;
+    public GameObject panel;
+
     [SerializeField]
     Map map;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        panel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PlayerLost())
+        {
+            LostPanelShow();
+        }
         spendMoney();
         infoBar.budgetHandler.number = generalBudget;
-        if(!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
+        if (!infoBar.dateHandler.isPaused && infoBar.dateHandler.hasPassed3Seconds(currentDate))
         {
             currentDate = infoBar.dateHandler.currentDate;
             Cell[,] cellGrid = map.cells;
@@ -75,7 +83,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             infoBar.satisfactionHandler.number = generalSatisfaction;
             // Debug.Log(generalSatisfaction);wass
         }
-        if(infoBar.dateHandler.hasPassedMonth(currentMonth))
+        if (infoBar.dateHandler.hasPassedMonth(currentMonth))
         {
             generalBudget += infoBar.taxHandler.taxValue * 1000;
             foreach (ResidentialZone zone in dictResidentialZones.Values) {
@@ -104,6 +112,29 @@ public class GameManager : MonoBehaviour, IDataPersistence
                 // Debug.Log(x);
         }
     }
+    public void LostPanelShow()
+    {
+        panel.SetActive(true);
+        okButton.onClick.AddListener(QuitGame);
+    }
+
+    private void QuitGame()
+    {
+        DataPersistenceManager.instance.NewGame();
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
+    }
+
+    public bool PlayerLost()
+    {
+        if (generalSatisfaction <= -4)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void LoadData(GameData data)
     {
@@ -126,13 +157,13 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void setGame()
     {
-        
+
     }
 
     public void spendMoney()
     {
         //Debug.Log(map.spentMoney.Count > 0);   
-        if(map.spentMoney.Count > 0)
+        if (map.spentMoney.Count > 0)
         {
             generalBudget -= map.spentMoney[0];
             map.spentMoney.RemoveAt(0);
@@ -166,7 +197,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             for (int z = 1; z < cellGrid.GetLength(1) - 1; z++)
             {
                 MapObject mapObject;
-                if((mapObject = map.findMapObject(new Position(x,z))) is IndustrialZone)
+                if ((mapObject = map.findMapObject(new Position(x, z))) is IndustrialZone)
                 {
                     IndustrialZone industrialZone = (IndustrialZone)mapObject;
                     industrialZone.connectToPublicRoad(industrialZone.checkPublicRoadConnection());
@@ -181,7 +212,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public ResidentialZone[] GetResidentialZones(Cell[,] cellGrid)
     {
         List<ResidentialZone> residentialZones = new List<ResidentialZone>();
-        
+
         for (int x = 1; x < cellGrid.GetLength(0) - 1; x += 1)
         {
             for (int z = 1; z < cellGrid.GetLength(1) - 1; z += 1)
@@ -220,7 +251,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
                 //}
             }
         }
-        
+
         return residentialZones.ToArray();
     }
 
@@ -262,13 +293,13 @@ public class GameManager : MonoBehaviour, IDataPersistence
         {
             ResidentialZone residentialZone = zonesArray[Array.FindIndex(zonesArray, elem => elem.position.Equals(key))];
             //ResidentialZone residentialZone = new ResidentialZone(key, 0, 5, false, false);
-            
-            residentialZone = (ResidentialZone) map.findMapObject(key);
+
+            residentialZone = (ResidentialZone)map.findMapObject(key);
             residentialZone.mainRoadConnection = residentialZone.checkPublicRoadConnection();
-            
+
             zonesDict.Add(key, residentialZone);
         }
-    }     
+    }
 }
 
-    
+

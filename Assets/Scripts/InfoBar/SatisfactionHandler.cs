@@ -10,6 +10,7 @@ public class SatisfactionHandler : MonoBehaviour
     public TextMeshProUGUI satisfaction;
     public string text;
     public int number;
+    public string warningText;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,14 @@ public class SatisfactionHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //number++;
-        satisfaction.text = text + number.ToString();
+        if (number < 0)
+        {
+            satisfaction.text = text + number.ToString() +"\n "+ warningText;
+        }
+        else
+        {
+            satisfaction.text = text + number.ToString();
+        }
         // Debug.Log(satisfaction.text);
     }
 }

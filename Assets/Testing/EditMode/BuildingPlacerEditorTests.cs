@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 //using NSubstitute;
-public class BuildingPlacerTest
+public class BuildingPlacerEditorTests
 {
     private BuildingPlacer buildingPlacer;
 

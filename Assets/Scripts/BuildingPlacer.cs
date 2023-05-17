@@ -48,7 +48,7 @@ public class BuildingPlacer : MonoBehaviour
     
     void Awake()
     {
-        infoUI.SetActive(false);
+        
         inst = this;
     }
     //public void changeColor()
@@ -66,10 +66,17 @@ public class BuildingPlacer : MonoBehaviour
     //    }
 
     //}
-
+    public BuildingPreset getCurrBuildingPreset()
+    {
+        return curBuildingPreset;
+    }
     public bool IsCurrentlyPlacing
     {
         get { return currentlyPlacing; }
+    }
+    public Transform getSelection()
+    {
+        return selection;
     }
     public void createPlane(int x, int z, int i)
     {
@@ -202,6 +209,8 @@ public class BuildingPlacer : MonoBehaviour
         bool isPlaceable = false;
         //Debug.Log(cellGrid.cells.GetLength(0));
         int row = 0; int col = 0;
+        GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
+
         for (int i = 0; i < map.cells.GetLength(0); i++)
         {
             for (int k = 0; k < map.cells.GetLength(1); k++)
@@ -210,7 +219,7 @@ public class BuildingPlacer : MonoBehaviour
                 map.cells[i, k].Z == curPlacementPos.z)
                 {
                     row = i; col = k;
-                    isPlaceable = isPlaceable || assign_cells(map, curBuildingPreset, i, k);
+                    isPlaceable = isPlaceable || assign_cells(map, curBuildingPreset, i, k, buildingObj.GetInstanceID());
                     //Debug.Log(assign_cells(i,k));
                 }
                 
@@ -218,15 +227,13 @@ public class BuildingPlacer : MonoBehaviour
         }
         //   Debug.Log($"Placing building at: {curPlacementPos.x}, {curPlacementPos.z} ");
         int coverage = Coverage(curBuildingPreset.displayName);
+        if(!isPlaceable)
+        {
+            Destroy(buildingObj);
+        }
 
         if (isPlaceable)
         {
-            GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
-            //foreach (var c in blueprintCells)
-            //{
-            //    Destroy(c.gameObject);
-            //}
-            //Debug.Log(buildingObj.GetInstanceID());
             map.addMapObject(buildingObj, coverage, row, col);
             attachToBuildings(buildingObj);
             CancelBuildingPlacement(); 
@@ -386,8 +393,12 @@ public class BuildingPlacer : MonoBehaviour
                     infoUI.SetActive(true);
                     var panelTransform = infoUI.transform;
                     var capacity = panelTransform.Find("Capacity").GetComponent<TextMeshProUGUI>();
+                    var satisfaction= panelTransform.Find("SatisfactionText").GetComponent<TextMeshProUGUI>();
                     Cell c = cellInfo();
-                    capacity.text = $"Capacity is: {c.Type}";
+                   // satisfaction.text = "Satisfaction: ";
+                    Debug.Log(map.findMapObject(c.ID) is null);
+                    satisfaction.text = map.findMapObject(c.ID) is ResidentialZone ? "Satisfaction: " +((ResidentialZone)map.findMapObject(c.ID)).satisfaction.ToString() : "";
+                    capacity.text = capacityReturn(c);
                     cellToBeDeleted = c;
                 }
                 else
@@ -398,6 +409,23 @@ public class BuildingPlacer : MonoBehaviour
                 }
             }
         }
+    }
+
+    public string capacityReturn(Cell c)
+    {
+        if(c.Type== "ResidentialZone")
+        {
+            return "Capacity is 1000";
+        }
+        else if(c.Type == "IndustrialZone")
+        {
+            return "Capacity is 500";
+        }
+        else if(c.Type == "CommercialZone")
+        {
+            return "Capacity is 500";
+        }
+        return "";
     }
     public void DeleteObject()
     {
@@ -448,11 +476,11 @@ public class BuildingPlacer : MonoBehaviour
         }
         return null;
     }
-    public static bool assign_cells(Map map, BuildingPreset curBuildingPreset, int row, int col)
+    public static bool assign_cells(Map map, BuildingPreset curBuildingPreset, int row, int col, int id)
     {
-        int minValue = 1;
-        int maxValue = 10000;
-        int randomNumber = UnityEngine.Random.Range(minValue, maxValue);
+        //int minValue = 1;
+        //int maxValue = 10000;
+        //int randomNumber = UnityEngine.Random.Range(minValue, maxValue);
         int half_cov = Coverage(curBuildingPreset.displayName) /2;
         int low_row = row - half_cov;
         int high_row = row + half_cov;
@@ -475,7 +503,7 @@ public class BuildingPlacer : MonoBehaviour
                     {
                         map.cells[x, z].isFree = false;
                         map.cells[x, z].Type = curBuildingPreset.displayName; 
-                        map.cells[x, z].ID = randomNumber;
+                        map.cells[x, z].ID = id;
                         //Debug.Log(cellGrid.cells[x, z] + "id is: " + cellGrid.cells[x, z].ID);
                     }
                     else
@@ -583,6 +611,7 @@ public class BuildingPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        infoUI.SetActive(false);
         //string path = Application.persistentDataPath + "/player-stats.json";
         saveAndExitButton.onClick.AddListener(showPanel);
         ConfirmationPanel.gameObject.SetActive(false);
@@ -595,7 +624,7 @@ public class BuildingPlacer : MonoBehaviour
     void showPanel()
     {
         ConfirmationPanel.gameObject.SetActive(true);
-        YesButton.onClick.AddListener(SaveAndExit);
+        //YesButton.onClick.AddListener(SaveAndExit);
         NoButton.onClick.AddListener(Continue);
     }
 

@@ -436,6 +436,19 @@ public class Map : MonoBehaviour, IDataPersistence
     //    return gameObject;
     //}
 
+    public MapObject findMapObject(int id)
+    {
+        MapObject res = null;
+        foreach (MapObject mapObject in mapObjects)
+        {
+            if (mapObject.ID.Equals(id))
+            {
+                res = mapObject;
+            }
+        }
+        return res;
+    }
+
     public MapObject findMapObject(Position pos)
     {
         MapObject res = null;
