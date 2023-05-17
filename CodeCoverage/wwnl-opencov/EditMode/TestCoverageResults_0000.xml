@@ -69,7 +69,7 @@
             <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
               <MetadataToken>100663301</MetadataToken>
-              <Name>System.Void MainMenuTest::ContinueGame_ButtonClick_LoadsGameScene()</Name>
+              <Name>System.Void MainMenuTest::ContinueGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="0" uspid="19" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="2" />
@@ -84,7 +84,7 @@
             <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
               <MetadataToken>100663302</MetadataToken>
-              <Name>System.Void MainMenuTest::NewGame_ButtonClick_LoadsGameScene()</Name>
+              <Name>System.Void MainMenuTest::NewGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="0" uspid="25" ordinal="0" offset="0" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="2" />
@@ -98,7 +98,7 @@
             <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
               <MetadataToken>100663303</MetadataToken>
-              <Name>System.Void MainMenuTest::QuitGame_ButtonClick_QuitsApplication()</Name>
+              <Name>System.Void MainMenuTest::QuitGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="0" uspid="30" ordinal="0" offset="0" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="2" />
@@ -1259,17 +1259,17 @@
               <Name>GameData::GameData()</Name>
               <FileRef uid="11" />
               <SequencePoints>
-                <SequencePoint vc="0" uspid="531" ordinal="0" offset="0" sl="26" sc="5" el="26" ec="5" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="532" ordinal="0" offset="8" sl="35" sc="5" el="35" ec="5" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="533" ordinal="0" offset="15" sl="36" sc="5" el="36" ec="5" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="534" ordinal="0" offset="16" sl="38" sc="9" el="38" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="535" ordinal="0" offset="27" sl="39" sc="9" el="39" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="536" ordinal="0" offset="38" sl="40" sc="9" el="40" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="537" ordinal="0" offset="49" sl="41" sc="9" el="41" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="538" ordinal="0" offset="80" sl="42" sc="9" el="42" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="539" ordinal="0" offset="104" sl="43" sc="9" el="43" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="540" ordinal="0" offset="128" sl="44" sc="9" el="44" ec="9" bec="0" bev="0" fileid="11" />
-                <SequencePoint vc="0" uspid="541" ordinal="0" offset="152" sl="77" sc="5" el="77" ec="5" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="531" ordinal="0" offset="0" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="532" ordinal="0" offset="8" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="533" ordinal="0" offset="15" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="534" ordinal="0" offset="16" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="535" ordinal="0" offset="27" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="536" ordinal="0" offset="38" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="537" ordinal="0" offset="49" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="538" ordinal="0" offset="80" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="539" ordinal="0" offset="104" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="540" ordinal="0" offset="128" sl="44" sc="0" el="44" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="541" ordinal="0" offset="152" sl="77" sc="0" el="77" ec="0" bec="0" bev="0" fileid="11" />
               </SequencePoints>
               <BranchPoints />
             </Method>

@@ -69,7 +69,7 @@
             <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="50.00" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="6" visitedSequencePoints="3" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="50.00" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken>100663301</MetadataToken>
-              <Name>System.Void MainMenuTest::ContinueGame_ButtonClick_LoadsGameScene()</Name>
+              <Name>System.Void MainMenuTest::ContinueGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="1" uspid="1956" ordinal="0" offset="0" sl="13" sc="5" el="13" ec="5" bec="0" bev="0" fileid="2" />
@@ -84,7 +84,7 @@
             <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="60.00" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="5" visitedSequencePoints="3" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="60.00" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken>100663302</MetadataToken>
-              <Name>System.Void MainMenuTest::NewGame_ButtonClick_LoadsGameScene()</Name>
+              <Name>System.Void MainMenuTest::NewGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="1" uspid="1962" ordinal="0" offset="0" sl="22" sc="5" el="22" ec="5" bec="0" bev="0" fileid="2" />
@@ -98,7 +98,7 @@
             <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken>100663303</MetadataToken>
-              <Name>System.Void MainMenuTest::QuitGame_ButtonClick_QuitsApplication()</Name>
+              <Name>System.Void MainMenuTest::QuitGameTest()</Name>
               <FileRef uid="2" />
               <SequencePoints>
                 <SequencePoint vc="1" uspid="1967" ordinal="0" offset="0" sl="30" sc="5" el="30" ec="5" bec="0" bev="0" fileid="2" />
