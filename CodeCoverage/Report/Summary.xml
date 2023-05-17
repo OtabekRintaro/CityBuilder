@@ -1,64 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>5/16/2023 - 9:41:05 PM</Generatedon>
+    <Generatedon>5/17/2023 - 4:04:05 AM</Generatedon>
     <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
     <Assemblies>2</Assemblies>
-    <Classes>38</Classes>
-    <Files>38</Files>
-    <Coveredlines>88</Coveredlines>
-    <Uncoveredlines>1620</Uncoveredlines>
-    <Coverablelines>1708</Coverablelines>
-    <Totallines>3651</Totallines>
-    <Linecoverage>5.1</Linecoverage>
+    <Classes>40</Classes>
+    <Files>40</Files>
+    <Coveredlines>115</Coveredlines>
+    <Uncoveredlines>1643</Uncoveredlines>
+    <Coverablelines>1758</Coverablelines>
+    <Totallines>3773</Totallines>
+    <Linecoverage>6.5</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>26</Coveredmethods>
-    <Totalmethods>212</Totalmethods>
-    <Methodcoverage>12.2</Methodcoverage>
+    <Coveredmethods>32</Coveredmethods>
+    <Totalmethods>224</Totalmethods>
+    <Methodcoverage>14.2</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="Scripts_reference_for_testing" classes="36" coverage="3.5" coveredlines="60" coverablelines="1675" totallines="3555" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="20" totalmethods="206" methodcoverage="9.7">
+    <Assembly name="Scripts_reference_for_testing" classes="36" coverage="3.6" coveredlines="63" coverablelines="1706" totallines="3601" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="19" totalmethods="211" methodcoverage="9">
       <Class name="BlueprintCell" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="BudgetHandler" coverage="0" coveredlines="0" coverablelines="5" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="BuildCommand" coverage="0" coveredlines="0" coverablelines="179" totallines="288" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0" />
-      <Class name="BuildingPlacer" coverage="8" coveredlines="20" coverablelines="250" totallines="658" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="19" methodcoverage="15.7" />
+      <Class name="BuildingPlacer" coverage="7.8" coveredlines="20" coverablelines="255" totallines="666" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="21" methodcoverage="14.2" />
       <Class name="BuildingPreset" coverage="0" coveredlines="0" coverablelines="4" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="CameraController" coverage="10.8" coveredlines="8" coverablelines="74" totallines="117" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="8" methodcoverage="12.5" />
       <Class name="Cell" coverage="20" coveredlines="2" coverablelines="10" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="15" methodcoverage="33.3" />
       <Class name="CommercialBuildings" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="CommercialZone" coverage="0" coveredlines="0" coverablelines="13" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
       <Class name="ConfirmationPanel" coverage="0" coveredlines="0" coverablelines="10" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
-      <Class name="DataPersistenceManager" coverage="2.3" coveredlines="1" coverablelines="43" totallines="92" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="9" methodcoverage="22.2" />
+      <Class name="DataPersistenceManager" coverage="0" coveredlines="0" coverablelines="43" totallines="92" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
       <Class name="DateHandler" coverage="3.3" coveredlines="3" coverablelines="90" totallines="156" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="13" methodcoverage="7.6" />
       <Class name="FileDataHandler" coverage="0" coveredlines="0" coverablelines="48" totallines="100" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="FireDepartment" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="Forest" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="GameData" coverage="0" coveredlines="0" coverablelines="11" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
-      <Class name="GameManager" coverage="3.9" coveredlines="6" coverablelines="152" totallines="235" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="11" methodcoverage="9" />
+      <Class name="GameManager" coverage="3.4" coveredlines="6" coverablelines="172" totallines="266" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="14" methodcoverage="7.1" />
       <Class name="House" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="IndustrialBuildings" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="IndustrialZone" coverage="0" coveredlines="0" coverablelines="13" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
       <Class name="InfoBar" coverage="0" coveredlines="0" coverablelines="4" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
-      <Class name="MainMenu" coverage="33.3" coveredlines="6" coverablelines="18" totallines="47" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="4" methodcoverage="50" />
+      <Class name="MainMenu" coverage="22.2" coveredlines="4" coverablelines="18" totallines="47" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
       <Class name="Map" coverage="1.4" coveredlines="5" coverablelines="342" totallines="529" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="16" methodcoverage="6.2" />
-      <Class name="MapObject" coverage="4" coveredlines="2" coverablelines="49" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="9" methodcoverage="11.1" />
+      <Class name="MapObject" coverage="16.3" coveredlines="8" coverablelines="49" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="9" methodcoverage="33.3" />
       <Class name="Police" coverage="0" coveredlines="0" coverablelines="4" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="PopulationHandler" coverage="7.1" coveredlines="1" coverablelines="14" totallines="51" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="5" methodcoverage="20" />
       <Class name="Position" coverage="0" coveredlines="0" coverablelines="35" totallines="52" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
       <Class name="ResidentialZone" coverage="4.8" coveredlines="6" coverablelines="123" totallines="426" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="8" methodcoverage="25" />
       <Class name="Road" coverage="0" coveredlines="0" coverablelines="4" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="RoadHandler" coverage="0" coveredlines="0" coverablelines="92" totallines="134" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="13" methodcoverage="0" />
-      <Class name="SatisfactionHandler" coverage="0" coveredlines="0" coverablelines="6" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="SatisfactionHandler" coverage="0" coveredlines="0" coverablelines="12" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="Selector" coverage="0" coveredlines="0" coverablelines="24" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
       <Class name="Stadium" coverage="0" coveredlines="0" coverablelines="4" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="TaxHandler" coverage="0" coveredlines="0" coverablelines="7" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="Timer" coverage="0" coveredlines="0" coverablelines="14" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="UIHandler" coverage="0" coveredlines="0" coverablelines="9" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
     </Assembly>
-    <Assembly name="Tests" classes="2" coverage="84.8" coveredlines="28" coverablelines="33" totallines="96" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100">
-      <Class name="BuildingPlacerTest" coverage="100" coveredlines="18" coverablelines="18" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
-      <Class name="MainMenuTest" coverage="66.6" coveredlines="10" coverablelines="15" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+    <Assembly name="Tests" classes="4" coverage="100" coveredlines="52" coverablelines="52" totallines="172" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="13" methodcoverage="100">
+      <Class name="BuildingPlacerEditorTests" coverage="100" coveredlines="18" coverablelines="18" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="GameManagerEditorTests" coverage="100" coveredlines="16" coverablelines="16" totallines="39" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="MainMenuTest" coverage="100" coveredlines="4" coverablelines="4" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="MapObjectEditorTests" coverage="100" coveredlines="14" coverablelines="14" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
     </Assembly>
   </Coverage>
 </CoverageReport>
