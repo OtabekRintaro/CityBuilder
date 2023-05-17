@@ -115,7 +115,9 @@ public class Map : MonoBehaviour, IDataPersistence
             {
                 cells[row, col].isFree = data.FreeCells[width * row + col];
                 cells[row, col].Type = data.TypeOfCells[width * row + col];
-                cells[row, col].ID = data.IdOfCells[width * row + col];
+                cells[row, col].X = -100 + col * 10;
+                cells[row, col].Z = -100 + row * 10;
+                //cells[row, col].ID = data.IdOfCells[width * row + col];
             }
         }
 
@@ -139,10 +141,21 @@ public class Map : MonoBehaviour, IDataPersistence
                 resZone.transform.localPosition = curPlacementPos;
                 resZone.transform.rotation = Quaternion.identity;
 
-                resZone.position = new Position(row, col);
-                foreach(var age in data.ages)
+                for(int i = (int)row - 1; i <= (int)row + 1; i++)
                 {
-                    resZone.population.Add(new Citizen(age));
+                    for(int j = (int)col - 1; j <= (int)col + 1; j++)
+                    {
+                        cells[i, j].ID = gameObject.GetInstanceID();
+                    }
+                }
+
+                resZone.position = new Position(row, col);
+                int skipped = 0;
+                for (int i = 0; i < resIndex; i++)
+                    skipped += data.ctzCount[i];
+                for(int i = 0; i < data.ctzCount[resIndex]; i++)
+                {
+                    resZone.population.Add(new Citizen(data.ages[skipped + i]));
                 }
                 // resZone.population = data.population[resIndex];
                 resZone.satisfaction = data.satisfaction[resIndex];
@@ -268,7 +281,7 @@ public class Map : MonoBehaviour, IDataPersistence
             {
                 data.FreeCells[width * row + col] = cells[row, col].isFree;
                 data.TypeOfCells[width * row + col] = cells[row, col].Type;
-                data.IdOfCells[width * row + col] = cells[row, col].ID;
+                //data.IdOfCells[width * row + col] = cells[row, col].ID;
             }
         }
 
@@ -278,6 +291,7 @@ public class Map : MonoBehaviour, IDataPersistence
         //data.population.Clear();
         data.satisfaction.Clear();
         data.ages.Clear();
+        data.ctzCount.Clear();
 
         foreach(MapObject mapObj in mapObjects)
         {
@@ -287,6 +301,7 @@ public class Map : MonoBehaviour, IDataPersistence
             if(data.gameObjects[data.gameObjects.Count - 1].Equals("ResidentialZone"))
             {
                 ResidentialZone resZone = (ResidentialZone)mapObj;
+                data.ctzCount.Add(resZone.population.Count);
                 foreach(var ctz in resZone.population)
                 {
                     data.ages.Add(ctz.Age);

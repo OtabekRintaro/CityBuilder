@@ -396,7 +396,6 @@ public class BuildingPlacer : MonoBehaviour
                     var satisfaction= panelTransform.Find("SatisfactionText").GetComponent<TextMeshProUGUI>();
                     Cell c = cellInfo();
                    // satisfaction.text = "Satisfaction: ";
-                    Debug.Log(map.findMapObject(c.ID) is null);
                     satisfaction.text = map.findMapObject(c.ID) is ResidentialZone ? "Satisfaction: " +((ResidentialZone)map.findMapObject(c.ID)).satisfaction.ToString() : "";
                     capacity.text = capacityReturn(c);
                     cellToBeDeleted = c;
@@ -468,7 +467,7 @@ public class BuildingPlacer : MonoBehaviour
             {
                 if (map.cells[i, k].X == curPlacementPos.x &&
                 map.cells[i, k].Z == curPlacementPos.z)
-                {
+                {   
                     return map.cells[i,k];
                 }
 
