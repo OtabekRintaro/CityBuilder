@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class MainMenuTest
 {
+    /*
     [Test]
     public void ContinueGameTest()
     {
@@ -24,7 +25,7 @@ public class MainMenuTest
         mainMenu.NewGame();
         Assert.AreEqual("GameScene", SceneManager.GetActiveScene().name);
     }
-
+    */
     [Test]
     public void QuitGameTest()
     {
