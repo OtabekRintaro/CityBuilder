@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public GameObject panel;
 
     [SerializeField]
-    public Map map;
+    Map map;
 
     /// <summary>
     /// Sets the panel to inactive.
