@@ -56,7 +56,7 @@ public class Map : MonoBehaviour, IDataPersistence
     /// <summary>
     /// Initializes the cells of the game map.
     /// </summary>
-    private void InitializeCells()
+    public void InitializeCells()
     {
         cells = new Cell[height, width];
         mainRoad = new Road[height, width];
@@ -85,7 +85,7 @@ public class Map : MonoBehaviour, IDataPersistence
     /// <summary>
     /// Creates the main road on the game map.
     /// </summary>
-    private void CreateMainRoad()
+    public void CreateMainRoad()
     {
         for (int row = height / 2; row <= (height / 2) + 1; row++)
         {
@@ -99,7 +99,7 @@ public class Map : MonoBehaviour, IDataPersistence
     /// <summary>
     /// Creates a forest area on the game map.
     /// </summary>
-    private void CreateForestArea()
+    public void CreateForestArea()
     {
         for (int row = height - 1, amount = 12; row > height - 13; row--, amount--)
         {
