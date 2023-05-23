@@ -56,7 +56,7 @@ public class ResidentialZoneTests
         GameObject houseObject = new GameObject();
         House house = houseObject.AddComponent<House>();
         residentialZone.housePrefab = house;
-        residentialZone.buildHouse();
+        residentialZone.BuildHouse();
         yield return null;
         Assert.AreEqual(1, residentialZone.transform.childCount);
     }

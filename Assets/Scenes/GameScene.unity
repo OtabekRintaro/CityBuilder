@@ -8532,6 +8532,17 @@ PrefabInstance:
       objectReference: {fileID: 1607027043}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dfcaac52ffe79e4f90d6d415e0d292d, type: 3}
+--- !u!114 &2128284805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2435859241291880168, guid: a441fefb53495014680c0602dc86ec70, type: 3}
+  m_PrefabInstance: {fileID: 1820001257379482073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0cb5572be6fb24eb4b4f1374e8460e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2136304504
 GameObject:
   m_ObjectHideFlags: 0
@@ -8922,6 +8933,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1920520564}
     m_Modifications:
+    - target: {fileID: 1820001258145443322, guid: a441fefb53495014680c0602dc86ec70, type: 3}
+      propertyPath: fireTruck
+      value: 
+      objectReference: {fileID: 2128284805}
+    - target: {fileID: 1820001258145443322, guid: a441fefb53495014680c0602dc86ec70, type: 3}
+      propertyPath: firePrefab
+      value: 
+      objectReference: {fileID: 1307608581}
     - target: {fileID: 2385749571310485433, guid: a441fefb53495014680c0602dc86ec70, type: 3}
       propertyPath: m_RootOrder
       value: 9
