@@ -23,6 +23,7 @@ public class Map : MonoBehaviour, IDataPersistence
     public Police policePrefab;
     public FireDepartment fireDepartmentPrefab;
     public Stadium stadiumPrefab;
+    public FirePrefab firePrefab;
 
     public BuildingPreset roadBuildingPreset;
     public BuildingPreset forestBuildingPreset;
@@ -583,6 +584,14 @@ public class Map : MonoBehaviour, IDataPersistence
                 mapObject.publicRoads = 0;
                 mapObject.connectToPublicRoad(false);
             }
+            if (mapObject is not FireDepartment)
+            {
+                int count = MapObject.CheckRadius(cells,this, mapObject.position, 10, new FireDepartment());
+                if(count != 0)
+                {
+                    mapObject.ConnectToFireDepartment(true);
+                }
+            }
         }
     }
 
@@ -670,6 +679,7 @@ public class Map : MonoBehaviour, IDataPersistence
         mapObject.ID = buildingObj.GetInstanceID();
         mapObject.position = new Position(x, z);
         mapObject.coverage = coverage;
+        mapObject.firePrefab = firePrefab;
         if(buildingObj.name.Split('(')[0].Equals("Road")){
             addRoad(mapObject);
         }

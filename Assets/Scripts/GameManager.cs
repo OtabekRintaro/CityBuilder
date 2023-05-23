@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         HandlePlayerLost();
         SpendMoney();
         UpdateBudget();
+        CheckFire();
         if (ShouldUpdateZones())
         {
             UpdateZones();
@@ -51,6 +52,58 @@ public class GameManager : MonoBehaviour, IDataPersistence
         {
             AgeCitizens();
             UpdateTaxes();
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            SpreadFire();
+        }
+    }
+
+
+    /// <summary>
+    /// Checks fire condition in every map object
+    /// </summary>
+    void CheckFire()
+    {
+        foreach(MapObject mapObj in map.mapObjects)
+        {
+            if (mapObj.fire is not null && mapObj is ResidentialZone or IndustrialZone or CommercialZone && infoBar.dateHandler.currentDate.Subtract(mapObj.fire.startOfFire).Days >= 30)
+            {
+                MapObject.DestroyBuildings(mapObj);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spreads fire randomly across the map objects
+    /// </summary>
+    void SpreadFire()
+    {
+        System.Random chanceGenerator = new System.Random();
+        foreach(MapObject mapObject in map.mapObjects)
+        {
+            if(mapObject is FireDepartment or Road or Forest || mapObject.fire is not null)
+            {
+                continue;
+            }
+
+            int min = 1;
+            int max = 100;
+            if(mapObject is IndustrialZone)
+            {
+                max += 5;
+            }
+            if(mapObject.IsFireDepartmentNearby)
+            {
+                max -= 10;
+            }
+            int chance = chanceGenerator.Next(min, max);
+            
+            if(chance >= 85)
+            {
+                mapObject.SetFire(infoBar.dateHandler);
+            }
+        
         }
     }
 
@@ -198,7 +251,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             foreach (Citizen ctz in zone.population)
             {
                 ctz.AgeOneYear();
-                Debug.Log(ctz.Age);
+                //Debug.Log(ctz.Age);
             }
         }
 

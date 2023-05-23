@@ -37,6 +37,8 @@ public class ResidentialZone : MapObject
 
     }
 
+
+
     public static void CalculateSatisfaction(ResidentialZone resZone, Cell[,] cityMatrix, Map map, int tax, int budget)
     {
         int row = resZone.position.x;
@@ -150,22 +152,22 @@ public class ResidentialZone : MapObject
             if (zone.satisfaction >= 8) {
                 // zone.population += 10;
                 while (i<10 && zone.population.Count < 1000) {
-                    //zone.population.Add(new Citizen(random.Next(18, 61)));
-                    zone.population.Add(new Citizen(65));
+                    zone.population.Add(new Citizen(random.Next(18, 61)));
+                    //zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 6) {
                 // zone.population += 5;
                 while (i<5 && zone.population.Count < 1000) {
-                    //zone.population.Add(new Citizen(random.Next(18, 61)));
-                    zone.population.Add(new Citizen(65));
+                    zone.population.Add(new Citizen(random.Next(18, 61)));
+                    //zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 4) {
                 // zone.population += 2;
                 while (i<2 && zone.population.Count < 1000) {
-                    //zone.population.add(new citizen(random.next(18, 61)));
-                    zone.population.Add(new Citizen(65));
+                    zone.population.Add(new Citizen(random.Next(18, 61)));
+                    //zone.population.Add(new Citizen(65));
                     i++;
                 }
             } else if (zone.satisfaction >= 2) {
@@ -186,18 +188,20 @@ public class ResidentialZone : MapObject
             // if (zone.population > 1000)
             //     zone.population = 1000;
             if (zone.houses.Count == 0 && zone.population.Count > 500)
-                zone.buildHouse();
+                zone.BuildHouse();
             else if (zone.houses.Count == 1 && zone.population.Count >= 1000)
-                zone.buildHouse();
+                zone.BuildHouse();
             else if (zone.houses.Count == 2 && zone.population.Count < 1000)
-                zone.demolishHouse();
+                zone.DemolishHouse();
             else if (zone.houses.Count == 1 && zone.population.Count < 500)
-                zone.demolishHouse();
+                zone.DemolishHouse();
         }
     }
 
-    public void buildHouse()
+    public void BuildHouse()
     {
+        if (fire is not null)
+            return;
         House house = Instantiate<House>(housePrefab);
 
         Vector3 position;
@@ -210,8 +214,10 @@ public class ResidentialZone : MapObject
         house.transform.localPosition = position;
     }
 
-    public void demolishHouse()
+    public void DemolishHouse()
     {
+        if (houses.Count == 0)
+            return;
         Destroy(this.transform.GetChild(houses.Count).gameObject);
         houses.RemoveAt(houses.Count-1);
     }

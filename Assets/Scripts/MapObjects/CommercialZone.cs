@@ -13,11 +13,21 @@ public class CommercialZone : MapObject
     }
     public void buildCommercialBuildings()
     {
+        if (fire is not null)
+            return;
+
         CommercialBuildings commercialBuildings = Instantiate<CommercialBuildings>(commercialBuildingsPrefab);
 
         this.commercialBuildings = commercialBuildings;
         commercialBuildings.transform.SetParent(this.transform);
         commercialBuildings.transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void DemolishBuildings()
+    {
+        if (commercialBuildings is null)
+            return;
+        Destroy(commercialBuildings);
     }
 
     // Start is called before the first frame update
