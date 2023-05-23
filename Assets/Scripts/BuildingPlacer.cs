@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using TMPro;
-//using System.Numerics;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
@@ -34,50 +33,49 @@ public class BuildingPlacer : MonoBehaviour
     private RaycastHit hit;
     public Material selectionMaterial;
     private Material originalMaterial;
-    ///////
-    /// <summary>
-    /// 
-    /// </summary>
-    /// 
 
-    //  public DateHandler dateDisplay;
     public Button saveAndExitButton;
     public GameObject ConfirmationPanel;
     public Button YesButton;
     public Button NoButton;
-    
+
+    /// <summary>
+    /// awake is called when the script instance is being loaded. Assigns variable to this instance.
+    /// </summary>
     void Awake()
     {
-        
         inst = this;
     }
-    //public void changeColor()
-    //{
-    //    for (int i = 0; i < cellGrid.cells.GetLength(0); i++)
-    //    {
-    //        for (int k = 0; k < cellGrid.cells.GetLength(1); k++)
-    //        {
-    //            if (cellGrid.cells[i, k].X == curPlacementPos.x &&
-    //            cellGrid.cells[i, k].Z == curPlacementPos.z)
-    //            {
 
-    //            }
-    //        }
-    //    }
-
-    //}
+    /// <summary>
+    /// getter for curBuildingPreset
+    /// </summary>
+    /// <returns>BuildingPreset</returns>
     public BuildingPreset getCurrBuildingPreset()
     {
         return curBuildingPreset;
     }
+    /// <summary>
+    /// getter for IsCurrentlyPlacing
+    /// </summary>
     public bool IsCurrentlyPlacing
     {
         get { return currentlyPlacing; }
     }
+    /// <summary>
+    /// getter for selection
+    /// </summary>
+    /// <returns></returns>
     public Transform getSelection()
     {
         return selection;
     }
+    /// <summary>
+    /// Gets cell information and translates it to world position and creates plane's cell where it shows the preview of the size of the building.
+    /// </summary>
+    /// <param name="x">Cell col num</param>
+    /// <param name="z">Cell row num</param>
+    /// <param name="i">Cell index</param>
     public void createPlane(int x, int z, int i)
     {
         Vector3 position;
@@ -85,21 +83,16 @@ public class BuildingPlacer : MonoBehaviour
         position.y = 0f;
         position.z = z * 10f;
         BlueprintCell plane = blueprintCells[i] = Instantiate<BlueprintCell>(blueprintCellPrefab);
-        //if (position.x < -100 || position.x > 200 || position.z < -100 || position.z > 200)
-        //{
-        //    Renderer rend = blueprintCells[i].GetComponent<Renderer>();
-        //    rend.material = cant_place;
-        //    currentlyPlacing = false;
-        //}
-        //else
-        //{
+
         plane.transform.SetParent(placementIndicator.transform, false);
         plane.transform.localPosition = position;
-        //}
-        //  Debug.Log($"the position of preview: {plane.transform.localPosition}");
     }
 
-
+    /// <summary>
+    /// Returns the coverage of the given prefab.
+    /// </summary>
+    /// <param name="type">Given prefab's type</param>
+    /// <returns></returns>
     public static int Coverage(string type)
     {
         if (type.Equals("ResidentialZone") || type.Equals("IndustrialZone") || type.Equals("CommercialZone"))
@@ -110,8 +103,10 @@ public class BuildingPlacer : MonoBehaviour
         else { return 1; }
     }
 
-    
-
+    /// <summary>
+    /// Creates a preview of the prefab before placing it on the map by calling createPlane function to create each of the plane's cells.
+    /// </summary>
+    /// <param name="buildingPreset"></param>
     public void BeginNewBuildingPlacement(BuildingPreset buildingPreset)
     {
         currentlyPlacing = true;
@@ -119,35 +114,26 @@ public class BuildingPlacer : MonoBehaviour
         placementIndicator.SetActive(true);
         int side = Coverage(buildingPreset.displayName);
         blueprintCells = new BlueprintCell[side * side];
-        //foreach (var c in blueprintCells)
-        //{
-        //    if (c.GetComponent<BlueprintCell>() != null)
-        //    {
-        //        Destroy(c.gameObject);
-        //    }
-        //}
-        
-        //Debug.Log(1);
-        //Debug.Log(curBuildingPreset.mapObject.GetType());
+
         int aux = side / 2;
-        for(int x = -aux,i = 0 ; x <= aux; x++)
+        for (int x = -aux, i = 0; x <= aux; x++)
         {
             for (int z = -aux; z <= aux; z++)
             {
                 createPlane(x, z, i++);
-                
-           //     Debug.Log("x: " + x + " z: " + z + " i: " + i);
-                //cellGrid.cells[(cursor.curPos.x + i) + (cursor.curPos.z + j) * cellGrid.width].IsFree = false;
             }
         }
     }
 
+    /// <summary>
+    /// When the player cancels the placement of the building, the preview of the building is destroyed.
+    /// </summary>
     public void CancelBuildingPlacement()
     {
         currentlyPlacing = false;
 
         Transform plane = placementIndicator.transform.GetChild(0);
-        for(int index = 1; index < placementIndicator.transform.childCount; index++)
+        for (int index = 1; index < placementIndicator.transform.childCount; index++)
         {
             Destroy(placementIndicator.transform.GetChild(index).gameObject);
         }
@@ -155,91 +141,42 @@ public class BuildingPlacer : MonoBehaviour
         plane.SetParent(placementIndicator.transform);
 
         placementIndicator.SetActive(false);
-        //blueprintCells = null;
     }
 
-    //bool isPlaceable(Vector3 curPlacementPos)
-    //{
-    //    int coverage = Coverage(curBuildingPreset.displayName);
-    //    //float x = curPlacementPos.x / 10 - (coverage / 2);
-    //    //float z = curPlacementPos.z / 10 - (coverage / 2);
-    //    float x = curPlacementPos.x / 10f;
-    //    float z = curPlacementPos.z / 10f;
-        
-    //    //for (int i = 0; i < coverage; i++)
-    //    //{
-    //    //    for (int k = 0; k < coverage; k++)
-    //    //    {
-
-    //    for (int i = -coverage / 2; i < coverage / 2; i++)
-    //    {
-    //        for (int k = -coverage / 2; k < coverage / 2; k++)
-    //        {
-    //            //for (int j = 0; j < cellGrid.cells.Length; j++)
-    //            //{
-    //            //    if (cellGrid.cells[j].Coordinate.X == x &&
-    //            //        cellGrid.cells[j].Coordinate.Z == z)
-    //            //    {
-    //            //        cellGrid.cells[j].isFree = false;
-    //            //        cellGrid.cells[j].Type = curBuildingPreset.displayName;
-
-    //            //    }
-    //            //}
-    //            foreach (var c in cellGrid.cells)
-    //            {
-    //                if (c.Coordinate.X == x && c.Coordinate.Z == z && c.isFree == false)
-    //                {
-    //                    return false;
-    //                }
-    //            }
-    //            x++;
-    //        }
-    //        z++;
-    //    }
-    //    return true;
-    //}
-
-    //public bool checkBoundaries()
-    //{
-    //    if(PlacementPos.x)
-    //}
-
+    /// <summary>
+    /// When player places building on the map it checks if the building is placeable and if it is, it places the building on the map.
+    /// If it is not, it destroys the preview of the building.
+    /// </summary>
     public void PlaceBuilding()
     {
         bool isPlaceable = false;
-        //Debug.Log(cellGrid.cells.GetLength(0));
         int row = 0; int col = 0;
         GameObject buildingObj = Instantiate(curBuildingPreset.prefab, curPlacementPos, Quaternion.identity);
-
-        for (int i = 0; i < map.cells.GetLength(0); i++)
-        {
-            for (int k = 0; k < map.cells.GetLength(1); k++)
-            {
-                if (map.cells[i, k].X == curPlacementPos.x &&
-                map.cells[i, k].Z == curPlacementPos.z)
-                {
+        for (int i = 0; i < map.cells.GetLength(0); i++){
+            for (int k = 0; k < map.cells.GetLength(1); k++){
+                if (map.cells[i, k].X == curPlacementPos.x && map.cells[i, k].Z == curPlacementPos.z){
                     row = i; col = k;
                     isPlaceable = isPlaceable || assign_cells(map, curBuildingPreset, i, k, buildingObj.GetInstanceID());
                     //Debug.Log(assign_cells(i,k));
                 }
-                
             }
         }
         //   Debug.Log($"Placing building at: {curPlacementPos.x}, {curPlacementPos.z} ");
         int coverage = Coverage(curBuildingPreset.displayName);
-        if(!isPlaceable)
-        {
-            Destroy(buildingObj);
-        }
-
-        if (isPlaceable)
-        {
+        if (isPlaceable){
             map.addMapObject(buildingObj, coverage, row, col);
             attachToBuildings(buildingObj);
-            CancelBuildingPlacement(); 
+            CancelBuildingPlacement();
+        }
+        else{
+            Destroy(buildingObj);
         }
     }
 
+    /// <summary>
+    /// Gets all the game objects and attaches their ID to the end of their name. 
+    /// </summary>
+    /// <param name="gameObject"></param>
     public static void attachToBuildings(GameObject gameObject)
     {
         int index = 0;
@@ -248,7 +185,7 @@ public class BuildingPlacer : MonoBehaviour
             gameScene = SceneManager.GetSceneAt(index++);
 
         GameObject[] gameObjects = gameScene.GetRootGameObjects();
-        
+
         foreach (GameObject gameObject_0 in gameObjects)
         {
             if (gameObject_0.name.Equals("GameObjects"))
@@ -259,16 +196,21 @@ public class BuildingPlacer : MonoBehaviour
                 break;
             }
         }
-
     }
 
+    /// <summary>
+    /// Returns the string of the name of the building without the "(Clone)" part.
+    /// </summary>
+    /// <param name="name">name</param>
+    /// <param name="id">id</param>
+    /// <returns>string</returns>
     public static string cropClone(string name, int id)
     {
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < name.Length; i++)
+        for (int i = 0; i < name.Length; i++)
         {
-            if(name[i] == '(')
+            if (name[i] == '(')
             {
                 break;
             }
@@ -278,177 +220,117 @@ public class BuildingPlacer : MonoBehaviour
 
         return sb.ToString();
     }
-    //  Debug.Log("coverage divided by 2: " + coverage / 2);
-    //RaycastHit hit;
-    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    //if (Physics.Raycast(ray, out hit, Mathf.Infinity, cellLayer))
-    //{
-    //    // get the clicked cell   
-    //    Cell clickedCell = hit.collider.gameObject.GetComponent<Cell>();
-
-    //    // calculate the bottom-left cell of the 4x4 area
-    //    int bottomLeftX = clickedCell.X - coverage / 2;
-    //    int bottomLeftY = clickedCell.Z - coverage / 2;
-
-    //    // loop through the cells that the house will occupy
-    //    for (int x = 0; x < coverage; x++)
-    //    {
-    //        for (int y = 0; y < coverage; y++)
-    //        {
-    //            // calculate the position of the current cell
-    //            int cellX = bottomLeftX + x;
-    //            int cellY = bottomLeftY + y;
-
-    //            // get the current cell
-    //            Cell currentCell = GetCellAtPosition(cellX, cellY);
-
-    //            // update its type
-    //     //       currentCell.isFree = false;
-    //            currentCell.Type = curBuildingPreset.displayName;
-    //            //Debug.Log(GetCellAtPosition(cellX, cellY));
-    //        }
-    //    }
-
-
-    //    GameObject buildingObj = Instantiate(curBuildingPreset.prefab, hit.collider.transform.position, Quaternion.identity);
-    //}
-
-    //if (!curBuildingPreset.displayName.Equals("road"))
-    //{
-    //    for()
-    //}
-    //float x = curPlacementPos.x / 10f;
-    //float z = curPlacementPos.z / 10f;
-    //Debug.Log("x:" + x + " z:" + z);
-    //foreach (var c in cellGrid.cells)
-    //{
-    //    if (c.Coordinate.X == x && c.Coordinate.Z == z)
-    //    {
-    //        Debug.Log("cell is: " + c.);
-    //    }
-    //}
-
-    //    int aux = coverage / 2;
-    //    for (int x = -aux; x <= aux; x++)
-    //    {
-    //        for (int z = -aux; z <= aux; z++)
-    //        {
-    //            //for (int j = 0; j < cellGrid.cells.Length; j++)
-    //            //{
-    //            //    if (cellGrid.cells[j].Coordinate.X == x &&
-    //            //        cellGrid.cells[j].Coordinate.Z == z)
-    //            //    {
-    //            //        cellGrid.cells[j].isFree = false;
-    //            //        cellGrid.cells[j].Type = curBuildingPreset.displayName;
-
-    //            //    }
-    //            //}
-    //            foreach (var c in cellGrid.cells)
-    //            {
-    //                if (c.Coordinate.X == curPlacementPos.x && c.Coordinate.Z == curPlacementPos.z)
-    //                {
-    //                    c.isFree = false;
-    //                    c.Type = curBuildingPreset.displayName;
-
-    //                }
-    //            }
-    //            x++;
-    //        }
-    ////        z++;
-    //    }
-
-    //for(int i = 0; i < cellGrid.cells.Length; i++)
-    //{
-    //    if (cellGrid.cells[i].Coordinate.X== curPlacementPos.x &&
-    //        cellGrid.cells[i].Coordinate.Z == curPlacementPos.z)
-    //    {
-    //        cellGrid.cells[i].isFree = false;
-    //        cellGrid.cells[i].Type = curBuildingPreset.displayName;
-    //    }
-    //}
-    //cellGrid.cells[]
-    // City.inst.OnPlaceBuilding(curBuildingPreset);
-
+    /// <summary>
+    /// Function to select the selectable game objects when the player right clicks on them in play-mode.
+    /// </summary>
     public void selectObject()
-    {   
+    {
         if (Input.GetMouseButtonDown(1))
-        {           
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (selection != null)
-            {
-                selection.GetComponent<MeshRenderer>().material = originalMaterial;
-                selection = null;
-                cellToBeDeleted = null;
-                infoUI.SetActive(false);
-            }
+            ResetSelection();
             if (Physics.Raycast(ray, out hit))
             {
-           //     Debug.Log($"Placing building at: {curPlacementPos.x}, {curPlacementPos.z} ");
                 selection = hit.transform;
                 originalMaterial = selection.GetComponent<MeshRenderer>().material;
                 if (selection.CompareTag("selectable"))
                 {
-                    selection.GetComponent<MeshRenderer>().material = selectionMaterial;
-                    infoUI.SetActive(true);
-                    var panelTransform = infoUI.transform;
-                    var capacity = panelTransform.Find("Capacity").GetComponent<TextMeshProUGUI>();
-                    var satisfaction= panelTransform.Find("SatisfactionText").GetComponent<TextMeshProUGUI>();
-                    Cell c = cellInfo();
-                   // satisfaction.text = "Satisfaction: ";
-                    satisfaction.text = map.findMapObject(c.ID) is ResidentialZone ? "Satisfaction: " +((ResidentialZone)map.findMapObject(c.ID)).satisfaction.ToString() : "";
-                    capacity.text = capacityReturn(c);
-                    cellToBeDeleted = c;
+                    SelectObject();
                 }
                 else
                 {
-                    selection = null;
-                    infoUI.SetActive(false);
-                    cellToBeDeleted = null;
+                    DeselectObject();
                 }
             }
         }
     }
 
+    /// <summary>
+    /// If the player selects another selectable game object, the previous one is deselected.
+    /// </summary>
+    private void ResetSelection()
+    {
+        if (selection != null)
+        {
+            selection.GetComponent<MeshRenderer>().material = originalMaterial;
+            selection = null;
+            cellToBeDeleted = null;
+            infoUI.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Selected object is highlighted and the info panel is activated where it shows multiple information about the selected object.
+    /// </summary>
+    private void SelectObject()
+    {
+        selection.GetComponent<MeshRenderer>().material = selectionMaterial;
+        infoUI.SetActive(true);
+        var panelTransform = infoUI.transform;
+        var capacity = panelTransform.Find("Capacity").GetComponent<TextMeshProUGUI>();
+        var satisfaction = panelTransform.Find("SatisfactionText").GetComponent<TextMeshProUGUI>();
+        Cell c = cellInfo();
+        satisfaction.text = map.findMapObject(c.ID) is ResidentialZone ? "Satisfaction: " + ((ResidentialZone)map.findMapObject(c.ID)).satisfaction.ToString() : "";
+        capacity.text = capacityReturn(c);
+        cellToBeDeleted = c;
+    }
+
+    /// <summary>
+    /// If it is not selected anymore, the object is deselected and the info panel is deactivated.
+    /// </summary>
+    private void DeselectObject()
+    {
+        selection = null;
+        infoUI.SetActive(false);
+        cellToBeDeleted = null;
+    }
+
+    /// <summary>
+    /// Returns capacity string for each of the zones.
+    /// </summary>
+    /// <param name="c">The cell for which to return the capacity string.</param>
+    /// <returns>A string representing the capacity of the specified zone.</returns>
     public string capacityReturn(Cell c)
     {
-        if(c.Type== "ResidentialZone")
+        if (c.Type == "ResidentialZone")
         {
-            return "Capacity is 1000";
+            return "Capacity: 1000";
         }
-        else if(c.Type == "IndustrialZone")
+        else if (c.Type == "IndustrialZone")
         {
-            return "Capacity is 500";
+            return "Capacity: 500";
         }
-        else if(c.Type == "CommercialZone")
+        else if (c.Type == "CommercialZone")
         {
-            return "Capacity is 500";
+            return "Capacity: 500";
         }
         return "";
     }
+
+    /// <summary>
+    /// When the player wants to delete an object, the object is removed from the map and the game in play-mode. 
+    /// </summary>
     public void DeleteObject()
     {
-        if(cellToBeDeleted != null)
+        if (cellToBeDeleted != null)
         {
             int id = selection.gameObject.GetInstanceID();
-            if(selection.gameObject.name.Split('-')[0].Equals("Cell"))
+            if (selection.gameObject.name.Split('-')[0].Equals("Cell"))
             {
                 id = selection.gameObject.GetComponentInParent<Forest>().gameObject.GetInstanceID();
             }
             if (map.removeMapObject(id))
             {
-                if (selection.gameObject.name.Split('-')[0].Equals("Cell"))
-                {
+                if (selection.gameObject.name.Split('-')[0].Equals("Cell")){
                     Destroy(selection.gameObject.GetComponentInParent<Forest>().gameObject);
-                }
-                else
-                {
+                }else{
                     Destroy(selection.gameObject);
                 }
                 int cellID = cellToBeDeleted.ID;
-                foreach(var cell in map.cells)
+                foreach (var cell in map.cells)
                 {
-                    if( cell.ID == cellID)
+                    if (cell.ID == cellID)
                     {
                         cell.isFree = true;
                         cell.ID = 0;
@@ -457,8 +339,13 @@ public class BuildingPlacer : MonoBehaviour
                 }
                 infoUI.SetActive(false);
             }
-        }      
+        }
     }
+
+    /// <summary>
+    /// Translates the mouse position to the position of the cell in the map matrix.
+    /// </summary>
+    /// <returns>Cell contained in the map matrix</returns>
     public Cell cellInfo()
     {
         for (int i = 0; i < map.cells.GetLength(0); i++)
@@ -467,63 +354,43 @@ public class BuildingPlacer : MonoBehaviour
             {
                 if (map.cells[i, k].X == curPlacementPos.x &&
                 map.cells[i, k].Z == curPlacementPos.z)
-                {   
-                    return map.cells[i,k];
+                {
+                    return map.cells[i, k];
                 }
 
             }
         }
         return null;
     }
+
+    /// <summary>
+    /// When the user wants to put a building on the map, the building is instantiated and added to the map matrix.
+    /// It assigns the position of the preview plane to the position of the building on the map.
+    /// </summary>
+    /// <param name="map">map cell matrix</param>
+    /// <param name="curBuildingPreset">prefab of the placing object</param>
+    /// <param name="row">col num</param>
+    /// <param name="col">row num</param>
+    /// <param name="id">cell id</param>
+    /// <returns></returns>
     public static bool assign_cells(Map map, BuildingPreset curBuildingPreset, int row, int col, int id)
     {
-        //int minValue = 1;
-        //int maxValue = 10000;
-        //int randomNumber = UnityEngine.Random.Range(minValue, maxValue);
-        int half_cov = Coverage(curBuildingPreset.displayName) /2;
+        int half_cov = Coverage(curBuildingPreset.displayName) / 2;
         int low_row = row - half_cov;
         int high_row = row + half_cov;
         int low_col = col - half_cov;
         int high_col = col + half_cov;
-        //Debug.Log("low row: " + low_row + "high_row: " + high_row);
-        //Debug.Log("low col: " + low_col + "high_col: " + high_col);
-        //Debug.Log("-------------------------------------------------");
-        if (low_row < 0 || high_row > map.cells.GetLength(0)-1 || low_col < 0 || high_col > map.cells.GetLength(1)-1)
-        {
+
+        if (low_row < 0 || high_row > map.cells.GetLength(0) - 1 || low_col < 0 || high_col > map.cells.GetLength(1) - 1){
             return false;
         }
-        else
-        {
-            for (int x = low_row; x <= high_row; x++)
-            {
-                for (int z = low_col; z <= high_col; z++)
-                {
-                    if (map.cells[x, z].isFree)
-                    {
-                        map.cells[x, z].isFree = false;
-                        map.cells[x, z].Type = curBuildingPreset.displayName; 
-                        map.cells[x, z].ID = id;
-                        //Debug.Log(cellGrid.cells[x, z] + "id is: " + cellGrid.cells[x, z].ID);
-                    }
-                    else
-                    {
-                        int tempRow = x - 1;
-                        int tempCol = z - 1;
-                        for (; tempCol >= low_col; tempCol--)
-                        {
-                            map.cells[x, tempCol].isFree = true;
-                            map.cells[x, tempCol].Type = "empty";
-                            map.cells[x, tempCol].ID = 0;
-                        }
-                        for (; tempRow >= low_row; tempRow--)
-                        {
-                            for(tempCol = high_col; tempCol >= low_col; tempCol--)
-                            {
-                                map.cells[tempRow, tempCol].isFree = true;
-                                map.cells[tempRow, tempCol].Type = "empty";
-                                map.cells[tempRow, tempCol].ID = 0;
-                            }
-                        }
+        else{
+            for (int x = low_row; x <= high_row; x++){
+                for (int z = low_col; z <= high_col; z++){
+                    if (map.cells[x, z].isFree){
+                        AssignCell(map, curBuildingPreset, x, z, id);
+                    }else{
+                        ResetCells(map, low_row, low_col, high_col, x, z);
                         return false;
                     }
                 }
@@ -532,138 +399,82 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    //Cell GetCellAtPosition(int x, int y)
-    //{
-    //    check if the position is within the bounds of the grid
-    //    if (x >= 0 && x < cellGrid.cells.GetLength(0) && y >= 0 && y < cellGrid.cells.GetLength(1))
-    //    {
-    //        Debug.Log("x:  " + x + " y: " + y);
-    //        return cellGrid.cells[x, y];
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
+    /// <summary>
+    /// If the area is free, then assign cell info to building info.
+    /// </summary>
+    /// <param name="map">map cell matrix</param>
+    /// <param name="curBuildingPreset">prefab of the placing object</param>
+    /// <param name="x">col number</param>
+    /// <param name="z">row number</param>
+    /// <param name="id">cell id</param>
+    private static void AssignCell(Map map, BuildingPreset curBuildingPreset, int x, int z, int id)
+    {
+        map.cells[x, z].isFree = false;
+        map.cells[x, z].Type = curBuildingPreset.displayName;
+        map.cells[x, z].ID = id;
+    }
 
-    //public bool SerializeJson()
-    //{
-    //    if (DataService.SaveData("/player-stats.json", cellGrid))
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //    //try
-    //    //{
-    //    //    PlayerStats data = DataService.LoadData<PlayerStats>("/player-stats.json", EncryptionEnabled);
-    //    //    LoadTime = DateTime.Now.Ticks - startTime;
-    //    //    InputField.text = "Loaded from file:\r\n" + JsonConvert.SerializeObject(data, Formatting.Indented);
-    //    //    LoadTimeText.SetText($"Load Time: {(LoadTime / TimeSpan.TicksPerMillisecond):N4}ms");
-    //    //}
-    //    //catch (Exception e)
-    //    //{
-    //    //    Debug.LogError($"Could not read file! Show something on the UI here!");
-    //    //    InputField.text = "<color=#ff0000>Error reading save file!</color>";
-    //    //}
-    //    //catch
-    //    //{
-    //    //    Debug.LogError("Could not save file!");
-    //    //    //InputField.text = "<color=#ff0000>Error saving data!</color>";
-    //    //}
-    //}
-    //public void DeserializeJSon()
-    //{
-    //    string path = Application.persistentDataPath + "/player-stats.json";
-    //    if (File.Exists(path))
-    //    {
-    //        cellGrid = DataService.LoadData<CellGrid>("/player-stats.json");
-    //        //InputField.text = "Loaded data goes here";
-    //    }
-    //    else
-    //    {
-    //        using FileStream stream = File.Create(path);
-    //        stream.Close();
-    //    }
-    //    //try
-    //    //{
+    /// <summary>
+    /// If it is not placeable, then reset the cells.
+    /// </summary>
+    /// <param name="map">map cell matrix</param>
+    /// <param name="low_row">lower row num</param>
+    /// <param name="low_col">lower col num</param>
+    /// <param name="high_col">higher col num</param>
+    /// <param name="x">col num</param>
+    /// <param name="z">row num</param>
+    private static void ResetCells(Map map, int low_row, int low_col, int high_col, int x, int z)
+    {
+        int tempRow = x - 1;
+        int tempCol = z - 1;
+        for (; tempCol >= low_col; tempCol--)
+        {
+            map.cells[x, tempCol].isFree = true;
+            map.cells[x, tempCol].Type = "empty";
+            map.cells[x, tempCol].ID = 0;
+        }
+        for (; tempRow >= low_row; tempRow--)
+        {
+            for (tempCol = high_col; tempCol >= low_col; tempCol--)
+            {
+                map.cells[tempRow, tempCol].isFree = true;
+                map.cells[tempRow, tempCol].Type = "empty";
+                map.cells[tempRow, tempCol].ID = 0;
+            }
+        }
+    }
 
-    //    //}
-    //    //catch (Exception)
-    //    //{
-    //    //    Debug.LogError($"Could not read file! Show something on the UI here!");           
-    //    //}
-    //}
-
-    //public void ClearData()
-    //{
-    //    string path = Application.persistentDataPath + "/player-stats.json";
-    //    if (File.Exists(path))
-    //    {
-    //        File.Delete(path);
-    //        //InputField.text = "Loaded data goes here";
-    //    }
-    //}
-
+    /// <summary>
+    /// Hides the panels.
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
         infoUI.SetActive(false);
-        //string path = Application.persistentDataPath + "/player-stats.json";
         saveAndExitButton.onClick.AddListener(showPanel);
-        ConfirmationPanel.gameObject.SetActive(false);
-        ////savePath = "CurrentDate";
-        ////SerializeJson();
-        //if (new FileInfo(path).Length > 2) { 
-        //    DeserializeJSon(); 
-        //}
+        ConfirmationPanel.SetActive(false);
     }
+
+    /// <summary>
+    /// Shows the confirmation panel and listener to the button.
+    /// </summary>
     void showPanel()
     {
-        ConfirmationPanel.gameObject.SetActive(true);
-        //YesButton.onClick.AddListener(SaveAndExit);
+        ConfirmationPanel.SetActive(true);
         NoButton.onClick.AddListener(Continue);
     }
 
+    /// <summary>
+    /// If no button is clicked then hides the confirmation panel.
+    /// </summary>
     private void Continue()
     {
-        ConfirmationPanel.gameObject.SetActive(false);
+        ConfirmationPanel.SetActive(false);
     }
-
-    void SaveAndExit()
-    {
-        //SaveGame();
-        //SceneManager.LoadScene("MenuScene");
-        DataPersistenceManager.instance.SaveGame();
-        Application.Quit();
-    }
-    //public void LoadData(GameData data)
-    //{
-    //    this.cellGrid = data.cellgrid;
-    //}
-
-    //public void SaveData(GameData data)
-    //{
-    //    data.cellgrid = this.cellGrid;
-    //}
-    //private void SaveGame()
-    //{
-    //    DateTime currentDate = DateTime.Now;
-    //    PlayerPrefs.SetString("CurrentDate", currentDate.ToString("o"));
-    //    PlayerPrefs.Save();
-    //}
-
-    //private void LoadGame()
-    //{
-    //    //if (PlayerPrefs.HasKey("CurrentDate"))
-    //    //{
-    //    //    string currentDateStr = PlayerPrefs.GetString(savePath);
-    //    //    DateTime currentDate = DateTime.Parse(currentDateStr);
-    //    //}
-    //}
-
+    
+    /// <summary>
+    /// Tracks the mouse position and updates the position of the preview plane.
+    /// </summary>
     // Update is called once per frame
     void Update()
     {

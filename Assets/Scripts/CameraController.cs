@@ -35,14 +35,20 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// Updates the camera movement and rotation based on user input.
+    /// </summary>
     void Update()
     {
-        if(CameraDisabled)
+        if (CameraDisabled)
             Move();
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.R))
             setDefault();
     }
 
+    /// <summary>
+    /// Updates the camera rotation and zoom based on user input.
+    /// </summary>
     void LateUpdate()
     {
         if (Input.GetKey(KeyCode.LeftShift))
@@ -68,7 +74,7 @@ public class CameraController : MonoBehaviour
             //Zooming Input from our Mouse Scroll Wheel
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)
             {
-                Zoom();      
+                Zoom();
             }
             //Setting PivotCamera rotation
             Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
@@ -78,13 +84,16 @@ public class CameraController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Moves the camera based on user input.
+    /// </summary>
     void Move()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        if(horizontalInput != 0 || verticalInput != 0)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
             float currentYaxis = this._Transform_Parent.localPosition.y;
             float zAxis = verticalInput * MoveSpeed * Time.deltaTime;
@@ -94,6 +103,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Zooms the camera based on user input.
+    /// </summary>
     void Zoom()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -103,9 +115,12 @@ public class CameraController : MonoBehaviour
         else if (dist > maxZoomDist && scrollInput < 0.0f)
             return;
 
-        _Transform_camera.position +=  scrollInput * ScrollSensitivity * _Transform_camera.forward;
+        _Transform_camera.position += scrollInput * ScrollSensitivity * _Transform_camera.forward;
     }
 
+    /// <summary>
+    /// Sets the camera to its default position and rotation.
+    /// </summary>
     void setDefault()
     {
         this._Transform_camera.localPosition = new Vector3(0, 20f, -17f);

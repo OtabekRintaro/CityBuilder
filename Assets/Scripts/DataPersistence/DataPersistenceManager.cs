@@ -14,6 +14,9 @@ public class DataPersistenceManager : MonoBehaviour
 
     public static DataPersistenceManager instance { get; private set; }
 
+    /// <summary>
+    /// Assigns the instance to this object.
+    /// </summary>
     private void Awake()
     {
         //Debug.Log(this.gameObject.name);
@@ -24,6 +27,9 @@ public class DataPersistenceManager : MonoBehaviour
         instance = this;
     }
 
+    /// <summary>
+    /// Initializes the data handler and finds all objects in the scene that implement the IDataPersistence interface.
+    /// </summary>
     private void Start()
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
@@ -31,16 +37,26 @@ public class DataPersistenceManager : MonoBehaviour
         LoadData();
     }
 
+    /// <summary>
+    /// When it is new game, initialize the game data to a new game.
+    /// </summary>
     public void NewGame()
     {
         this.gameData = new GameData();
     }
 
+    /// <summary>
+    /// Gets the deserialize game data using data handler's load function
+    /// </summary>
     public void LoadData()
     {
         this.gameData = dataHandler.Load();
     }
 
+    /// <summary>
+    /// Loads the game data from a file using the data handler. If no data can be loaded, initialize to a new game.
+    /// Push the loaded data to all other scripts that need it.
+    /// </summary>
     public void LoadGame()
     {
         // load any saved data from a file using the data handler
@@ -60,6 +76,9 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Saves the game data by going through each data persistence object and calling their save data function.
+    /// </summary>
     public void SaveGame()
     {
         // pass the data to other scripts so they can update it
@@ -82,6 +101,10 @@ public class DataPersistenceManager : MonoBehaviour
     //    Application.Quit();
     //}
 
+    /// <summary>
+    /// Find all objects in the scene that implement the IDataPersistence interface.
+    /// </summary>
+    /// <returns></returns>
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>()

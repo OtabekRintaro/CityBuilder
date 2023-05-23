@@ -8,7 +8,10 @@ public class MainMenu : MonoBehaviour
     public Button continueButton;
     public Button newGameButton;
     public Button quitButton;
-    GameManager gameManager;
+
+    /// <summary>
+    /// Add listeners to the buttons.
+    /// </summary>
     void Start()
     {
         continueButton.onClick.AddListener(ContinueGame);
@@ -16,6 +19,9 @@ public class MainMenu : MonoBehaviour
         quitButton.onClick.AddListener(QuitGame);
     }
 
+    /// <summary>
+    /// Switches to game scene and loads the game.
+    /// </summary>
     public void ContinueGame()
     {
         //SceneManager.LoadScene("GameScene");
@@ -25,16 +31,19 @@ public class MainMenu : MonoBehaviour
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MenuScene"));
     }
 
+    /// <summary>
+    /// When new game button is clicked, it clears the saved data and loads a new game and switches to game scene.
+    /// </summary>
     public void NewGame()
     {
-        // b.ClearData();
         DataPersistenceManager.instance.NewGame();
         SceneManager.LoadScene("GameScene");
-        //dataPersistanceManager = new DataPersistenceManager();
-        // Debug.Log(DataPersistenceManager.instance);
         
     }
 
+    /// <summary>
+    /// When quit button is clicked, it quits the game.
+    /// </summary>
     public void QuitGame()
     {
         #if UNITY_EDITOR
