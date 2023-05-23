@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
         this._Transform_camera = this.transform;
         this._Transform_Parent = this.transform.parent;
     }
-
+    public Vector3 GetTransform() { return this._Transform_camera.position; }
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +87,7 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Moves the camera based on user input.
     /// </summary>
-    void Move()
+    public void Move()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -106,7 +106,7 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Zooms the camera based on user input.
     /// </summary>
-    void Zoom()
+    public void Zoom()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         float dist = Vector3.Distance(_Transform_Parent.position, _Transform_camera.position);
@@ -121,7 +121,7 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Sets the camera to its default position and rotation.
     /// </summary>
-    void setDefault()
+    public void setDefault()
     {
         this._Transform_camera.localPosition = new Vector3(0, 20f, -17f);
         this._Transform_camera.localRotation = Quaternion.Euler(0.5f, 0f, 0f);

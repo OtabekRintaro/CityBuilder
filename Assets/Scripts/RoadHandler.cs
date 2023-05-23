@@ -157,7 +157,7 @@ public class RoadHandler
     /// <param name="row">The row of the map object's position.</param>
     /// <param name="col">The column of the map object's position.</param>
     /// <returns>True if a public road is found, false otherwise.</returns>
-    bool CheckCoverageOne(MapObject mapObject, int row, int col)
+    public bool CheckCoverageOne(MapObject mapObject, int row, int col)
     {
         bool found = false;
         found = predfsForRoads(mapObject, row, col, new int[SizeOfGraph, SizeOfGraph], false) || found;
@@ -171,7 +171,7 @@ public class RoadHandler
     /// <param name="mapObject">The map object to find a public road for.</param>
     /// <param name="bottomLeftCorner">The bottom left corner position of the map object.</param>
     /// <returns>True if a public road is found on the top or bottom side of the map object, false otherwise.</returns>
-    bool CheckTopAndBottom(MapObject mapObject, Position bottomLeftCorner)
+    public bool CheckTopAndBottom(MapObject mapObject, Position bottomLeftCorner)
     {
         bool found = false;
         for (int z = 0; z < mapObject.coverage; z++)
@@ -188,7 +188,7 @@ public class RoadHandler
     /// <param name="mapObject">The map object to find a public road for.</param>
     /// <param name="bottomLeftCorner">The bottom left corner position of the map object.</param>
     /// <returns>True if a public road is found on the left or right side of the map object, false otherwise.</returns>
-    bool CheckLeftAndRight(MapObject mapObject, Position bottomLeftCorner)
+    public bool CheckLeftAndRight(MapObject mapObject, Position bottomLeftCorner)
     {
         bool found = false;
         for (int x = 0; x < mapObject.coverage; x++)

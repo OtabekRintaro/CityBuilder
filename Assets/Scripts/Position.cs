@@ -29,11 +29,11 @@ public class Position
     {
         int height = topRight.z - bottomLeft.z;
         int width = topRight.x - bottomLeft.x;
-        Position[] AreaOfTiles = new Position[height * width];
+        Position[] AreaOfTiles = new Position[(height + 1) * (width + 1)];
 
-        for(int z = 0, i = 0; z <= height; z++)
+        for (int z = 0, i = 0; z <= height; z++)
         {
-            for(int x = 0; x <= width; x++)
+            for (int x = 0; x <= width; x++)
             {
                 Position p = new Position(x + bottomLeft.X, z + bottomLeft.Z);
                 AreaOfTiles[i++] = p;
