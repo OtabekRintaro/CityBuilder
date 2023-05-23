@@ -36,6 +36,7 @@ public class MapObject : MonoBehaviour
         int row = position.x;
         int col = position.z;
 
+        MapObject temp;
         System.Type type = obj.GetType();
         for (int i = row - radius; i <= row + radius; i++)
         {
@@ -43,7 +44,7 @@ public class MapObject : MonoBehaviour
             for (int j = col - radius; j <= col + radius; j++)
             {
                 if (j < 0 || j >= mapGrid.GetLength(1)) continue;
-                if (map.findMapObject(new Position(i, j)).GetType() == type)
+                if ((temp = map.findMapObject(new Position(i, j))) is not null && temp.GetType() == type)
                 {
                     count++;
                 }

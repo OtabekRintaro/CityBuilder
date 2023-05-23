@@ -28,6 +28,7 @@ public class BuildingPlacer : MonoBehaviour
     public GameObject infoUI;
 
     private Cell cellToBeDeleted;
+    public Cell CellToBeDeleted { get { return cellToBeDeleted; } }
 
     private Transform selection;
     private RaycastHit hit;

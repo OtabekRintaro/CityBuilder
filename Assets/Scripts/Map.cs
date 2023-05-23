@@ -54,6 +54,26 @@ public class Map : MonoBehaviour, IDataPersistence
         CreateForestArea();
     }
 
+    public MapObject FindNearestFireTruck(MapObject mapObject)
+    {
+        MapObject fireDepartment = new MapObject();
+        int distance = System.Int32.MaxValue;
+        foreach(MapObject fireDep in mapObjects)
+        {
+            if(fireDep is FireDepartment)
+            {
+                int curDistance = roadHandler.FindNearestConnection(mapObject, fireDep);
+                if (curDistance < distance)
+                {
+                    fireDepartment = fireDep;
+                    distance = curDistance;
+                }
+            }
+        }
+
+        return fireDepartment;
+    }
+
     /// <summary>
     /// Initializes the cells of the game map.
     /// </summary>
@@ -586,7 +606,7 @@ public class Map : MonoBehaviour, IDataPersistence
             }
             if (mapObject is not FireDepartment)
             {
-                int count = MapObject.CheckRadius(cells,this, mapObject.position, 10, new FireDepartment());
+                int count = MapObject.CheckRadius(cells,this, mapObject.position, 10, fireDepartmentPrefab);
                 if(count != 0)
                 {
                     mapObject.ConnectToFireDepartment(true);

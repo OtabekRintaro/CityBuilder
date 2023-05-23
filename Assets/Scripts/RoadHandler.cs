@@ -8,15 +8,120 @@ public class RoadHandler
     public int[,] MainRoad { get; set; }
     public int SizeOfGraph { get; set; }
 
+    public static RoadHandler inst;
     /// <summary>
     /// Initializes a new instance of the RoadHandler class with a given size of graph.
     /// </summary>
     /// <param name="sizeOfGraph">The size of the graph.</param>
     public RoadHandler(int sizeOfGraph)
     {
+        inst = this;
         this.SizeOfGraph = sizeOfGraph;
         Routes = new int[sizeOfGraph, sizeOfGraph];
         MainRoad = new int[sizeOfGraph, sizeOfGraph];
+    }
+
+    public List<Position> bfs(Cell[,] cells, Position src)
+    {
+        List<Position> path = new();
+
+        Queue<Position> queue = new();
+        bool[,] used = new bool[SizeOfGraph, SizeOfGraph];
+        
+        used[src.x, src.z] = true;
+        queue.Enqueue(new Position(src.x, src.z));
+
+        Dictionary<Position, Position> parents = new Dictionary<Position, Position>();
+
+        while (queue.Count > 0)
+        {
+            Position current = queue.Dequeue();
+
+            if (cells[current.x, current.z].Type.Equals("FireDepartment"))
+            {
+                foreach(Position pos in parents.Keys)
+                {
+                    Debug.Log($"parent: {pos.toString()}, child: {parents[pos].toString()}");
+                }
+                // Construct the shortest path from start to fire department
+                return ConstructPath(parents, src, current);
+            }
+
+            // Get the neighboring cells
+            List<Position> neighbors = GetNeighbors(current);
+            //Debug.Log(neighbors);
+            foreach (var neighbor in neighbors)
+            {
+                if (!used[neighbor.x, neighbor.z])
+                {
+                    if (Routes[neighbor.x, neighbor.z] == 1 || cells[neighbor.x, neighbor.z].Type.Equals("FireDepartment"))
+                    {
+                        queue.Enqueue(neighbor);
+                        parents[neighbor] = current;
+                    }
+                    used[neighbor.x, neighbor.z] = true;
+                }
+            }
+
+        }
+
+
+        return path;
+    }
+
+    private List<Position> ConstructPath(Dictionary<Position, Position> parents, Position start, Position end)
+    {
+        List<Position> path = new List<Position>();
+        Position current = end;
+
+        while (!current.Equals(start))
+        {
+            path.Insert(0, current);
+            Debug.Log($"current {current.toString()}");
+            current = parents[current];
+        }
+
+        path.Insert(0, start);
+
+        return path;
+    }
+
+    private bool IsValidCell(int row, int col)
+    {
+        return row >= 0 && row < SizeOfGraph && col >= 0 && col < SizeOfGraph;
+    }
+
+    private List<Position> GetNeighbors(Position cell)
+    {
+        List<Position> neighbors = new List<Position>();
+
+        int[] dx = { -1, 0, 1, 0 };
+        int[] dy = { 0, 1, 0, -1 };
+
+        for (int i = 0; i < 4; i++)
+        {
+            int newRow = cell.x + dx[i];
+            int newCol = cell.z + dy[i];
+
+            if (IsValidCell(newRow, newCol))
+            {
+                neighbors.Add(new Position(newRow, newCol));
+            }
+        }
+
+        return neighbors;
+    }
+
+
+    /// <summary>
+    /// Finding closest path using dfs algorithm
+    /// </summary>
+    /// <param name="mapObject1"></param>
+    /// <param name="mapObject2"></param>
+    /// <returns></returns>
+    public int FindNearestConnection(MapObject mapObject1, MapObject mapObject2)
+    {
+        return dfs(mapObject1, mapObject2.position.x, mapObject2.position.z, new int[SizeOfGraph, SizeOfGraph], 1);
     }
 
     /// <summary>
@@ -142,14 +247,37 @@ public class RoadHandler
         return true && (dfs(row - 1, col, used) || dfs(row, col - 1, used) || dfs(row + 1, col, used) || dfs(row, col + 1, used));
     }
 
-    /// <summary>
-    /// Checks if there is a connection between a given map object and a given road.
-    /// </summary>
-    /// <param name="mapObject">The map object to check for connection with the road.</param>
-    /// <param name="row">The row of the road's position.</param>
-    /// <param name="col">The column of the road's position.</param>
-    /// <returns>True if there is a connection between the map object and the road, false otherwise.</returns>
-    public bool checkConnection(MapObject mapObject, MapObject road)
+
+    public int dfs(MapObject mapObject, int row, int col, int[,] used, int distance)
+    {
+        if (row < 0 || row >= SizeOfGraph || col < 0 || col >= SizeOfGraph)
+            return int.MaxValue;
+        if (used[row, col] == 1)
+            return int.MaxValue;
+        if (MainRoad[row, col] == 1)
+            return int.MaxValue;
+        used[row, col] = 1;
+        if (Routes[row, col] == 1)
+        {
+            return Mathf.Min(dfs(mapObject, row + 1, col, used, distance+1),dfs(mapObject, row - 1, col, used, distance+1),dfs(mapObject, row, col + 1, used, distance+1),dfs(mapObject, row, col - 1, used, distance+1));
+        }
+        int lowerBoundRow = mapObject.position.x - mapObject.coverage / 2;
+        int upperBoundRow = mapObject.position.x + mapObject.coverage / 2;
+        int lowerBoundCol = mapObject.position.z - mapObject.coverage / 2;
+        int upperBoundCol = mapObject.position.z + mapObject.coverage / 2;
+        if (row >= lowerBoundRow && row <= upperBoundRow && col >= lowerBoundCol && col <= upperBoundCol)
+            return distance;
+        return int.MaxValue;
+    }
+
+        /// <summary>
+        /// Checks if there is a connection between a given map object and a given road.
+        /// </summary>
+        /// <param name="mapObject">The map object to check for connection with the road.</param>
+        /// <param name="row">The row of the road's position.</param>
+        /// <param name="col">The column of the road's position.</param>
+        /// <returns>True if there is a connection between the map object and the road, false otherwise.</returns>
+        public bool checkConnection(MapObject mapObject, MapObject road)
     {
         bool hasConnection;
         hasConnection = bfs(mapObject, road.position.x, road.position.z, new int[SizeOfGraph, SizeOfGraph]);

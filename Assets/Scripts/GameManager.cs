@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         if (ShouldUpdateZones())
         {
             UpdateZones();
+            SpreadFire();
         }
         if (HasPassedMonth())
         {
@@ -74,6 +75,14 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
     }
 
+    public void SendFireTruck()
+    {
+        int id = BuildingPlacer.inst.CellToBeDeleted.ID;
+        MapObject mapObject = map.findMapObject(id);
+        //FireDepartment fireDepartment = (FireDepartment) map.FindNearestFireTruck(mapObject);
+        
+        FireDepartment.SendFireTruck(infoBar.dateHandler, map, map.cells,mapObject);
+    }
     /// <summary>
     /// Spreads fire randomly across the map objects
     /// </summary>

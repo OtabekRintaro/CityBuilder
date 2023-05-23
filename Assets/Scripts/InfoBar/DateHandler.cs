@@ -15,6 +15,7 @@ public class DateHandler : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI pausedText;
     public bool isPaused = false;
+
     public DateTime currentDate = new DateTime(1900,1,1);
     //public static DateHandler inst;
     //private float lastUpdateTime;
