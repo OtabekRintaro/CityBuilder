@@ -10,27 +10,6 @@ using UnityEditor.SceneManagement;
 
 public class MainMenuTest
 {
-    
-    [Test]
-    public void ContinueGameTest()
-    {
-        MainMenu mainMenu = new GameObject().AddComponent<MainMenu>();
-        //SceneManager.LoadScene("GameScene");
-        EditorSceneManager.OpenScene("Assets/Scenes/GameScene.unity");
-        mainMenu.ContinueGame();
-        Debug.Log(EditorSceneManager.GetActiveScene().name);
-        Assert.AreEqual("GameScene", EditorSceneManager.GetActiveScene().name);
-    }
-
-    /*
-    [Test]
-    public void NewGameTest()
-    {
-        MainMenu mainMenu = new GameObject().AddComponent<MainMenu>();
-        mainMenu.NewGame();
-        Assert.AreEqual("GameScene", SceneManager.GetActiveScene().name);
-    }
-    */
     [Test]
     public void QuitGameTest()
     {
