@@ -57,7 +57,7 @@ public class Map : MonoBehaviour, IDataPersistence
     public MapObject FindNearestFireTruck(MapObject mapObject)
     {
         MapObject fireDepartment = new MapObject();
-        int distance = System.Int32.MaxValue;
+        int distance = int.MaxValue;
         foreach(MapObject fireDep in mapObjects)
         {
             if(fireDep is FireDepartment)
@@ -268,6 +268,14 @@ public class Map : MonoBehaviour, IDataPersistence
         GameObject gameObject = Instantiate(industrialZoneBuildingPreset.prefab);
         int coverage = BuildingPlacer.Coverage(industrialZoneBuildingPreset.displayName);
 
+        for (int i = (int)row - 1; i <= (int)row + 1; i++)
+        {
+            for (int j = (int)col - 1; j <= (int)col + 1; j++)
+            {
+                cells[i, j].ID = gameObject.GetInstanceID();
+            }
+        }
+
         addMapObject(gameObject, coverage, row, col);
 
         IndustrialZone indZone = gameObject.AddComponent<IndustrialZone>();
@@ -291,6 +299,14 @@ public class Map : MonoBehaviour, IDataPersistence
     {
         GameObject gameObject = Instantiate(commercialZoneBuildingPreset.prefab);
         int coverage = BuildingPlacer.Coverage(commercialZoneBuildingPreset.displayName);
+
+        for (int i = (int)row - 1; i <= (int)row + 1; i++)
+        {
+            for (int j = (int)col - 1; j <= (int)col + 1; j++)
+            {
+                cells[i, j].ID = gameObject.GetInstanceID();
+            }
+        }
 
         addMapObject(gameObject, coverage, row, col);
 
@@ -316,6 +332,14 @@ public class Map : MonoBehaviour, IDataPersistence
         GameObject gameObject = Instantiate(policeBuildingPreset.prefab);
         int coverage = BuildingPlacer.Coverage(policeBuildingPreset.displayName);
 
+        for (int i = (int)row; i <= (int)row; i++)
+        {
+            for (int j = (int)col; j <= (int)col; j++)
+            {
+                cells[i, j].ID = gameObject.GetInstanceID();
+            }
+        }
+
         addMapObject(gameObject, coverage, row, col);
 
         Police police = gameObject.AddComponent<Police>();
@@ -340,6 +364,14 @@ public class Map : MonoBehaviour, IDataPersistence
         GameObject gameObject = Instantiate(stadiumBuildingPreset.prefab);
         int coverage = BuildingPlacer.Coverage(stadiumBuildingPreset.displayName);
 
+        for (int i = (int)row - 2; i <= (int)row + 2; i++)
+        {
+            for (int j = (int)col - 2; j <= (int)col + 2; j++)
+            {
+                cells[i, j].ID = gameObject.GetInstanceID();
+            }
+        }
+
         addMapObject(gameObject, coverage, row, col);
 
         Stadium stadium = gameObject.AddComponent<Stadium>();
@@ -363,6 +395,14 @@ public class Map : MonoBehaviour, IDataPersistence
     {
         GameObject gameObject = Instantiate(fireDepartmentBuildingPreset.prefab);
         int coverage = BuildingPlacer.Coverage(fireDepartmentBuildingPreset.displayName);
+
+        for (int i = (int)row; i <= (int)row; i++)
+        {
+            for (int j = (int)col; j <= (int)col; j++)
+            {
+                cells[i, j].ID = gameObject.GetInstanceID();
+            }
+        }
 
         addMapObject(gameObject, coverage, row, col);
 

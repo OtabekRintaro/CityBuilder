@@ -11,13 +11,12 @@ public class Citizen
 
     public Citizen(int age)
     {
-        // if (age < 18 || age > 60)
-        // {
-        //     throw new ArgumentException("Age must be between 18 and 60.");
-        // }
         Age = age;
     }
 
+    /// <summary>
+    /// Ages citizen by one year
+    /// </summary>
     public void AgeOneYear()
     {
         if (IsDead)
@@ -32,11 +31,6 @@ public class Citizen
             IsRetired = true;
         }
 
-        // if (IsRetired && !IsDead)
-        // {
-        //     float pension = CalculatePension();
-        // }
-
         float deathProbability = CalculateDeathProbability();
         if (1 < deathProbability)
         {
@@ -44,21 +38,10 @@ public class Citizen
         }
     }
 
-    // private float CalculatePension()
-    // {
-    //     float totalTaxPaid = 0f;
-    //     int yearsConsidered = Mathf.Min(20, City.Year - 65);
-    //     foreach (TaxRecord taxRecord in City.TaxRecords)
-    //     {
-    //         if (taxRecord.Year >= City.Year - yearsConsidered && taxRecord.CitizenId == Id)
-    //         {
-    //             totalTaxPaid += taxRecord.Amount;
-    //         }
-    //     }
-    //     float averageTaxPaid = yearsConsidered > 0 ? totalTaxPaid / yearsConsidered : 0f;
-    //     return averageTaxPaid / 2f;
-    // }
-
+    /// <summary>
+    /// Calculates death probability of the citizen
+    /// </summary>
+    /// <returns></returns>
     private float CalculateDeathProbability()
     {
         if (Age < 65)

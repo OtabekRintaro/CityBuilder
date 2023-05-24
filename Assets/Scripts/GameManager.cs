@@ -75,11 +75,16 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
     }
 
+    /// <summary>
+    /// Checks for available fire departments and send the closest fire truck available
+    /// </summary>
     public void SendFireTruck()
     {
         int id = BuildingPlacer.inst.CellToBeDeleted.ID;
+        Debug.Log(BuildingPlacer.inst.CellToBeDeleted is null);
         MapObject mapObject = map.findMapObject(id);
 
+        Debug.Log(id);
         //FireDepartment fireDepartment = (FireDepartment) map.FindNearestFireTruck(mapObject);
         if(mapObject.fire is not null && !mapObject.IsFireInformed)
         {
@@ -241,6 +246,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             generalBudget -= ResidentialZone.CalculatePensions(lastTaxes, zone);
         }
 
+        generalBudget += 5000 * infoBar.taxHandler.taxValue;
         infoBar.budgetHandler.number = generalBudget;
         currentMonth = infoBar.dateHandler.currentDate;
         currentDate = infoBar.dateHandler.currentDate;

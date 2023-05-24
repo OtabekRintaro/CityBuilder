@@ -21,6 +21,13 @@ public class RoadHandler
         MainRoad = new int[sizeOfGraph, sizeOfGraph];
     }
 
+    /// <summary>
+    /// searching for closest fire departments and getting the closest path
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="cells"></param>
+    /// <param name="src"></param>
+    /// <returns></returns>
     public List<Position> bfs(Map map, Cell[,] cells, Position src)
     {
         List<Position> path = new();
@@ -65,6 +72,13 @@ public class RoadHandler
         return path;
     }
 
+    /// <summary>
+    /// Forms list of positions of the path that a fire truck should go with
+    /// </summary>
+    /// <param name="parents"></param>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
     private List<Position> ConstructPath(Dictionary<Position, Position> parents, Position start, Position end)
     {
         List<Position> path = new List<Position>();
@@ -81,11 +95,22 @@ public class RoadHandler
         return path;
     }
 
+    /// <summary>
+    /// checks if cell is in matrix range
+    /// </summary>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    /// <returns></returns>
     private bool IsValidCell(int row, int col)
     {
         return row >= 0 && row < SizeOfGraph && col >= 0 && col < SizeOfGraph;
     }
 
+    /// <summary>
+    /// Gets neighbouring cells positions
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <returns></returns>
     private List<Position> GetNeighbors(Position cell)
     {
         List<Position> neighbors = new List<Position>();

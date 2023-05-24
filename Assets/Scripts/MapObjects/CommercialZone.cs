@@ -7,6 +7,10 @@ public class CommercialZone : MapObject
     public CommercialBuildings commercialBuildingsPrefab;
     public CommercialBuildings commercialBuildings;
 
+    /// <summary>
+    /// Checks if there is building built
+    /// </summary>
+    /// <returns></returns>
     public bool hasCommercialBuildings()
     {
         return commercialBuildings is not null;

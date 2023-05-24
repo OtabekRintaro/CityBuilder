@@ -242,7 +242,7 @@ public class ResidentialZone : MapObject
         int totalPension = 0;
         foreach (Citizen ctz in zone.population) {
             if (ctz.IsRetired)
-                totalPension += 150*avgTax;
+                totalPension += 75*avgTax;
         }
         return totalPension;
     }
