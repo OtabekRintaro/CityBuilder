@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-
     public Position Coordinate { get; set; }
     public float X { get; set; }
     public float Z { get; set; }
     public string Type { get; set; } = "empty";
     public bool isFree { get; set; } = true;
     public int ID { get; set; }
-    //public workingnum;
-    //public int residencenum=-1;
+
     // Start is called before the first frame update
     void Start()
     {

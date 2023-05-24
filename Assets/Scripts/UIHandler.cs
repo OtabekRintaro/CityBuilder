@@ -12,7 +12,9 @@ public class UIHandler : MonoBehaviour
     {
         
     }
-
+    /// <summary>
+    /// Changes the scene to game scene.
+    /// </summary>
     // Update is called once per frame
     void Update()
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1938413198020630506}
   - component: {fileID: 1928379127635366612}
   - component: {fileID: -2537686401624122496}
+  - component: {fileID: 1175889448022666165}
   m_Layer: 0
   m_Name: Stadium
   m_TagString: selectable
@@ -98,3 +99,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e2bb6f16330d34477801cfbb3397cb0f, type: 3}
+--- !u!114 &1175889448022666165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916249731981800844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a8e00a13745ed47b15b0201f050b97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicRoads: 0
+  coverage: 0
+  cost: 0
+  firePrefab: {fileID: 0}
+  fire: {fileID: 0}

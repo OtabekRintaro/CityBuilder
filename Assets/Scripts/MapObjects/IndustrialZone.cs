@@ -13,6 +13,9 @@ public class IndustrialZone : MapObject
     }
     public void buildFactory()
     {
+        if (fire is not null)
+            return;
+
         IndustrialBuildings factory = Instantiate<IndustrialBuildings>(factoryPrefab);
 
         this.factory = factory;
@@ -20,6 +23,12 @@ public class IndustrialZone : MapObject
         factory.transform.localPosition = new Vector3(3,0,-2);
     }
 
+    public void DemolishFactory()
+    {
+        if (factory is null)
+            return;
+        Destroy(factory);
+    }
     // Start is called before the first frame update
     void Start()
     {

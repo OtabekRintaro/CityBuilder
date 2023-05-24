@@ -118,6 +118,8 @@ MonoBehaviour:
   publicRoads: 0
   coverage: 0
   cost: 0
+  firePrefab: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!1001 &7321182108118572324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,3 +182,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 227529838189633829, guid: e8a2df6d4e44a344b88992b144849970, type: 3}
   m_PrefabInstance: {fileID: 7321182108118572324}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7924534158333994683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 604477967370304415, guid: e8a2df6d4e44a344b88992b144849970, type: 3}
+  m_PrefabInstance: {fileID: 7321182108118572324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2435859241291880168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924534158333994683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0cb5572be6fb24eb4b4f1374e8460e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
