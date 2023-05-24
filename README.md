@@ -62,6 +62,6 @@ Unity version 2021.3.22f1
 
 ## Developing Team
 ###### Atabek Mykyev 
-###### Concalves Kalilo
+###### Gonçalves Kalilo
 ###### Alibek Kalykov
 ###### Munkh-Aldar Munkhtenger
