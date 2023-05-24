@@ -79,9 +79,13 @@ public class GameManager : MonoBehaviour, IDataPersistence
     {
         int id = BuildingPlacer.inst.CellToBeDeleted.ID;
         MapObject mapObject = map.findMapObject(id);
+
         //FireDepartment fireDepartment = (FireDepartment) map.FindNearestFireTruck(mapObject);
-        
-        FireDepartment.SendFireTruck(infoBar.dateHandler, map, map.cells,mapObject);
+        if(mapObject.fire is not null && !mapObject.IsFireInformed)
+        {
+            mapObject.IsFireInformed = true;
+            FireDepartment.SendFireTruck(infoBar.dateHandler, map, map.cells,mapObject);
+        }
     }
     /// <summary>
     /// Spreads fire randomly across the map objects
@@ -104,11 +108,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
             }
             if(mapObject.IsFireDepartmentNearby)
             {
-                max -= 10;
+                max -= 3;
             }
             int chance = chanceGenerator.Next(min, max);
             
-            if(chance >= 85)
+            if(chance >= 95)
             {
                 mapObject.SetFire(infoBar.dateHandler);
             }

@@ -17,14 +17,23 @@ public class FireDepartment : MapObject
     public static void SendFireTruck(DateHandler dateHandler, Map map, Cell[,] cells, MapObject mapObject)
     {
         List<Position> path = new(); //RoadHandler.inst.bfs(cells, mapObject);
-        for(int row = mapObject.position.x - (mapObject.coverage/2); row <= mapObject.position.x + mapObject.coverage/2; row++)
+        int half = mapObject.coverage / 2;
+        for (int row = mapObject.position.x - half; row <= mapObject.position.x + half; row++)
         {
-            for(int col = mapObject.position.z - mapObject.coverage/2; col <= mapObject.position.z + mapObject.coverage/2; col++)
+            for(int col = mapObject.position.z - half; col <= mapObject.position.z + half; col++)
             {
-                List<Position> tempPath = RoadHandler.inst.bfs(cells, new Position(row, col));
-                if (tempPath.Count < path.Count || path.Count == 0)
+                List<Position> tempPath = RoadHandler.inst.bfs(map, cells, new Position(row, col));
+                if (tempPath.Count != 0 && tempPath.Count < path.Count || path.Count == 0)
+                {
                     path = tempPath;
+                }
             }
+        }
+
+        if (path.Count == 0)
+        {
+            mapObject.IsFireInformed = false;
+            return;
         }
 
         FireDepartment fireDep = (FireDepartment)map.findMapObject(cells[path[path.Count - 1].x, path[path.Count - 1].z].ID);
@@ -90,8 +99,8 @@ public class FireDepartment : MapObject
         else if(isFireTruckSent && index == path.Count)
         {
             MapObject mapObject = map.findMapObject(map.cells[firePosition.x, firePosition.z].ID);
-            Debug.Log(mapObject.fire is null);
             Destroy(mapObject.fire.transform.gameObject);
+            mapObject.IsFireInformed = false;
             mapObject.fire = null;
             Vector3 position = new Vector3();
             position.x = 6f;

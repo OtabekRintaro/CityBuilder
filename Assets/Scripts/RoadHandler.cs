@@ -21,7 +21,7 @@ public class RoadHandler
         MainRoad = new int[sizeOfGraph, sizeOfGraph];
     }
 
-    public List<Position> bfs(Cell[,] cells, Position src)
+    public List<Position> bfs(Map map, Cell[,] cells, Position src)
     {
         List<Position> path = new();
 
@@ -37,12 +37,8 @@ public class RoadHandler
         {
             Position current = queue.Dequeue();
 
-            if (cells[current.x, current.z].Type.Equals("FireDepartment"))
+            if (cells[current.x, current.z].Type.Equals("FireDepartment") && !((FireDepartment)map.findMapObject(cells[current.x, current.z].ID)).isFireTruckSent)
             {
-                foreach(Position pos in parents.Keys)
-                {
-                    Debug.Log($"parent: {pos.toString()}, child: {parents[pos].toString()}");
-                }
                 // Construct the shortest path from start to fire department
                 return ConstructPath(parents, src, current);
             }
@@ -77,7 +73,6 @@ public class RoadHandler
         while (!current.Equals(start))
         {
             path.Insert(0, current);
-            Debug.Log($"current {current.toString()}");
             current = parents[current];
         }
 

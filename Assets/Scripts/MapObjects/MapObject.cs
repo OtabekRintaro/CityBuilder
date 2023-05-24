@@ -6,7 +6,9 @@ public class MapObject : MonoBehaviour
 {
     protected bool isConnectedToPublicRoad = false;
     protected bool isFireDepartmentNearby = false;
+    protected bool isFireInformed = false;
 
+    public bool IsFireInformed { get { return isFireInformed; } set { isFireInformed = value; } }
     public bool IsFireDepartmentNearby { get { return isFireDepartmentNearby; } }
     public int ID { get; set; }
 
