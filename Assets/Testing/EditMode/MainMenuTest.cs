@@ -5,27 +5,11 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class MainMenuTest
 {
-    /*
-    [Test]
-    public void ContinueGameTest()
-    {
-        MainMenu mainMenu = new GameObject().AddComponent<MainMenu>();
-        SceneManager.LoadScene("GameScene");
-        mainMenu.ContinueGame();
-        Assert.AreEqual("GameScene", SceneManager.GetActiveScene().name);
-    }
-
-    [Test]
-    public void NewGameTest()
-    {
-        MainMenu mainMenu = new GameObject().AddComponent<MainMenu>();
-        mainMenu.NewGame();
-        Assert.AreEqual("GameScene", SceneManager.GetActiveScene().name);
-    }
-    */
     [Test]
     public void QuitGameTest()
     {
