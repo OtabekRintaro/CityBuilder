@@ -79,11 +79,11 @@ get-activation-file:
   coverage: /<Linecoverage>(.*?)</Linecoverage>/
 
 # Tests without junit reporting results in GitLab
-# test-playmode:
-#   <<: *test
-#   variables:
-#     TEST_PLATFORM: playmode
-#     TESTING_TYPE: NUNIT
+test-playmode:
+  <<: *test
+  variables:
+    TEST_PLATFORM: playmode
+    TESTING_TYPE: NUNIT
 
 test-editmode:
   <<: *test
