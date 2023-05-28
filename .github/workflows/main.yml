@@ -1,46 +1,188 @@
-name: Actions 😎
+name: CI/CD
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  UNITY_ACTIVATION_FILE: ./unity3d.alf
+  IMAGE_VERSION: 1
+  UNITY_DIR: ${{ github.workspace }}
+  VERSION_NUMBER_VAR: ${{ github.sha }}-${{ github.run_id }}-${{ github.job }}
+  VERSION_BUILD_VAR: ${{ github.run_number }}
 
 jobs:
-  build:
-    name: Build my project ✨
+  get-unity-version:
     runs-on: ubuntu-latest
     steps:
-      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Get Unity Version
+        run: echo "UNITY_VERSION=$(cat $UNITY_DIR/ProjectSettings/ProjectVersion.txt | grep 'm_EditorVersion:.*' | awk '{ print $2}')" >> prepare.env
+      - name: Publish Unity Version
+        uses: actions/upload-artifact@v2
         with:
-          lfs: true
+          name: prepare.env
+          path: prepare.env
 
-      # Cache
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
+  unity_before_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run before_script.sh
+        run: chmod +x ./ci/before_script.sh && ./ci/before_script.sh
 
-      # Test
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  get-activation-file:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.UNITY_LICENSE == null }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run get_activation_file.sh
+        run: chmod +x ./ci/get_activation_file.sh && ./ci/get_activation_file.sh
+      - name: Publish Unity Activation File
+        uses: actions/upload-artifact@v2
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          name: unity3d.alf
+          path: $UNITY_ACTIVATION_FILE
 
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+  test:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run test.sh
+        run: chmod +x ./ci/test.sh && ./ci/test.sh
+      - name: Publish Test Artifacts
+        uses: actions/upload-artifact@v2
         with:
-          targetPlatform: StandaloneWindows64
+          name: test-artifacts
+          path: $UNITY_DIR/TestArtifacts
 
-      # Output
-      - uses: actions/upload-artifact@v2
+  test-with-junit-reports:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre libsaxonb-java
+      - name: Run test.sh
+        run: chmod +x ./ci/test.sh && ./ci/test.sh
+      - name: Convert NUnit results to JUnit format
+        run: saxonb-xslt -s $UNITY_DIR/$TEST_PLATFORM-results.xml -xsl $GITHUB_WORKSPACE/ci/nunit-transforms/nunit3-junit.xslt > $UNITY_DIR/$TEST_PLATFORM-junit-results.xml
+      - name: Publish Test Artifacts
+        uses: actions/upload-artifact@v2
         with:
-          name: Build
-          path: build
+          name: test-artifacts
+          path: $UNITY_DIR/TestArtifacts
+
+  build:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh
+        run: chmod +x ./ci/build.sh && ./ci/build.sh
+      - name: Publish Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-StandaloneLinux64:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh for StandaloneLinux64
+        run: chmod +x ./ci/build.sh && ./ci/build.sh StandaloneLinux64
+      - name: Publish Build Artifacts for StandaloneLinux64
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-StandaloneLinux64-il2cpp:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh for StandaloneLinux64 with IL2CPP
+        run: chmod +x ./ci/build.sh && ./ci/build.sh StandaloneLinux64 IL2CPP
+      - name: Publish Build Artifacts for StandaloneLinux64 with IL2CPP
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-StandaloneOSX:
+    needs: get-unity-version
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh for StandaloneOSX
+        run: chmod +x ./ci/build.sh && ./ci/build.sh StandaloneOSX
+      - name: Publish Build Artifacts for StandaloneOSX
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-StandaloneWindows64:
+    needs: get-unity-version
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh for StandaloneWindows64
+        run: chmod +x ./ci/build.sh && ./ci/build.sh StandaloneWindows64
+      - name: Publish Build Artifacts for StandaloneWindows64
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-WebGL:
+    needs: get-unity-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run before_script.sh
+        run: chmod +x ./ci/before_script.sh && ./ci/before_script.sh
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Run build.sh for WebGL
+        run: chmod +x ./ci/build.sh && ./ci/build.sh WebGL
+      - name: Publish Build Artifacts for WebGL
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
+
+  build-android:
+    needs: get-unity-version
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run build.sh for Android
+        run: chmod +x ./ci/build.sh && ./ci/build.sh Android
+      - name: Publish Build Artifacts for Android
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: $UNITY_DIR/Builds
