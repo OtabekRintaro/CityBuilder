@@ -1,68 +1,68 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 5/24/2023 - 2:30:46 AM |
+| Generated on: | 5/24/2023 - 11:20:24 AM |
 | Parser: | MultiReportParser (4x OpenCoverParser) |
 | Assemblies: | 2 |
 | Classes: | 45 |
-| Files: | 88 |
-| Covered lines: | 868 |
-| Uncovered lines: | 3945 |
-| Coverable lines: | 4813 |
-| Total lines: | 4935 |
-| Line coverage: | 18% (868 of 4813) |
+| Files: | 45 |
+| Covered lines: | 756 |
+| Uncovered lines: | 1838 |
+| Coverable lines: | 2594 |
+| Total lines: | 5003 |
+| Line coverage: | 29.1% (756 of 2594) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 164 |
-| Total methods: | 644 |
-| Method coverage: | 25.4% (164 of 644) |
+| Covered methods: | 136 |
+| Total methods: | 337 |
+| Method coverage: | 40.3% (136 of 337) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**Scripts_reference_for_testing**|**555**|**3632**|**4187**|**4262**|**13.2%**|**0**|**0**|****|**117**|**550**|**21.2%**|
-|BlueprintCell|0|8|8|18|0%|0|0||0|4|0%|
-|BudgetHandler|0|10|10|27|0%|0|0||0|4|0%|
-|BuildCommand|0|358|358|288|0%|0|0||0|30|0%|
-|BuildingPlacer|20|519|539|498|3.7%|0|0||3|53|5.6%|
-|BuildingPreset|0|8|8|24|0%|0|0||0|4|0%|
-|CameraController|8|142|150|132|5.3%|0|0||1|18|5.5%|
-|Cell|4|16|20|25|20%|0|0||9|30|30%|
-|Citizen|39|25|64|76|60.9%|0|0||16|18|88.8%|
-|CommercialBuildings|0|8|8|18|0%|0|0||0|4|0%|
-|CommercialZone|4|29|33|44|12.1%|0|0||2|9|22.2%|
-|ConfirmationPanel|0|20|20|36|0%|0|0||0|6|0%|
-|DataPersistenceManager|0|86|86|115|0%|0|0||0|18|0%|
-|DateHandler|3|185|188|165|1.5%|0|0||1|28|3.5%|
-|FileDataHandler|0|82|82|75|0%|0|0||0|6|0%|
-|FireDepartment|8|56|64|105|12.5%|0|0||3|7|42.8%|
+|**Scripts_reference_for_testing**|**443**|**1838**|**2281**|**4330**|**19.4%**|**0**|**0**|****|**89**|**290**|**30.6%**|
+|BlueprintCell|0|4|4|18|0%|0|0||0|2|0%|
+|BudgetHandler|0|5|5|27|0%|0|0||0|2|0%|
+|BuildCommand|0|179|179|288|0%|0|0||0|15|0%|
+|BuildingPlacer|20|250|270|498|7.4%|0|0||3|27|11.1%|
+|BuildingPreset|0|4|4|24|0%|0|0||0|2|0%|
+|CameraController|8|67|75|132|10.6%|0|0||1|9|11.1%|
+|Cell|4|6|10|25|40%|0|0||9|15|60%|
+|Citizen|32|0|32|59|100%|0|0||9|9|100%|
+|CommercialBuildings|0|4|4|18|0%|0|0||0|2|0%|
+|CommercialZone|4|16|20|48|20%|0|0||2|5|40%|
+|ConfirmationPanel|0|10|10|36|0%|0|0||0|3|0%|
+|DataPersistenceManager|0|43|43|115|0%|0|0||0|9|0%|
+|DateHandler|3|91|94|165|3.1%|0|0||1|14|7.1%|
+|FileDataHandler|0|41|41|75|0%|0|0||0|3|0%|
+|FireDepartment|13|54|67|114|19.4%|0|0||4|5|80%|
 |FirePrefab|1|4|5|19|20%|0|0||1|3|33.3%|
 |FireTruck|0|4|4|18|0%|0|0||0|2|0%|
-|Forest|0|8|8|18|0%|0|0||0|4|0%|
-|GameData|0|20|20|41|0%|0|0||0|2|0%|
-|GameManager|8|507|515|493|1.5%|0|0||1|59|1.6%|
-|House|4|4|8|18|50%|0|0||2|4|50%|
-|IndustrialBuildings|0|8|8|18|0%|0|0||0|4|0%|
-|IndustrialZone|4|29|33|43|12.1%|0|0||2|9|22.2%|
-|InfoBar|0|8|8|23|0%|0|0||0|4|0%|
-|MainMenu|4|32|36|56|11.1%|0|0||1|8|12.5%|
-|Map|57|811|868|817|6.5%|0|0||6|69|8.6%|
-|MapObject|86|60|146|145|58.9%|0|0||12|23|52.1%|
-|Police|4|4|8|20|50%|0|0||2|4|50%|
-|PopulationHandler|1|27|28|51|3.5%|0|0||1|10|10%|
-|Position|38|32|70|71|54.2%|0|0||10|18|55.5%|
-|ResidentialZone|135|235|370|249|36.4%|0|0||14|20|70%|
-|Road|4|4|8|19|50%|0|0||2|4|50%|
-|RoadHandler|119|177|296|333|40.2%|0|0||26|38|68.4%|
-|SatisfactionHandler|0|24|24|33|0%|0|0||0|4|0%|
-|Selector|0|46|46|58|0%|0|0||0|8|0%|
-|Stadium|4|4|8|20|50%|0|0||2|4|50%|
-|TaxHandler|0|14|14|25|0%|0|0||0|6|0%|
-|UIHandler|0|18|18|28|0%|0|0||0|4|0%|
-|**Tests**|**313**|**313**|**626**|**673**|**50%**|**0**|**0**|****|**47**|**94**|**50%**|
-|BuildingPlacerEditorTests|18|18|36|60|50%|0|0||3|6|50%|
-|GameManagerEditorTests|16|16|32|39|50%|0|0||5|10|50%|
-|MainMenuTest|4|4|8|21|50%|0|0||1|2|50%|
-|MapEditorTests|132|132|264|203|50%|0|0||14|28|50%|
-|MapObjectTests|68|68|136|178|50%|0|0||17|34|50%|
-|ResidentialZoneTests|58|58|116|96|50%|0|0||4|8|50%|
-|RoadHandlerTests|17|17|34|76|50%|0|0||3|6|50%|
+|Forest|0|4|4|18|0%|0|0||0|2|0%|
+|GameData|0|10|10|41|0%|0|0||0|1|0%|
+|GameManager|8|276|284|503|2.8%|0|0||1|31|3.2%|
+|House|4|0|4|18|100%|0|0||2|2|100%|
+|IndustrialBuildings|0|4|4|18|0%|0|0||0|2|0%|
+|IndustrialZone|4|16|20|43|20%|0|0||2|5|40%|
+|InfoBar|0|4|4|23|0%|0|0||0|2|0%|
+|MainMenu|4|14|18|56|22.2%|0|0||1|4|25%|
+|Map|57|425|482|857|11.8%|0|0||6|35|17.1%|
+|MapObject|49|50|99|147|49.4%|0|0||7|16|43.7%|
+|Police|4|0|4|20|100%|0|0||2|2|100%|
+|PopulationHandler|1|13|14|51|7.1%|0|0||1|5|20%|
+|Position|33|2|35|71|94.2%|0|0||9|9|100%|
+|ResidentialZone|108|79|187|249|57.7%|0|0||9|10|90%|
+|Road|4|0|4|19|100%|0|0||2|2|100%|
+|RoadHandler|78|108|186|353|41.9%|0|0||15|22|68.1%|
+|SatisfactionHandler|0|12|12|33|0%|0|0||0|2|0%|
+|Selector|0|23|23|58|0%|0|0||0|4|0%|
+|Stadium|4|0|4|20|100%|0|0||2|2|100%|
+|TaxHandler|0|7|7|25|0%|0|0||0|3|0%|
+|UIHandler|0|9|9|28|0%|0|0||0|2|0%|
+|**Tests**|**313**|**0**|**313**|**673**|**100%**|**0**|**0**|****|**47**|**47**|**100%**|
+|BuildingPlacerEditorTests|18|0|18|60|100%|0|0||3|3|100%|
+|GameManagerEditorTests|16|0|16|39|100%|0|0||5|5|100%|
+|MainMenuTest|4|0|4|21|100%|0|0||1|1|100%|
+|MapEditorTests|132|0|132|203|100%|0|0||14|14|100%|
+|MapObjectTests|68|0|68|178|100%|0|0||17|17|100%|
+|ResidentialZoneTests|58|0|58|96|100%|0|0||4|4|100%|
+|RoadHandlerTests|17|0|17|76|100%|0|0||3|3|100%|

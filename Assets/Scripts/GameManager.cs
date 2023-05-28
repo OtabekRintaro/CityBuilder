@@ -81,10 +81,10 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void SendFireTruck()
     {
         int id = BuildingPlacer.inst.CellToBeDeleted.ID;
-        Debug.Log(BuildingPlacer.inst.CellToBeDeleted is null);
+       // Debug.Log(BuildingPlacer.inst.CellToBeDeleted is null);
         MapObject mapObject = map.findMapObject(id);
 
-        Debug.Log(id);
+        //Debug.Log(id);
         //FireDepartment fireDepartment = (FireDepartment) map.FindNearestFireTruck(mapObject);
         if(mapObject.fire is not null && !mapObject.IsFireInformed)
         {
