@@ -55,7 +55,7 @@ Rotatable 3-dimensional graphics.
 
 - Use WASD to move your camera on the map
 - Press left shift and move your mouse to rotate your camera
-- For zooming, you need to press left shift and move the scrollweel on your mouse
+- For zooming, you need to press left shift and move the scroll wheel on your mouse
 
 ## Other
 Unity version 2021.3.22f1
